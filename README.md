@@ -1,3 +1,3 @@
-# cs56-games-rock-paper-scissors
+# cs56-games-name-memorization
 
 W14 | andrewberls | TBD | Å name memorization game
