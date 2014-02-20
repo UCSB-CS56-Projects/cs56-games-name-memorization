@@ -12,6 +12,7 @@ public class Main{
         JFrame game = new NameGame();
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.setSize(400, 500);
+	game.setLocationRelativeTo(null);
         game.setVisible(true);
     }
 }
