@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project default = "compile">
 
-  <!-- build.xml for mantis ticket 0000231, S11, CS56
-       name: Jasper Fredrickson -->
+  <!-- build.xml for github.com/UCSB-CS56-Projects/cs56-games-name-memorization , W14, CS56
+       Original Author : Jasper Fredrickson S11
+       updated Anthony Hoang and Colin Biafore W14 -->
 
   <property environment="env"/> <!-- load the environment variables --> 
   <property name="webRoot" value="${env.HOME}/public_html/cs56/S11/issues" />
