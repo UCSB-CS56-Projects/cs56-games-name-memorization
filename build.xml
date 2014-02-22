@@ -6,23 +6,26 @@
        updated Anthony Hoang and Colin Biafore W14 -->
 
   <property environment="env"/> <!-- load the environment variables --> 
-  <property name="webRoot" value="${env.HOME}/public_html/cs56/S11/issues" />
-  <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}/cs56/S11/issues"/>
-  <property name="projectName" value="0000231" /> 
-  <property name="javadocDest" value="${webRoot}/${projectName}/javadoc" /> 
-  <property name="javadocURL" value="${webBaseUrl}/${projectName}/javadoc" /> 
+  <property name="webRoot" value="${env.HOME}/public_html/cs56" />
+  <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}/cs56"/>
+  <property name="project" value="cs56-games-name-memorization" /> 
+
+  <property name="javadocDest" value="${webRoot}/${project}/javadoc" /> 
+  <property name="javadocURL" value="${webBaseUrl}/${project}/javadoc" /> 
   <property name="mainClass" value="edu.ucsb.cs56.projects.games.name_memorization.Main"/>
+
+  <path id="project.class.path">
+    <pathelement location="build"/>
+    <pathelement location="lib/junit-4.8.2.jar"/>
+  </path>
 
 
   <target name="compile" description="compile my code">
     <mkdir dir="build"/>
     <javac srcdir="src" destdir="build" debug="true" debuglevel="lines,source" >
-      <classpath>
-	<pathelement location="build"/>
-	<pathelement location="/cs/faculty/pconrad/public_html/cs56/lib/junit-4.8.2.jar"/>
-	</classpath>
+      <classpath refid="project.class.path"/>
     </javac>
-   </target>
+  </target>
 
   <target name="run" depends="compile" description="run the beginning of a name game">
     <java classname="${mainClass}" classpath="build" fork="true"/>
@@ -39,9 +42,7 @@
     <delete dir="javadoc" quiet="true" />
     <javadoc  destdir="javadoc" author="true" version="true" use="true" >
       <fileset dir="src" includes="**/*.java"/>
-      <classpath>        
-	<pathelement location="/cs/faculty/pconrad/public_html/cs56/lib/junit-4.8.2.jar"/>
-      </classpath>
+      <classpath refid="project.class.path"/>        
     </javadoc>
 
     <delete quiet="true" dir="${javadocDest}" />
