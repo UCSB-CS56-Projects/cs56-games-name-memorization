@@ -1,6 +1,6 @@
 package edu.ucsb.cs56.projects.games.name_memorization;
 import javax.swing.JFrame;
-
+import java.awt.Color;
 /**
  *Main function which runs the preliminaries of a name memorization game
  *
@@ -11,8 +11,9 @@ public class Main{
     public static void main(String[] args){
         JFrame game = new NameGame();
         game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.setSize(400, 500);
+        game.setSize(500, 400);
 	game.setLocationRelativeTo(null);
+	game.getContentPane().setBackground(Color.BLUE);
         game.setVisible(true);
     }
 }
