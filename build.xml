@@ -11,9 +11,8 @@
   <property name="projectName" value="0000231" /> 
   <property name="javadocDest" value="${webRoot}/${projectName}/javadoc" /> 
   <property name="javadocURL" value="${webBaseUrl}/${projectName}/javadoc" /> 
-  <property name="mainClass" value="edu.ucsb.cs56.S11.jrf.issues.Main"/>
-  <property name="jwsDest" value="${webRoot}/${projectName}/jws" /> 
-  <property name="jwsURL" value="${webBaseUrl}/${projectName}/jws" /> 
+  <property name="mainClass" value="edu.ucsb.cs56.projects.games.name_memorization.Main"/>
+
 
   <target name="compile" description="compile my code">
     <mkdir dir="build"/>
@@ -32,9 +31,6 @@
   <target name="clean" description="delete unnecessary files and directories">
     <delete dir="build" quiet="true" />
     <delete dir="javadoc" quiet="true"/>
-    <delete dir="dist" quiet="true" />
-    <delete dir="download" quiet="true" />
-    <delete dir="temp" quiet="true" />
   </target>
 
 
@@ -59,81 +55,8 @@
     
   </target>
 
-  <target name="jar" depends="compile" description = "make a jar file">
-    <mkdir dir="dist" />
-    <jar destfile="dist/${projectName}.jar" basedir="build" >  
-      <manifest>
-	<attribute name="Main-Class" value="${mainClass}"/>
-      </manifest>
-    </jar>
-  </target>
+   
 
-  <target name="download" depends="" description="make files downloadable">
-    <delete quiet="true">
-      <fileset dir="temp" includes="**/*" />
-      <fileset dir="download" includes="**/*" />
-    </delete>
-    <mkdir dir="download" />
-    <mkdir dir="temp" />
-    <mkdir dir="temp/${projectName}" />
-    <copy todir="temp/${projectName}">
-      <fileset dir="."
-	   excludes="build/**, javadoc/**,
-	   **/*~, temp/**, dist/**, download/**"/>
-      </copy>
-      <tar destfile="temp/${projectName}.tar" basedir="temp" includes="${projectName}/**"/>
-      <gzip zipfile="download/${projectName}.tgz"                              
-	    src="temp/${projectName}.tar" />
-      <zip destfile="download/${projectName}.zip"                              
-	   basedir="temp"
-	   includes="${projectName}/**"/>
-      <delete quiet="true">
-	<fileset dir="temp" includes="**/*"/>
-      </delete>
-  </target>    
-
-  <target name="publish" depends="jar, javadoc, download, jws" description="put published version on web">
-    <mkdir dir="${webRoot}/${projectName}" />
-
-    <delete dir="${webRoot}/${projectName}/browse"/>
-    <mkdir dir="${webRoot}/${projectName}/browse"/>
-
-    <delete dir="${webRoot}/${projectName}/download"/>
-    <mkdir dir="${webRoot}/${projectName}/download"/>
-
-    <copy file="html/index.html" todir="${webRoot}/${projectName}"/>
-
-    <copy todir="${webRoot}/${projectName}/download">
-      <fileset dir="download"/>
-      <fileset dir="dist"/>
-    </copy>
-
-    <copy file="build.xml" todir="${webRoot}/${projectName}/browse"/>
-
-    <copy todir="${webRoot}/${projectName}/browse/src">
-      <fileset dir="src"/>
-    </copy>
-
-    <chmod dir="${webRoot}/${projectName}"
-	   perm="755" type="both" includes="**/*"/>
-
-    <echo>Project published to ${webBaseUrl}/${projectName}</echo>
-  </target>
-
-  <target name="jws" depends="compile,jar" description="java web start">
-
-    <delete dir="${webRoot}/${projectName}/jws" />
-    <mkdir dir="${webRoot}/${projectName}/jws" />
-    
-    <copy todir="${jwsDest}" file="dist/${projectName}.jar" />
-    <copy todir="${jwsDest}" >
-      <fileset dir="jws" includes="*.html"/>
-      <fileset dir="jws" includes="*.jnlp"/>
-      <fileset dir="jws" includes="*.png"/>
-      <fileset dir="jws" includes=".htaccess"/>
-    </copy>
-    <echo>Java web start at ${jwsURL}</echo>
-  </target>
 
 </project>
 
