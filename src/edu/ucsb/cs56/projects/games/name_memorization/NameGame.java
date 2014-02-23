@@ -59,9 +59,11 @@ public class NameGame extends JFrame{
 	previous = new JButton("previous");
 	previous.addActionListener(handlerP);
 	
+	HandlerClassA handlerA = new HandlerClassA();
 
 	edit = new JButton("edit");
 	add = new JButton("add");
+	add.addActionListener(handlerA);
 	delete = new JButton("delete");
 	
 	north.add(edit);
@@ -102,6 +104,13 @@ public class NameGame extends JFrame{
 	    }
 	    repaint();
 	    
+	}
+    }
+    
+    private class HandlerClassA implements ActionListener{
+	public void actionPerformed(ActionEvent event){
+	    AddCard x = new AddCard();
+	    x.setVisible(true);
 	}
     }
 }
