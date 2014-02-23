@@ -1,5 +1,5 @@
 package edu.ucsb.cs56.projects.games.name_memorization;
-import java.awt.Component;
+import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -23,10 +23,13 @@ public class NameGame extends JFrame{
     private JButton delete;
     private JButton next;
     private JButton previous;
+    private JButton front;
+    private JButton back;
     private DirectoryLister dir;
     private int current;
     private Image pic;
     private JPanel north;
+    private JPanel south;
     private JPanel currentCard;
     private Deck d;
     private JFrame thisframe = this;
@@ -56,17 +59,14 @@ public class NameGame extends JFrame{
         current = 0;
         this.getContentPane().setLayout(new BorderLayout());
 	
-	north = new JPanel();
+	
 	
 	d = new Deck("Our First Deck");
-	//d.addCard("card a, side 1", "card a, side 2");
-	//d.addCard("card b, side 1", "card b, side 2");
-	//d.addCard("card c, side 1", "card c, side 2");
-	System.out.println(d.size());
-
-        nextButtonListener nextListener = new nextButtonListener();
-        next = new JButton("next");	
-        next.addActionListener(nextListener);
+	//System.out.println(d.size());
+	north = new JPanel();
+    nextButtonListener nextListener = new nextButtonListener();
+    next = new JButton("next");	
+    next.addActionListener(nextListener);
        
 
 	HandlerClassP handlerP = new HandlerClassP();
@@ -85,10 +85,18 @@ public class NameGame extends JFrame{
 	north.add(delete);
 	north.add(previous);
 	north.add(next);
+	north.setBackground(Color.CYAN);
 	this.add(north, BorderLayout.NORTH);
-	//currentCard = d.get(0);
-	//this.add(currentCard, BorderLayout.CENTER);
-	
+
+	south = new JPanel();
+	front = new JButton("Show Front");
+	back = new JButton("Show Back");
+	south.add(front);
+	south.add(back);
+	south.setBackground(Color.CYAN);
+	this.add(south,BorderLayout.SOUTH);
+
+
     }
 
     /**
@@ -109,6 +117,11 @@ public class NameGame extends JFrame{
 
     private class nextButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
+		if(d.size() == 0){
+			JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
 		if(d.size() == 1){
 			currentCard=d.get(0);
 			thisframe.add(currentCard,BorderLayout.CENTER);

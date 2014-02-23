@@ -17,6 +17,7 @@ public class Card extends JPanel{
 	this.side1 = side1;
 	this.side2 = side2;
 	cardText = new JTextArea(side1);
+    cardText.setEditable(false);
     cardText.setLineWrap(true);
     cardText.setBounds(120,30,275,250);
     
