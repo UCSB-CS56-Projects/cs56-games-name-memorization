@@ -61,6 +61,9 @@ public class AddCard extends JDialog{
 
     public class confirmListener implements ActionListener{
 	public void actionPerformed(ActionEvent e){
+	    String frontInfo = front.getText();
+	    String backInfo = back.getText();
+	    
 	    window.dispose();
 	}
     }

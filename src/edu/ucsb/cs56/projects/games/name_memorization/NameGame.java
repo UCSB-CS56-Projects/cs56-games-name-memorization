@@ -24,7 +24,7 @@ public class NameGame extends JFrame{
     private JButton next;
     private JButton previous;
     private DirectoryLister dir;
-    private int current = 0;
+    private int current;
     private Image pic;
     private JPanel north;
     private JPanel currentCard;
@@ -40,9 +40,10 @@ public class NameGame extends JFrame{
         //draw designated picture in background
         g.drawImage(pic, 115, 90,300, 300, this);
 	*/
+	//	currentCard = d.get(current);
+	//thisframe.add(currentCard, BorderLayout.CENTER);
 	super.paint(g);
-	this.add(currentCard, BorderLayout.CENTER);
-	//currentCard= d.get(current);
+	
 	
     }
 
@@ -108,16 +109,19 @@ public class NameGame extends JFrame{
 
     private class nextButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
-	    if(current < d.size()-1)  {
-	       
+
+	    currentCard.setVisible(false);
+	    if(current < d.size()-1)  {     
 		current++;
 		//currentCard = d.get(current);
 	    }	else {
 		current = 0;
 		//currentCard = d.get(current);
 	    }
-	    thisframe.add(d.get(current),BorderLayout.CENTER);
-	    //repaint();
+	    currentCard=d.get(current);
+	    thisframe.add(currentCard,BorderLayout.CENTER);
+	    currentCard.setVisible(true);
+	   
 	}
 	    
     }
