@@ -34,11 +34,13 @@ public class AddCard extends JDialog{
 	getContentPane().add(prompt1);
 	
 	front = new JTextArea("FRONT");
+	front.setLineWrap(true);
 	front.setVisible(true);
 	front.setBounds(25,100, 275,250);
 	getContentPane().add(front);
 	
 	back = new JTextArea("BACK");
+	back.setLineWrap(true);
 	back.setVisible(true);
 	back.setBounds(310, 100, 275, 250);
 	getContentPane().add(back);
