@@ -17,16 +17,19 @@ import javax.swing.*;
    *@version  for cs56, Spring 2014
    */
 public class NameGame extends JFrame{
+
     private JButton edit;
     private JButton add;
     private JButton delete;
     private JButton next;
     private JButton previous;
     private DirectoryLister dir;
-    private int current;
+    private int current = 0;
     private Image pic;
     private JPanel north;
-
+    private JPanel currentCard;
+    private Deck d;
+    private JFrame thisframe = this;
 
     public void paint(Graphics g){
 	/*
@@ -37,6 +40,10 @@ public class NameGame extends JFrame{
         //draw designated picture in background
         g.drawImage(pic, 115, 90,300, 300, this);
 	*/
+	super.paint(g);
+	this.add(currentCard, BorderLayout.CENTER);
+	//currentCard= d.get(current);
+	
     }
 
     /**
@@ -49,10 +56,16 @@ public class NameGame extends JFrame{
         this.getContentPane().setLayout(new BorderLayout());
 	
 	north = new JPanel();
+	
+	d = new Deck("Our First Deck");
+	d.addCard("card a, side 1", "card a, side 2");
+	d.addCard("card b, side 1", "card b, side 2");
+	d.addCard("card c, side 1", "card c, side 2");
+	System.out.println(d.size());
 
-        HandlerClassN handlerN = new HandlerClassN();
+        nextButtonListener nextListener = new nextButtonListener();
         next = new JButton("next");	
-        next.addActionListener(handlerN);
+        next.addActionListener(nextListener);
        
 
 	HandlerClassP handlerP = new HandlerClassP();
@@ -72,6 +85,8 @@ public class NameGame extends JFrame{
 	north.add(previous);
 	north.add(next);
 	this.add(north, BorderLayout.NORTH);
+	currentCard = d.get(0);
+	this.add(currentCard, BorderLayout.CENTER);
 	
     }
 
@@ -89,6 +104,22 @@ public class NameGame extends JFrame{
             repaint();
 
         }
+    }
+
+    private class nextButtonListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+	    if(current < d.size()-1)  {
+	       
+		current++;
+		//currentCard = d.get(current);
+	    }	else {
+		current = 0;
+		//currentCard = d.get(current);
+	    }
+	    thisframe.add(d.get(current),BorderLayout.CENTER);
+	    //repaint();
+	}
+	    
     }
     
     /**

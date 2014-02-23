@@ -1,10 +1,15 @@
-
+package edu.ucsb.cs56.projects.games.name_memorization;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Deck extends ArrayList<Card>{
     
+    private String deckName;
+
+    public Deck(String name) {
+	deckName = name;
+    }
 
     public void addCard(String side1, String side2) {
 	Card c = new Card(side1,side2);
