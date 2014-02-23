@@ -13,9 +13,11 @@ public class AddCard extends JDialog{
     private JLabel prompt1;
     private JLabel FRONT;
     private JLabel BACK;
+    private Deck deck;
 
-    public AddCard(){
+    public AddCard(final Deck d){
 	window = this;
+
 	this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
 	this.setBounds(300, 200, 640, 480);
@@ -52,19 +54,19 @@ public class AddCard extends JDialog{
 	getContentPane().add(BACK);
 
 	confirm = new JButton("confirm");
-	confirm.addActionListener(new confirmListener());
+	confirm.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent e){
+		String frontInfo = front.getText();
+		String backInfo = back.getText();
+		d.addCard(frontInfo,backInfo);
+  		window.dispose();
+		}
+	});
 	confirm.setVisible(true);
 	confirm.setBounds(260,400,100,30);
         getContentPane().add(confirm);
 
     }
 
-    public class confirmListener implements ActionListener{
-	public void actionPerformed(ActionEvent e){
-	    String frontInfo = front.getText();
-	    String backInfo = back.getText();
-	    
-	    window.dispose();
-	}
-    }
+
 }

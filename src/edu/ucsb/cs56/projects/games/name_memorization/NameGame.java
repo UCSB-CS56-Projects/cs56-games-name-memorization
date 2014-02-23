@@ -59,9 +59,9 @@ public class NameGame extends JFrame{
 	north = new JPanel();
 	
 	d = new Deck("Our First Deck");
-	d.addCard("card a, side 1", "card a, side 2");
-	d.addCard("card b, side 1", "card b, side 2");
-	d.addCard("card c, side 1", "card c, side 2");
+	//d.addCard("card a, side 1", "card a, side 2");
+	//d.addCard("card b, side 1", "card b, side 2");
+	//d.addCard("card c, side 1", "card c, side 2");
 	System.out.println(d.size());
 
         nextButtonListener nextListener = new nextButtonListener();
@@ -86,8 +86,8 @@ public class NameGame extends JFrame{
 	north.add(previous);
 	north.add(next);
 	this.add(north, BorderLayout.NORTH);
-	currentCard = d.get(0);
-	this.add(currentCard, BorderLayout.CENTER);
+	//currentCard = d.get(0);
+	//this.add(currentCard, BorderLayout.CENTER);
 	
     }
 
@@ -109,18 +109,24 @@ public class NameGame extends JFrame{
 
     private class nextButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
-
-	    currentCard.setVisible(false);
-	    if(current < d.size()-1)  {     
-		current++;
-		//currentCard = d.get(current);
-	    }	else {
-		current = 0;
-		//currentCard = d.get(current);
-	    }
-	    currentCard=d.get(current);
-	    thisframe.add(currentCard,BorderLayout.CENTER);
-	    currentCard.setVisible(true);
+		if(d.size() == 1){
+			currentCard=d.get(0);
+			thisframe.add(currentCard,BorderLayout.CENTER);
+			currentCard.setVisible(true);
+			thisframe.getContentPane().validate();
+			thisframe.getContentPane().repaint();
+		}
+		else{
+		    currentCard.setVisible(false);
+		    if(current < d.size()-1)  {     
+			current++;
+		    }	else {
+			current = 0;
+		    }
+		    currentCard=d.get(current);
+		    thisframe.add(currentCard,BorderLayout.CENTER);
+		    currentCard.setVisible(true);
+		}
 	   
 	}
 	    
@@ -130,22 +136,21 @@ public class NameGame extends JFrame{
      * Handler ClassP, used to give previous button functionality
      */
     private class HandlerClassP implements ActionListener {
-	public void actionPerformed(ActionEvent event){
-	    // iterate to previous picture unless at beginning
-	    if (current > 0 ){
-		current--;
-	    }else{
-		current = dir.getNumFiles()-1;
-	    }
-	    repaint();
-	    
-	}
+		public void actionPerformed(ActionEvent event){
+		    // iterate to previous picture unless at beginning
+		    if (current > 0 ){
+			current--;
+		    }else{
+			current = dir.getNumFiles()-1;
+		    }
+		    repaint();		    
+		}
     }
     
     private class HandlerClassA implements ActionListener{
-	public void actionPerformed(ActionEvent event){
-	    AddCard x = new AddCard();
-	    x.setVisible(true);
-	}
-    }
+		public void actionPerformed(ActionEvent event){
+		    AddCard x = new AddCard(d);
+		    x.setVisible(true);
+		}
+	 }
 }
