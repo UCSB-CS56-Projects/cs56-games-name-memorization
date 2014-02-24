@@ -153,10 +153,12 @@ public class NameGame extends JFrame{
 	//Initialize Previous Button Listener
 	previousButtonListener previousListener = new previousButtonListener();
 	previous.addActionListener(previousListener);
+	previous.setEnabled(false);
 	
 	//Initialize Next Button Listener
 	nextButtonListener nextListener = new nextButtonListener();
 	next.addActionListener(nextListener);
+	next.setEnabled(false);
 
 	//Initialize Front Button Listener
 	frontButtonListener frontListener = new frontButtonListener();
@@ -214,7 +216,8 @@ public class NameGame extends JFrame{
 		current = d.size() - 1;
 		Card h = (Card) d.get(current);
 		cardText.setText(h.getSide1());
-		
+		next.setEnabled(true);
+		previous.setEnabled(true);
 		
 		
 		
