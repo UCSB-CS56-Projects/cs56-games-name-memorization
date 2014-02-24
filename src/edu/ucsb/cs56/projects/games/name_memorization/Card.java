@@ -12,6 +12,7 @@ public class Card extends JPanel{
     private String side1;
     private String side2;
 
+
     public Card(String side1, String side2) {
     this.setLayout(new GridBagLayout());
     this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -22,11 +23,9 @@ public class Card extends JPanel{
     cardText.setPreferredSize(new Dimension(500,250));
     cardText.setEditable(false);
     cardText.setLineWrap(true);
-    
- 
-	//this.setLayout(null);
+  
+
     this.setBackground(Color.RED);
-	//this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 	this.add(cardText);
     }
 

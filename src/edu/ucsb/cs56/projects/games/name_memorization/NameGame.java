@@ -37,7 +37,8 @@ public class NameGame extends JFrame{
     private JLabel deckSize;
     private JLabel sizeLabel;
     private JPanel east;
-
+    private JLabel cardNum;
+    
     public void paint(Graphics g){
 	/*
         //get the picture to paint
@@ -67,17 +68,31 @@ public class NameGame extends JFrame{
 	
 	d = new Deck("Our First Deck");
 	deckName = new JLabel(d.getName());
+	deckName.setForeground(Color.WHITE);
+	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	this.add(deckName,BorderLayout.WEST);
-
+	
 	sizeLabel = new JLabel("Deck Size :");
+	sizeLabel.setForeground(Color.WHITE);
+	sizeLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	deckSize = new JLabel( Integer.toString(d.size()));
-
-
+	deckSize.setForeground(Color.WHITE);
+	deckSize.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	
+	cardNum = new JLabel("Card Number:");
+	cardNum.setForeground(Color.WHITE);
+	cardNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	
 	east = new JPanel();
+	east.setLayout(new BorderLayout());
 	east.setBackground(Color.BLUE);
-	east.add(sizeLabel);
-	east.add(deckSize);
-
+	JPanel top = new JPanel();
+	top.setBackground(Color.BLUE);
+	top.add(sizeLabel, BorderLayout.NORTH);
+	top.add(deckSize, BorderLayout.NORTH);
+	
+	east.add(cardNum, BorderLayout.CENTER);
+	east.add(top,BorderLayout.NORTH);
 	this.add(east,BorderLayout.EAST);
 
 	north = new JPanel();
