@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 
-public class AddCard extends JDialog{
+public class CardEditor extends JDialog{
     private JTextArea front;
     private JTextArea back;
     private JButton confirm;
@@ -14,17 +14,21 @@ public class AddCard extends JDialog{
     private JLabel FRONT;
     private JLabel BACK;
     private Deck deck;
+    private String frontText;
+    private String backText; 
+ 
+ 
 
-    public AddCard(final Deck d){
+    public CardEditor(){
 	window = this;
 
 	this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
 	this.setBounds(300, 200, 640, 480);
 	this.setResizable(false);
 	this.getContentPane().setBackground(Color.GREEN);
 	this.getContentPane().setLayout(null);
 	this.setLocationRelativeTo(null);
+	this.setVisible(true);
 	
 	prompt1 = new JLabel("Please edit the card to add");
 	prompt1.setForeground(Color.BLACK);
@@ -33,43 +37,40 @@ public class AddCard extends JDialog{
        	prompt1.setHorizontalAlignment(SwingConstants.CENTER);
 	getContentPane().add(prompt1);
 	
-	front = new JTextArea("FRONT");
+	front = new JTextArea("Enter Text");
 	front.setLineWrap(true);
-	front.setVisible(true);
+	//front.setVisible(true);
 	front.setBounds(25,100, 275,250);
 	getContentPane().add(front);
 	
-	back = new JTextArea("BACK");
+	back = new JTextArea("Enter Text");
 	back.setLineWrap(true);
-	back.setVisible(true);
+	//back.setVisible(true);
 	back.setBounds(310, 100, 275, 250);
 	getContentPane().add(back);
 
 	FRONT = new JLabel("FRONT");
-	FRONT.setVisible(true);
+	//FRONT.setVisible(true);
 	FRONT.setBounds(155,80, 200, 19);
 	getContentPane().add(FRONT);
 
 	BACK = new JLabel("BACK");
-	BACK.setVisible(true);
+	//BACK.setVisible(true);
 	BACK.setBounds(440,80, 200, 19);
 	getContentPane().add(BACK);
 
-	confirm = new JButton("confirm");
-	confirm.addActionListener(new ActionListener(){
-		public void actionPerformed(ActionEvent e){
-		String frontInfo = front.getText();
-		String backInfo = back.getText();
-		d.addCard(frontInfo,backInfo);
-		JOptionPane.showMessageDialog(null, "Successfully Added Card\nPress okay and then next to view","Success!", JOptionPane.INFORMATION_MESSAGE);
-  		window.dispose();
-		}
-	});
-	confirm.setVisible(true);
-	confirm.setBounds(260,400,100,30);
-        getContentPane().add(confirm);
-
+	
     }
+
+    public String getFrontText() {
+	frontText = front.getText();
+	return frontText; 
+    }
+    public String getBackText() { 
+	backText = back.getText();
+	return backText; 
+    }
+    
 
 
 }

@@ -18,28 +18,145 @@ import javax.swing.*;
    */
 public class NameGame extends JFrame{
 
-    private JButton edit;
+    //Top Control Panel
+    private JPanel north;
     private JButton add;
+    private JButton edit;
     private JButton delete;
     private JButton next;
     private JButton previous;
-    private JButton front;
-    private JButton back;
-    private DirectoryLister dir;
-    private int current;
-    private Image pic;
-    private JPanel north;
+
+    //Bottom Control Panel
     private JPanel south;
+    private JButton toFront;
+    private JButton toBack;
+    
+    private DirectoryLister dir;
+
+    private Image pic;
+
+
+    //Card Track
     private JPanel currentCard;
+    private int current;
     private Deck d;
+
+    //Anthony's Label's
     private JFrame thisframe = this;
     private JLabel deckName;
     private JLabel deckSize;
     private JLabel sizeLabel;
     private JPanel east;
     private JLabel cardNum;
-    
-    public void paint(Graphics g){
+
+    /**
+     * No arg constructor for the name game. Initializes everyting in a JFrame
+     * (Buttons, pics, etc)
+     */
+    public NameGame(){
+	
+	//Set Frame Layout
+	this.getContentPane().setLayout(new BorderLayout());
+
+	//Initialize North Control Panel
+	north = new JPanel();
+	north.setVisible(true);
+	add = new JButton("Add");
+	edit = new JButton("Edit");
+	delete = new JButton("Delete");
+	previous = new JButton("Previous");
+	next = new JButton("Next");
+	north.add(add);
+	north.add(edit);
+	north.add(delete);
+	north.add(previous);
+	north.add(next);
+	north.setBackground(Color.WHITE);
+	this.add(north,BorderLayout.NORTH);
+	
+	//Initialize South Control Panel
+	south = new JPanel();
+	south.setVisible(true);
+	toFront = new JButton("Show Front");
+	toBack = new JButton("Show Back");
+	south.add(toFront);
+	south.add(toBack);
+	south.setBackground(Color.WHITE);
+	this.add(south, BorderLayout.SOUTH);
+
+	//Create a new deck
+	d = new Deck("First Deck");
+	
+
+	//	dir = new DirectoryLister("src/people");
+     
+	
+	
+	
+	//d = new Deck("Our First Deck");
+	//deckName = new JLabel(d.getName());
+	//deckName.setForeground(Color.WHITE);
+	//deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	//this.add(deckName,BorderLayout.WEST);
+	
+	//sizeLabel = new JLabel("Deck Size :");
+	//sizeLabel.setForeground(Color.WHITE);
+	//sizeLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	//deckSize = new JLabel( Integer.toString(d.size()));
+	//deckSize.setForeground(Color.WHITE);
+	//deckSize.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	
+	//cardNum = new JLabel("Card Number:");
+	//cardNum.setForeground(Color.WHITE);
+	//cardNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	
+	//east = new JPanel();
+	//east.setLayout(new BorderLayout());
+	//east.setBackground(Color.BLUE);
+	//JPanel top = new JPanel();
+	//top.setBackground(Color.BLUE);
+	//top.add(sizeLabel, BorderLayout.NORTH);
+	//top.add(deckSize, BorderLayout.NORTH);
+	
+	//east.add(cardNum, BorderLayout.CENTER);
+	//east.add(top,BorderLayout.NORTH);
+	//this.add(east,BorderLayout.EAST);
+
+	//BUTTON LISTENERS
+
+	//Initialize Add Button Listener
+	addButtonListener addListener = new addButtonListener();
+	add.addActionListener(addListener);
+
+	//Initialize Edit Button Listener
+	//editButtonListener editListener = new editButtonListener();
+	//edit.addActionListener(editListener);
+	
+	//Initialize Delete Button Listener
+	//deleteButtonListener deleteListener = new deleteButtonListener();
+	//delete.addActionListener(deleteListener);
+
+	//Initialize Previous Button Listener
+	//previousButtonListener previousListener = new previousButtonListener();
+	//previous.addActionListener(previousListener);
+	
+	//Initialize Next Button Listener
+	//nextButtonListener nextListener = new nextButtonListener();
+	//next.addActionListener(nextListener);
+
+	//Initialize Front Button Listener
+	//frontButtonListener frontListener = new frontButtonListener();
+	//toFront.addActionListener(frontListener);
+
+	//Initialize Back Button Listener
+	//backButtonListener backListener = new backButtonListener();
+	//toBack.addActionListener(backListener);
+	
+	this.pack();
+    }
+
+
+    public void paintComponent(Graphics g){
 	/*
         //get the picture to paint
         pic = Toolkit.getDefaultToolkit().getImage(dir.getFullFilenames().get(current));
@@ -51,100 +168,66 @@ public class NameGame extends JFrame{
 	//	currentCard = d.get(current);
 	//thisframe.add(currentCard, BorderLayout.CENTER);
 	super.paint(g);
-	
-	
     }
 
     /**
-     * No arg constructor for the name game. Initializes everyting in a JFrame
-     * (Buttons, pics, etc)
+     * addButtonListener, Brings up a window to add a card
      */
-    public NameGame(){
-	dir = new DirectoryLister("src/people");
-        current = 0;
-        this.getContentPane().setLayout(new BorderLayout());
-	
-	
-	
-	d = new Deck("Our First Deck");
-	deckName = new JLabel(d.getName());
-	deckName.setForeground(Color.WHITE);
-	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	this.add(deckName,BorderLayout.WEST);
-	
-	sizeLabel = new JLabel("Deck Size :");
-	sizeLabel.setForeground(Color.WHITE);
-	sizeLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	deckSize = new JLabel( Integer.toString(d.size()));
-	deckSize.setForeground(Color.WHITE);
-	deckSize.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	
-	cardNum = new JLabel("Card Number:");
-	cardNum.setForeground(Color.WHITE);
-	cardNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	
-	east = new JPanel();
-	east.setLayout(new BorderLayout());
-	east.setBackground(Color.BLUE);
-	JPanel top = new JPanel();
-	top.setBackground(Color.BLUE);
-	top.add(sizeLabel, BorderLayout.NORTH);
-	top.add(deckSize, BorderLayout.NORTH);
-	
-	east.add(cardNum, BorderLayout.CENTER);
-	east.add(top,BorderLayout.NORTH);
-	this.add(east,BorderLayout.EAST);
+    private class addButtonListener implements ActionListener {
 
-	north = new JPanel();
-    nextButtonListener nextListener = new nextButtonListener();
-    next = new JButton("next");	
-    next.addActionListener(nextListener);
-       
+	CardEditor editor;
 
-	HandlerClassP handlerP = new HandlerClassP();
-	previous = new JButton("previous");
-	previous.addActionListener(handlerP);
-	
-	HandlerClassA handlerA = new HandlerClassA();
 
-	edit = new JButton("edit");
-	add = new JButton("add");
-	add.addActionListener(handlerA);
-	delete = new JButton("delete");
-	
-	north.add(edit);
-	north.add(add);
-	north.add(delete);
-	north.add(previous);
-	north.add(next);
-	north.setBackground(Color.ORANGE);
-	this.add(north, BorderLayout.NORTH);
-
-	south = new JPanel();
-	front = new JButton("Show Front");
-	back = new JButton("Show Back");
-	south.add(front);
-	south.add(back);
-	south.setBackground(Color.ORANGE);
-	this.add(south,BorderLayout.SOUTH); 
-	this.pack();
-    }
-
-    /**
-     * Handler ClassN , used to give next button functionality
-     */
-    private class HandlerClassN implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            // iterate to next pic unless at end of array, then go to first pic
-            if (current < dir.getNumFiles()-1){
-          current++;
-            }else{
-          current = 0;
-            }
-            repaint();
+	    
+	    //Creates a new card editor
 
-        }
+	    editor = new CardEditor();
+	    JButton confirm = new JButton("Confirm");
+	    confirm.setBounds(260,400,100,30);
+	    editor.getContentPane().add(confirm);
+	    confirmButtonListener confirmListener = new confirmButtonListener();
+	    confirm.addActionListener(confirmListener);
+	}
+	
+	// Only adds a card once confirm has been pressed
+	private class confirmButtonListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+		String side1 = editor.getFrontText();
+		String side2 = editor.getBackText();
+		d.addCard(side1,side2);
+		System.out.println(d.size());
+		Card h = (Card) d.get(0);
+		String hi = h.getSide1();
+		String ho = h.getSide2();
+		System.out.println(hi);
+		editor.dispose();
+		
+	    }
+	}
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private class nextButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
@@ -193,16 +276,4 @@ public class NameGame extends JFrame{
 		}
     }
     
-    private class HandlerClassA implements ActionListener{
-		public void actionPerformed(ActionEvent event){
-		    AddCard x = new AddCard(d);
-		    x.setVisible(true);
-		    if(d.size() > 0){
-			currentCard = d.get(0);
-			thisframe.add(currentCard,BorderLayout.CENTER);
-			thisframe.getContentPane().validate();
-			thisframe.getContentPane().repaint();
-		    }
-		}
-	 }
 }
