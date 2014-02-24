@@ -111,8 +111,7 @@ public class NameGame extends JFrame{
 	south.add(front);
 	south.add(back);
 	south.setBackground(Color.ORANGE);
-	this.add(south,BorderLayout.SOUTH);
-
+	this.add(south,BorderLayout.SOUTH); 
 	this.pack();
     }
 

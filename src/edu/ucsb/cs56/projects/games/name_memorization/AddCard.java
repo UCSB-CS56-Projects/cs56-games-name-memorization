@@ -61,6 +61,7 @@ public class AddCard extends JDialog{
 		String frontInfo = front.getText();
 		String backInfo = back.getText();
 		d.addCard(frontInfo,backInfo);
+		JOptionPane.showMessageDialog(null, "Successfully Added Card\nPress okay and then next to view","Success!", JOptionPane.INFORMATION_MESSAGE);
   		window.dispose();
 		}
 	});
