@@ -158,7 +158,6 @@ public class NameGame extends JFrame{
 			thisframe.add(currentCard,BorderLayout.CENTER);
 			currentCard.setVisible(true);
 			thisframe.getContentPane().validate();
-			//thisframe.pack();
 			thisframe.getContentPane().repaint();
 		}
 		else{
@@ -171,6 +170,8 @@ public class NameGame extends JFrame{
 		    currentCard=d.get(current);
 		    thisframe.add(currentCard,BorderLayout.CENTER);
 		    currentCard.setVisible(true);
+		    thisframe.getContentPane().validate();
+		    thisframe.getContentPane().repaint();
 		}
 	   
 	}
@@ -196,6 +197,12 @@ public class NameGame extends JFrame{
 		public void actionPerformed(ActionEvent event){
 		    AddCard x = new AddCard(d);
 		    x.setVisible(true);
+		    if(d.size() > 0){
+			currentCard = d.get(0);
+			thisframe.add(currentCard,BorderLayout.CENTER);
+			thisframe.getContentPane().validate();
+			thisframe.getContentPane().repaint();
+		    }
 		}
 	 }
 }
