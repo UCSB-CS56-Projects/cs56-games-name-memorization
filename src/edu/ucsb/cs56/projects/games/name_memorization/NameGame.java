@@ -89,6 +89,8 @@ public class NameGame extends JFrame{
 	currentCard = new JPanel();
 	currentCard.setVisible(true);
 	cardText = new JTextArea();
+	Font cardFont = new Font("Verdana",Font.BOLD,24);
+	cardText.setFont(cardFont);
 	cardText.setEditable(false);
 	currentCard.add(cardText);
 	currentCard.setBackground(Color.WHITE);
@@ -143,8 +145,8 @@ public class NameGame extends JFrame{
 	add.addActionListener(addListener);
 
 	//Initialize Edit Button Listener
-	//editButtonListener editListener = new editButtonListener();
-	//edit.addActionListener(editListener);
+	editButtonListener editListener = new editButtonListener();
+	edit.addActionListener(editListener);
 	
 	//Initialize Delete Button Listener
 	deleteButtonListener deleteListener = new deleteButtonListener();
@@ -222,6 +224,38 @@ public class NameGame extends JFrame{
 		
 		
 	    }
+	}
+    }
+
+    private class editButtonListener implements ActionListener {
+
+	CardEditor editor;
+
+	public void actionPerformed(ActionEvent e) {
+	    
+	    if(d.size() == 0) {
+		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
+		return;
+	    }
+
+	    editor = new CardEditor();
+	    JButton confirm = new JButton("Confirm");
+	    confirm.setBounds(260,400,100,30);
+	    editor.getContentPane().add(confirm);
+	    confirmButtonListener confirmListener = new confirmButtonListener();
+	    confirm.addActionListener(confirmListener);
+	}
+	
+	private class confirmButtonListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+		String side1 = editor.getFrontText();
+		String side2 = editor.getBackText();
+		Card h = (Card) d.get(current);
+		d.editCard(h, side1, side2);
+		cardText.setText(h.getSide1());
+		editor.dispose();
+	    }
+
 	}
     }
 

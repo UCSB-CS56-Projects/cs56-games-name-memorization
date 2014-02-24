@@ -39,10 +39,10 @@ public class CardEditor extends JDialog{
 	this.setLocationRelativeTo(null);
 	this.setVisible(true);
 	
-	prompt1 = new JLabel("Please edit the card to add");
+	prompt1 = new JLabel("Edit Card");
 	prompt1.setForeground(Color.BLACK);
 	prompt1.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	prompt1.setBounds(221,25,250,45);
+	prompt1.setBounds(175,25,250,45);
     prompt1.setHorizontalAlignment(SwingConstants.CENTER);
 	getContentPane().add(prompt1);
 	
