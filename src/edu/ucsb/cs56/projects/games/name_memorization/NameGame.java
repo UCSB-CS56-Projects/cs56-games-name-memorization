@@ -147,8 +147,8 @@ public class NameGame extends JFrame{
 	//edit.addActionListener(editListener);
 	
 	//Initialize Delete Button Listener
-	//deleteButtonListener deleteListener = new deleteButtonListener();
-	//delete.addActionListener(deleteListener);
+	deleteButtonListener deleteListener = new deleteButtonListener();
+	delete.addActionListener(deleteListener);
 
 	//Initialize Previous Button Listener
 	previousButtonListener previousListener = new previousButtonListener();
@@ -231,19 +231,30 @@ public class NameGame extends JFrame{
 		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
 		return;
 	    }
-
-	    //d.remove(current);
-	    //if(d.size() == 0) {
-	    //	current = 0;
-	    //	cardText.setText("");
-	    /*	
-	    } 
-	    else {
-		current--;
-		Card h = (Card) d.get(current);
-		cardText.setText(h.getSide1());
+	    if(d.size() == 1) {
+		d.remove(0);
+		cardText.setText("Deck is Empty!");
+		current = 0;
+		next.setEnabled(false);
+		previous.setEnabled(false);
 	    }
-	    */
+	    if(d.size() > 1) {
+		if(current == 0) {
+		    Card h = (Card) d.get(current+1);
+		    cardText.setText(h.getSide1());
+		    d.remove(current);
+		    
+		    
+		}
+		else {
+		    d.remove(current);
+		    current--;
+		    Card h = (Card) d.get(current);
+		    cardText.setText(h.getSide1());
+		}
+	    }
+
+
 	}
     }
 
@@ -295,6 +306,9 @@ public class NameGame extends JFrame{
 
     private class frontButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
+	    if(d.size() == 0) {
+		return;
+	    }
 	    Card h = (Card) d.get(current);
 	    cardText.setText(h.getSide1());
 	}
@@ -302,6 +316,9 @@ public class NameGame extends JFrame{
 
     private class backButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
+	    if(d.size() == 0) {
+		return;
+	    }
 	    Card h = (Card) d.get(current);
 	    cardText.setText(h.getSide2());
 
