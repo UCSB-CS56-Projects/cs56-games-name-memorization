@@ -33,6 +33,10 @@ public class NameGame extends JFrame{
     private JPanel currentCard;
     private Deck d;
     private JFrame thisframe = this;
+    private JLabel deckName;
+    private JLabel deckSize;
+    private JLabel sizeLabel;
+    private JPanel east;
 
     public void paint(Graphics g){
 	/*
@@ -55,14 +59,27 @@ public class NameGame extends JFrame{
      * (Buttons, pics, etc)
      */
     public NameGame(){
-        dir = new DirectoryLister("src/people");
+	dir = new DirectoryLister("src/people");
         current = 0;
         this.getContentPane().setLayout(new BorderLayout());
 	
 	
 	
 	d = new Deck("Our First Deck");
-	//System.out.println(d.size());
+	deckName = new JLabel(d.getName());
+	this.add(deckName,BorderLayout.WEST);
+
+	sizeLabel = new JLabel("Deck Size :");
+	deckSize = new JLabel( Integer.toString(d.size()));
+
+
+	east = new JPanel();
+	east.setBackground(Color.BLUE);
+	east.add(sizeLabel);
+	east.add(deckSize);
+
+	this.add(east,BorderLayout.EAST);
+
 	north = new JPanel();
     nextButtonListener nextListener = new nextButtonListener();
     next = new JButton("next");	
@@ -85,7 +102,7 @@ public class NameGame extends JFrame{
 	north.add(delete);
 	north.add(previous);
 	north.add(next);
-	north.setBackground(Color.CYAN);
+	north.setBackground(Color.ORANGE);
 	this.add(north, BorderLayout.NORTH);
 
 	south = new JPanel();
@@ -93,10 +110,10 @@ public class NameGame extends JFrame{
 	back = new JButton("Show Back");
 	south.add(front);
 	south.add(back);
-	south.setBackground(Color.CYAN);
+	south.setBackground(Color.ORANGE);
 	this.add(south,BorderLayout.SOUTH);
 
-
+	this.pack();
     }
 
     /**
@@ -127,6 +144,7 @@ public class NameGame extends JFrame{
 			thisframe.add(currentCard,BorderLayout.CENTER);
 			currentCard.setVisible(true);
 			thisframe.getContentPane().validate();
+			//thisframe.pack();
 			thisframe.getContentPane().repaint();
 		}
 		else{

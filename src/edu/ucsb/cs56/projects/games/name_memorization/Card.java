@@ -12,17 +12,18 @@ public class Card extends JPanel{
     private String side1;
     private String side2;
 
-
     public Card(String side1, String side2) {
+    this.setLayout(new GridBagLayout());
+    this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    this.setBounds(0,0, 300,300);
 	this.side1 = side1;
 	this.side2 = side2;
 	cardText = new JTextArea(side1);
     cardText.setEditable(false);
     cardText.setLineWrap(true);
-    cardText.setBounds(120,30,275,250);
     
  
-	this.setLayout(null);
+	//this.setLayout(null);
     this.setBackground(Color.RED);
 	//this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 	this.add(cardText);

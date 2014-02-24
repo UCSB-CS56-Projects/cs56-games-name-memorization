@@ -25,6 +25,10 @@ public class Deck extends ArrayList<Card>{
 	c.setSide2(side2);
 	
     }
+
+    public String getName(){
+        return deckName;
+    }
 	
     
 }
