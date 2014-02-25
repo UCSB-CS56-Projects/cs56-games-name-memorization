@@ -48,7 +48,11 @@ public class NameGame extends JFrame{
     private JLabel deckSize;
     private JLabel sizeLabel;
     private JPanel east;
+
+    //Label for Card Number:
     private JLabel cardNum;
+    //UI Card Index
+    private JLabel cNum;
 
     /**
      * No arg constructor for the name game. Initializes everyting in a JFrame
@@ -122,7 +126,16 @@ public class NameGame extends JFrame{
 	cardNum = new JLabel("Card Number:");
 	cardNum.setForeground(Color.WHITE);
 	cardNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	
+	cNum = new JLabel(Integer.toString(current));
+	cNum.setForeground(Color.WHITE);
+	cNum.setFont(new Font("Lucida Grande",Font.PLAIN, 18));
+
+	JPanel eastCenter = new JPanel();
+	eastCenter.setBackground(Color.BLUE);
+	eastCenter.add(cardNum);
+	eastCenter.add(cNum);
+
+
 	east = new JPanel();
 	east.setLayout(new BorderLayout());
 	east.setBackground(Color.BLUE);
@@ -131,7 +144,8 @@ public class NameGame extends JFrame{
 	top.add(sizeLabel, BorderLayout.NORTH);
 	top.add(deckSize, BorderLayout.NORTH);
 	
-	east.add(cardNum, BorderLayout.CENTER);
+	//east.add(cardNum, BorderLayout.CENTER);
+	east.add(eastCenter,BorderLayout.EAST);
 	east.add(top,BorderLayout.NORTH);
 	this.add(east,BorderLayout.EAST);
 
@@ -206,6 +220,7 @@ public class NameGame extends JFrame{
 	    editor.getContentPane().add(confirm);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
 	    confirm.addActionListener(confirmListener);
+	    
 	}
 	
 	// Only adds a card once confirm has been pressed
@@ -220,7 +235,8 @@ public class NameGame extends JFrame{
 		cardText.setText(h.getSide1());
 		next.setEnabled(true);
 		previous.setEnabled(true);
-		
+		deckSize.setText(Integer.toString(d.size()));
+		cNum.setText(Integer.toString(current+1));
 		
 		
 	    }
@@ -288,6 +304,9 @@ public class NameGame extends JFrame{
 		}
 	    }
 
+	    deckSize.setText(Integer.toString(d.size()));
+	    cNum.setText(Integer.toString(current+1));
+
 
 	}
     }
@@ -301,6 +320,7 @@ public class NameGame extends JFrame{
 	    if(current == d.size()) {
 		current = 0;
 		
+		
                 }
 	    if(d.size() == 0) {
 		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
@@ -312,7 +332,7 @@ public class NameGame extends JFrame{
 
 	    Card h = (Card) d.get(current);
 	    cardText.setText(h.getSide1());
-	    System.out.println(current);
+	    cNum.setText(Integer.toString(current+1));
 	    
 
 	    
@@ -334,7 +354,7 @@ public class NameGame extends JFrame{
 
 	    Card h = (Card) d.get(current);
 	    cardText.setText(h.getSide1());
-	    System.out.println(current);
+	    cNum.setText(Integer.toString(current+1));
 	}
     }
 
