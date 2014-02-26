@@ -22,13 +22,17 @@ public class CardEditor extends JDialog{
     private String path; //path to people folder
     private JLabel frontPic;
 
+    private boolean Picture;
+
  
  
 
     public CardEditor(){
-    path=System.getProperty("user.dir");
+	//sets path variable to directory of the people pictures
+	path=System.getProperty("user.dir");
 	path=path + "/src/people/";
 	
+	Picture = false;
 	window = this;
 
 	this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -43,7 +47,7 @@ public class CardEditor extends JDialog{
 	prompt1.setForeground(Color.BLACK);
 	prompt1.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	prompt1.setBounds(175,25,250,45);
-    prompt1.setHorizontalAlignment(SwingConstants.CENTER);
+	prompt1.setHorizontalAlignment(SwingConstants.CENTER);
 	getContentPane().add(prompt1);
 	
 	front = new JTextArea("Enter Text");
@@ -93,6 +97,12 @@ public class CardEditor extends JDialog{
 	backText = back.getText();
 	return backText; 
     }
+
+    public JLabel getPic(){
+	return frontPic;
+    }
+
+
     private class uploadButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
@@ -106,7 +116,7 @@ public class CardEditor extends JDialog{
         chooser.getSelectedFile().getName());
 
         String name = chooser.getSelectedFile().getName();
-        path = path + name; // path should not contain full location of chosen pic
+        path = path + name; // path should now contain full location of chosen pic
         System.out.println("picture is : " +path);
 	  	front.setVisible(false);
 	  	frontPic=new JLabel();
@@ -121,11 +131,17 @@ public class CardEditor extends JDialog{
 	  		System.out.println("Trouble reading from the file: " + ex.getMessage());
 	  	}
 	  	
-
+		Picture = true;
 	  	getContentPane().add(frontPic);
 	  }
 	}
     }
+
+    public boolean isPic(){
+	return Picture;
+    }
+
+
     
 
 

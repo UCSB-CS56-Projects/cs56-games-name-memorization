@@ -11,8 +11,8 @@ public class Deck extends ArrayList<Card>{
 	deckName = name;
     }
 
-    public void addCard(String side1, String side2) {
-	Card c = new Card(side1,side2);
+    public void addCard(String side1, String side2, boolean isPicture) {
+	Card c = new Card(side1,side2, isPicture);
 	this.add(c);
     }
 

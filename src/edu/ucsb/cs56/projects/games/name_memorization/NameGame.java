@@ -48,6 +48,7 @@ public class NameGame extends JFrame{
     private JLabel deckSize;
     private JLabel sizeLabel;
     private JPanel east;
+    private JLabel picture;
 
     //Label for Card Number:
     private JLabel cardNum;
@@ -171,6 +172,8 @@ public class NameGame extends JFrame{
 	previous.addActionListener(previousListener);
 	previous.setEnabled(false);
 	
+	//Initialize picture JLabel that is used in next listener
+	picture = new JLabel();
 	//Initialize Next Button Listener
 	nextButtonListener nextListener = new nextButtonListener();
 	next.addActionListener(nextListener);
@@ -228,11 +231,23 @@ public class NameGame extends JFrame{
 	    public void actionPerformed(ActionEvent e) {
 		String side1 = editor.getFrontText();
 		String side2 = editor.getBackText();
-		d.addCard(side1,side2);
+		
+		d.addCard(side1,side2,editor.isPic());
 		editor.dispose();
 		current = d.size() - 1;
 		Card h = (Card) d.get(current);
-		cardText.setText(h.getSide1());
+		if(editor.isPic()){
+		    cardText.setVisible(false);
+		    picture=editor.getPic();
+		    picture.setVisible(true);		    
+		    currentCard.add(picture, BorderLayout.CENTER);
+		}//if(editor.isPic())
+		else{
+		    picture.setVisible(false);
+		    cardText.setVisible(true);
+		    currentCard.remove(picture);;
+		    cardText.setText(h.getSide1());
+		}
 		next.setEnabled(true);
 		previous.setEnabled(true);
 		deckSize.setText(Integer.toString(d.size()));
@@ -313,23 +328,15 @@ public class NameGame extends JFrame{
 
     private class nextButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
-	    
-	    
 	    current++;
-
 	    if(current == d.size()) {
 		current = 0;
-		
-		
-                }
+            }
 	    if(d.size() == 0) {
 		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
 		return;
 	    }
 	    
-	       
-	    
-
 	    Card h = (Card) d.get(current);
 	    cardText.setText(h.getSide1());
 	    cNum.setText(Integer.toString(current+1));

@@ -11,12 +11,12 @@ public class Card extends JPanel{
     private JTextArea cardText;
     private String side1;
     private String side2;
+    private boolean isPic;
 
 
-    public Card(String side1, String side2) {
-    this.setLayout(new GridBagLayout());
-    this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-    this.setBounds(0,0, 300,300);
+    
+    public Card(String side1, String side2, boolean isPicture) {
+	isPic = isPicture;
 	this.side1 = side1;
 	this.side2 = side2;
 	cardText = new JTextArea(side1);
@@ -24,8 +24,6 @@ public class Card extends JPanel{
     cardText.setEditable(false);
     cardText.setLineWrap(true);
   
-
-    this.setBackground(Color.RED);
 	this.add(cardText);
     }
 
