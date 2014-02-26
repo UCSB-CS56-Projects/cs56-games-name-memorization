@@ -79,6 +79,8 @@ public class CardEditor extends JDialog{
 
 	
     }
+
+    //method to resize the uploaded images to fit the screen.
     private BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type){  
     	BufferedImage resizedImage = new BufferedImage(width, height, type);  
     	Graphics2D g = resizedImage.createGraphics();  
@@ -106,21 +108,19 @@ public class CardEditor extends JDialog{
     private class uploadButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
-		JFileChooser chooser = new JFileChooser(new File(path));
+	        JFileChooser chooser = new JFileChooser(new File(path));
 		FileNameExtensionFilter filter = new FileNameExtensionFilter(
 		    "JPG,GIF,PNG Images", "jpg", "gif","png");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(window);
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
-	  	System.out.println("You chose to open this file: " +
-        chooser.getSelectedFile().getName());
 
-        String name = chooser.getSelectedFile().getName();
-        path = path + name; // path should now contain full location of chosen pic
-        System.out.println("picture is : " +path);
-	  	front.setVisible(false);
-	  	frontPic=new JLabel();
-	  	frontPic.setBounds(25,100, 275,250);
+		    String name = chooser.getSelectedFile().getName();
+		    path = path + name; // path should now contain full location of chosen pic
+		    System.out.println("picture is : " +path);
+		    front.setVisible(false);
+		    frontPic=new JLabel();
+		    frontPic.setBounds(25,100, 275,250);
 	  	try{
 	  		BufferedImage unsized = ImageIO.read(new File(path));
 	  		BufferedImage resized = resizeImage(unsized,275,250,unsized.getType());
@@ -133,7 +133,7 @@ public class CardEditor extends JDialog{
 	  	
 		Picture = true;
 	  	getContentPane().add(frontPic);
-	  }
+		}
 	}
     }
 
