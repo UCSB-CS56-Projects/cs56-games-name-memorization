@@ -188,7 +188,33 @@ public class NameGame extends JFrame{
 	toBack.addActionListener(backListener);
 	
 	this.pack();
+    }  
+
+ 	//this method will be called with next/previous button if card has a pic
+    public void setPic(Card c){
+    	cardText.setVisible(false);
+    	currentCard.remove(picture);
+		picture=c.getPic();
+		picture.setVisible(true);		    
+		currentCard.add(picture, BorderLayout.CENTER);
+		thisframe.getContentPane().validate();
+		thisframe.getContentPane().repaint();
     }
+
+    //this method will be called with next/previous if card is text
+    public void setPrint(Card c, int side){
+    	picture.setVisible(false);
+		cardText.setVisible(true);
+		currentCard.remove(picture);
+		if(side==1){
+			cardText.setText(c.getSide1());	
+		}else if(side==2){
+			cardText.setText(c.getSide2());	
+		}
+
+    }
+
+
 
 
     public void paintComponent(Graphics g){
@@ -236,17 +262,22 @@ public class NameGame extends JFrame{
 		editor.dispose();
 		current = d.size() - 1;
 		Card h = (Card) d.get(current);
-		if(editor.isPic()){
+		if(h.isPic()){
+			/*
 		    cardText.setVisible(false);
 		    picture=editor.getPic();
 		    picture.setVisible(true);		    
 		    currentCard.add(picture, BorderLayout.CENTER);
-		}//if(editor.isPic())
-		else{
+		    */
+		    setPic(h);
+		}//if(h.isPic())
+		else{/*
 		    picture.setVisible(false);
 		    cardText.setVisible(true);
 		    currentCard.remove(picture);;
 		    cardText.setText(h.getSide1());
+		    */
+		    setPrint(h,1);
 		}
 		next.setEnabled(true);
 		previous.setEnabled(true);
@@ -332,13 +363,14 @@ public class NameGame extends JFrame{
 	    if(current == d.size()) {
 		current = 0;
             }
-	    if(d.size() == 0) {
-		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
-		return;
-	    }
-	    
+    
 	    Card h = (Card) d.get(current);
-	    cardText.setText(h.getSide1());
+	    if(h.isPic()){
+	    	setPic(h);
+	    }
+	    else{
+	    	setPrint(h,1);
+	    }
 	    cNum.setText(Integer.toString(current+1));
 	    
 
@@ -354,96 +386,49 @@ public class NameGame extends JFrame{
 		current = d.size() - 1;
 	    }
 
-	    if(d.size() == 0) {
-		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
-		return;
-	    }
+
+
+
 
 	    Card h = (Card) d.get(current);
-	    cardText.setText(h.getSide1());
+
+	     if(h.isPic()){
+	    	setPic(h);
+	    }
+	    else{
+	    	setPrint(h,1);
+	    }
 	    cNum.setText(Integer.toString(current+1));
 	}
     }
 
     private class frontButtonListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    if(d.size() == 0) {
-		return;
-	    }
-	    Card h = (Card) d.get(current);
-	    cardText.setText(h.getSide1());
-	}
+		public void actionPerformed(ActionEvent e) {
+		    if(d.size() == 0) {
+			return;
+		    }
+		    Card h = (Card) d.get(current);
+			if(h.isPic()){
+		    	setPic(h);
+		    }
+		    else{
+		    	setPrint(h,1);
+		    }
+
+		}
     }
 
     private class backButtonListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    if(d.size() == 0) {
-		return;
-	    }
-	    Card h = (Card) d.get(current);
-	    cardText.setText(h.getSide2());
-
-	}
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private class blueButtonListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-		if(d.size() == 0){
-			JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
+		public void actionPerformed(ActionEvent e) {
+		    if(d.size() == 0) {
 			return;
-		}
+		    }
+		    Card h = (Card) d.get(current);
+		    setPrint(h,2);
+		    //cardText.setText(h.getSide2());
 
-		if(d.size() == 1){
-			currentCard=d.get(0);
-			thisframe.add(currentCard,BorderLayout.CENTER);
-			currentCard.setVisible(true);
-			thisframe.getContentPane().validate();
-			thisframe.getContentPane().repaint();
-		}
-		else{
-		    currentCard.setVisible(false);
-		    if(current < d.size()-1)  {     
-			current++;
-		    }	else {
-			current = 0;
-		    }
-		    currentCard=d.get(current);
-		    thisframe.add(currentCard,BorderLayout.CENTER);
-		    currentCard.setVisible(true);
-		    thisframe.getContentPane().validate();
-		    thisframe.getContentPane().repaint();
-		}
-	   
-	}
-	    
-    }
-    
-    /**
-     * Handler ClassP, used to give previous button functionality
-     */
-    private class HandlerClassP implements ActionListener {
-		public void actionPerformed(ActionEvent event){
-		    // iterate to previous picture unless at beginning
-		    if (current > 0 ){
-			current--;
-		    }else{
-			current = dir.getNumFiles()-1;
-		    }
-		    repaint();		    
 		}
     }
+
     
 }

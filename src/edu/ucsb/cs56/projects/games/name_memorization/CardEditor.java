@@ -22,7 +22,7 @@ public class CardEditor extends JDialog{
     private String path; //path to people folder
     private JLabel frontPic;
 
-    private boolean Picture;
+    private boolean isPicture;
 
  
  
@@ -32,7 +32,7 @@ public class CardEditor extends JDialog{
 	path=System.getProperty("user.dir");
 	path=path + "/src/people/";
 	
-	Picture = false;
+	isPicture = false;
 	window = this;
 
 	this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -105,12 +105,13 @@ public class CardEditor extends JDialog{
     }
 
 
+
+
     private class uploadButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		
-	        JFileChooser chooser = new JFileChooser(new File(path));
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(
-		    "JPG,GIF,PNG Images", "jpg", "gif","png");
+	    JFileChooser chooser = new JFileChooser(new File(path));
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Images", "png");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(window);
 		if(returnVal == JFileChooser.APPROVE_OPTION) {
@@ -130,16 +131,19 @@ public class CardEditor extends JDialog{
 	  	}catch(IOException ex){
 	  		System.out.println("Trouble reading from the file: " + ex.getMessage());
 	  	}
-	  	
-		Picture = true;
+	  	front.setText(path); // because namegame screen takes the input from front Text area and sets it
+	  						// area and sets it Text area and sets it front text
+		isPicture = true;
 	  	getContentPane().add(frontPic);
 		}
 	}
     }
 
     public boolean isPic(){
-	return Picture;
+		return isPicture;
     }
+
+
 
 
     
