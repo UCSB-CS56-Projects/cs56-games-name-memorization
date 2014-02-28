@@ -1,5 +1,6 @@
 package edu.ucsb.cs56.projects.games.name_memorization;
 
+import java.io.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,7 +9,7 @@ import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
-public class Card extends JPanel{
+public class Card extends JPanel implements Serializable {
 
 
     private JTextArea cardText;

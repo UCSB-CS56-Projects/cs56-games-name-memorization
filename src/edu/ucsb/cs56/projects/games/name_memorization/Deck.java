@@ -1,9 +1,10 @@
 package edu.ucsb.cs56.projects.games.name_memorization;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Deck extends ArrayList<Card>{
+public class Deck extends ArrayList<Card> implements Serializable {
     
     private String deckName;
 

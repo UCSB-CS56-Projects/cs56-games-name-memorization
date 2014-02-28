@@ -170,14 +170,14 @@ public class NameGame extends JFrame{
 	//Initialize Previous Button Listener
 	previousButtonListener previousListener = new previousButtonListener();
 	previous.addActionListener(previousListener);
-	previous.setEnabled(false);
+	
 	
 	//Initialize picture JLabel that is used in next listener
 	picture = new JLabel();
 	//Initialize Next Button Listener
 	nextButtonListener nextListener = new nextButtonListener();
 	next.addActionListener(nextListener);
-	next.setEnabled(false);
+	
 
 	//Initialize Front Button Listener
 	frontButtonListener frontListener = new frontButtonListener();
@@ -214,22 +214,30 @@ public class NameGame extends JFrame{
 
     }
 
-
-
-
-    public void paintComponent(Graphics g){
-	/*
-        //get the picture to paint
-        pic = Toolkit.getDefaultToolkit().getImage(dir.getFullFilenames().get(current));
-        //call super's paint method
-        super.paint(g);
-        //draw designated picture in background
-        g.drawImage(pic, 115, 90,300, 300, this);
-	*/
-	//	currentCard = d.get(current);
-	//thisframe.add(currentCard, BorderLayout.CENTER);
-	super.paint(g);
+    public void setDeck(Deck d) {
+	this.d = d;
     }
+
+    public Deck getDeck() {
+	return d;
+    }
+
+    public void updateSize(int deckSize) {
+	
+	this.deckSize.setText(Integer.toString(deckSize));
+    }
+
+    public void setCardNum() {
+	if (d.size() < 1) {
+	    this.cNum.setText("0");
+	} else
+	    this.cNum.setText("1");
+    }
+
+
+
+
+
 
     /**
      * addButtonListener, Brings up a window to add a card
@@ -331,13 +339,18 @@ public class NameGame extends JFrame{
 		d.remove(0);
 		cardText.setText("Deck is Empty!");
 		current = 0;
-		next.setEnabled(false);
-		previous.setEnabled(false);
+	      
 	    }
 	    if(d.size() > 1) {
 		if(current == 0) {
 		    Card h = (Card) d.get(current+1);
-		    cardText.setText(h.getSide1());
+		    // cardText.setText(h.getSide1());
+		    if(h.isPic()){
+		    	setPic(h);
+		    }
+		    else{
+		    	setPrint(h,1);
+		    }
 		    d.remove(current);
 		    
 		    
@@ -346,19 +359,31 @@ public class NameGame extends JFrame{
 		    d.remove(current);
 		    current--;
 		    Card h = (Card) d.get(current);
-		    cardText.setText(h.getSide1());
+		    // cardText.setText(h.getSide1());
+		    if(h.isPic()){
+		    	setPic(h);
+		    }
+		    else{
+		    	setPrint(h,1);
+		    }
 		}
 	    }
 
-	    deckSize.setText(Integer.toString(d.size()));
-	    cNum.setText(Integer.toString(current+1));
+	    if(d.size() == 0) 
+		cNum.setText("0");
+	    else
+		cNum.setText(Integer.toString(current+1));
 
+	    deckSize.setText(Integer.toString(d.size()));
 
 	}
     }
 
     private class nextButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
+	    if(d.size() == 0) {
+		return;
+	    }
 	    current++;
 	    if(current == d.size()) {
 		current = 0;
@@ -380,6 +405,10 @@ public class NameGame extends JFrame{
 
     private class previousButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
+
+	    if(d.size() == 0) {
+		return;
+	    }
 	    current--;
 	    
 	    if(current == -1) {
@@ -408,7 +437,7 @@ public class NameGame extends JFrame{
 			return;
 		    }
 		    Card h = (Card) d.get(current);
-			if(h.isPic()){
+		    if(h.isPic()){
 		    	setPic(h);
 		    }
 		    else{
@@ -425,7 +454,7 @@ public class NameGame extends JFrame{
 		    }
 		    Card h = (Card) d.get(current);
 		    setPrint(h,2);
-		    //cardText.setText(h.getSide2());
+		    
 
 		}
     }

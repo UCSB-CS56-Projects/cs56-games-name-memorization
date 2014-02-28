@@ -118,7 +118,7 @@ public class CardEditor extends JDialog{
 
 		    String name = chooser.getSelectedFile().getName();
 		    path = path + name; // path should now contain full location of chosen pic
-		    System.out.println("picture is : " +path);
+		    
 		    front.setVisible(false);
 		    frontPic=new JLabel();
 		    frontPic.setBounds(25,100, 275,250);
