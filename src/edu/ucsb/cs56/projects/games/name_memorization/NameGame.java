@@ -321,8 +321,15 @@ public class NameGame extends JFrame{
 		String side1 = editor.getFrontText();
 		String side2 = editor.getBackText();
 		Card h = (Card) d.get(current);
+
 		d.editCard(h, side1, side2);
-		cardText.setText(h.getSide1());
+		if(h.isPic()){
+		   	setPic(h);
+	    }
+	    else{	
+	       	setPrint(h,1);
+	    }
+
 		editor.dispose();
 	    }
 
