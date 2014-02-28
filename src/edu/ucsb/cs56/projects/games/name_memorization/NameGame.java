@@ -337,7 +337,12 @@ public class NameGame extends JFrame{
 	    }
 	    if(d.size() == 1) {
 		d.remove(0);
+		currentCard.removeAll();
 		cardText.setText("Deck is Empty!");
+		currentCard.add(cardText);
+		thisframe.getContentPane().validate();
+		thisframe.getContentPane().repaint();
+
 		current = 0;
 	      
 	    }
