@@ -10,12 +10,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import javax.swing.*;
+import java.io.*;
+import java.util.*;
+import java.util.Hashtable;
+
   /**
    * Preliminary engine for running a name memorization game
    *
    *@author Anthony Hoang, Colin Biafore
-   *@version  for cs56, Spring 2014
+   *@version  for cs56, Winter 2014
    */
+
 public class NameGame extends JFrame{
 
     //Top Control Panel
@@ -25,16 +30,24 @@ public class NameGame extends JFrame{
     private JButton delete;
     private JButton next;
     private JButton previous;
+    private JButton newDeck;
 
     //Bottom Control Panel
     private JPanel south;
     private JButton toFront;
     private JButton toBack;
+
+    //East Control Panel
+	private JLabel deckName;
+	private JComboBox deckList;
     
     private DirectoryLister dir;
 
     private Image pic;
 
+
+    //HashTable for decks
+    Hashtable<String,Deck> data;
 
     //Current Card Viewer
     private JPanel currentCard;
@@ -42,9 +55,9 @@ public class NameGame extends JFrame{
     private int current;
     private Deck d;
 
-    //Anthony's Label's
+    
     private JFrame thisframe = this;
-    private JLabel deckName;
+    
     private JLabel deckSize;
     private JLabel sizeLabel;
     private JPanel east;
@@ -72,11 +85,13 @@ public class NameGame extends JFrame{
 	delete = new JButton("Delete");
 	previous = new JButton("Previous");
 	next = new JButton("Next");
+	newDeck = new JButton("New Deck");
 	north.add(add);
 	north.add(edit);
 	north.add(delete);
 	north.add(previous);
 	north.add(next);
+	north.add(newDeck);
 	north.setBackground(Color.ORANGE);
 	this.add(north,BorderLayout.NORTH);
 	
@@ -105,17 +120,31 @@ public class NameGame extends JFrame{
 	//Create a new deck
 	d = new Deck("First Deck");
 	
+	// initialize the hashtable of decks
+	data = new Hashtable<String,Deck>();
 
-	//	dir = new DirectoryLister("src/people");
+
      
 	
 	
 	
-	
+	//West Panel Components
+	JPanel west = new JPanel();
+	west.setLayout(new BorderLayout());
+	west.setBackground(Color.BLUE);
+
+	deckList = new JComboBox();
+	deckList.setForeground(Color.BLACK);
+	deckList.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	deckList.setSelectedItem("Select a Deck");
+	west.add(deckList,BorderLayout.CENTER);
+
 	deckName = new JLabel(d.getName());
 	deckName.setForeground(Color.WHITE);
 	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	this.add(deckName,BorderLayout.WEST);
+	west.add(deckName,BorderLayout.NORTH);
+
+	this.add(west,BorderLayout.WEST);
 	
 	sizeLabel = new JLabel("Deck Size :");
 	sizeLabel.setForeground(Color.WHITE);
@@ -260,41 +289,30 @@ public class NameGame extends JFrame{
 	    
 	}
 	
-	// Only adds a card once confirm has been pressed
+		// Only adds a card once confirm has been pressed
 	private class confirmButtonListener implements ActionListener {
-	    public void actionPerformed(ActionEvent e) {
-		String side1 = editor.getFrontText();
-		String side2 = editor.getBackText();
-		
-		d.addCard(side1,side2,editor.isPic());
-		editor.dispose();
-		current = d.size() - 1;
-		Card h = (Card) d.get(current);
-		if(h.isPic()){
-			/*
-		    cardText.setVisible(false);
-		    picture=editor.getPic();
-		    picture.setVisible(true);		    
-		    currentCard.add(picture, BorderLayout.CENTER);
-		    */
-		    setPic(h);
-		}//if(h.isPic())
-		else{/*
-		    picture.setVisible(false);
-		    cardText.setVisible(true);
-		    currentCard.remove(picture);;
-		    cardText.setText(h.getSide1());
-		    */
-		    setPrint(h,1);
+		    public void actionPerformed(ActionEvent e) {
+			String side1 = editor.getFrontText();
+			String side2 = editor.getBackText();
+			
+			d.addCard(side1,side2,editor.isPic());
+			editor.dispose();
+			current = d.size() - 1;
+			Card h = (Card) d.get(current);
+			if(h.isPic()){
+			    setPic(h);
+			}//if(h.isPic())
+			else{
+			    setPrint(h,1);
+			}
+			next.setEnabled(true);
+			previous.setEnabled(true);
+			deckSize.setText(Integer.toString(d.size()));
+			cNum.setText(Integer.toString(current+1));
+			
+			
+		    }
 		}
-		next.setEnabled(true);
-		previous.setEnabled(true);
-		deckSize.setText(Integer.toString(d.size()));
-		cNum.setText(Integer.toString(current+1));
-		
-		
-	    }
-	}
     }
 
     private class editButtonListener implements ActionListener {
@@ -356,7 +374,7 @@ public class NameGame extends JFrame{
 	    if(d.size() > 1) {
 		if(current == 0) {
 		    Card h = (Card) d.get(current+1);
-		    // cardText.setText(h.getSide1());
+		
 		    if(h.isPic()){
 		    	setPic(h);
 		    }
@@ -371,7 +389,7 @@ public class NameGame extends JFrame{
 		    d.remove(current);
 		    current--;
 		    Card h = (Card) d.get(current);
-		    // cardText.setText(h.getSide1());
+		
 		    if(h.isPic()){
 		    	setPic(h);
 		    }
@@ -470,6 +488,46 @@ public class NameGame extends JFrame{
 
 		}
     }
+
+    private static Hashtable LoadTable(Hashtable data){
+		try{
+			FileInputStream fileIn = new FileInputStream("Savefiles/Saved_Decks.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			data = (Hashtable)in.readObject();
+			in.close();
+			fileIn.close();
+	
+		}
+		catch(ClassNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(FileNotFoundException e){
+			e.printStackTrace();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	//Saves new decks ---------------------
+	private void SaveNewDeck(String name, Deck d, Hashtable<String, Deck> data)
+	{
+	
+		data.put(name, d);
+		
+		try{
+			FileOutputStream fileOut = new FileOutputStream("Savefiles/Saved_Decks.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(data);
+			out.close();
+			fileOut.close();
+		}catch(FileNotFoundException e){
+			e.printStackTrace();
+		}catch(IOException e){
+			e.printStackTrace();
+			}
+	}
 
     
 }
