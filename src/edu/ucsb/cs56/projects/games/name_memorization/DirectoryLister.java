@@ -1,4 +1,4 @@
-package edu.ucsb.cs56.S11.jrf.issues;
+package edu.ucsb.cs56.projects.games.name_memorization;
 import java.io.File;
 import java.util.ArrayList;
 
