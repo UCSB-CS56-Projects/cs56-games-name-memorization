@@ -46,8 +46,9 @@ public class NameGame extends JFrame{
     private Image pic;
 
 
-    //HashTable for decks
+    //HashTable for decks and new deck creator components
     Hashtable<String,Deck> data;
+    JTextField nameBox;
 
     //Current Card Viewer
     private JPanel currentCard;
@@ -91,7 +92,7 @@ public class NameGame extends JFrame{
 	north.add(delete);
 	north.add(previous);
 	north.add(next);
-	north.add(newDeck);
+	//north.add(newDeck);
 	north.setBackground(Color.ORANGE);
 	this.add(north,BorderLayout.NORTH);
 	
@@ -122,6 +123,7 @@ public class NameGame extends JFrame{
 	
 	// initialize the hashtable of decks
 	data = new Hashtable<String,Deck>();
+	//data=LoadTable(data);
 
 
      
@@ -143,7 +145,18 @@ public class NameGame extends JFrame{
 	deckName.setForeground(Color.WHITE);
 	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	west.add(deckName,BorderLayout.NORTH);
-
+	west.add(newDeck,BorderLayout.SOUTH);
+	nameBox = new JTextField();
+	
+	
+	JPanel westSouth = new JPanel();
+	westSouth.setLayout(new BoxLayout(westSouth,BoxLayout.Y_AXIS));
+	westSouth.setBackground(Color.BLUE);
+	nameBox.setVisible(false);
+	westSouth.add(newDeck);
+	westSouth.add(nameBox);
+	
+	west.add(westSouth,BorderLayout.SOUTH);
 	this.add(west,BorderLayout.WEST);
 	
 	sizeLabel = new JLabel("Deck Size :");
@@ -215,6 +228,10 @@ public class NameGame extends JFrame{
 	//Initialize Back Button Listener
 	backButtonListener backListener = new backButtonListener();
 	toBack.addActionListener(backListener);
+
+	//Initialize new deck Button Listener
+	newButtonListener newListener = new newButtonListener();
+	newDeck.addActionListener(newListener);
 	
 	this.pack();
     }  
@@ -488,6 +505,42 @@ public class NameGame extends JFrame{
 
 		}
     }
+
+    private class newButtonListener implements ActionListener {
+    	public void actionPerformed(ActionEvent e){
+    		if(newDeck.getText().equals("New Deck")){
+	    		nameBox.setVisible(true);
+	    		newDeck.setText("Confirm");
+	    		thisframe.revalidate();
+	    		thisframe.repaint();
+	    		return;
+			}
+
+			if(newDeck.getText().equals("Confirm")){
+
+				//check the namebox if empty
+				if(nameBox.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Please name your deck","Error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
+				//check the name for duplicates
+
+				// create the deck and set it as current deck
+					Deck deck = new Deck(nameBox.getText());
+					deckName.setText(nameBox.getText());
+					nameBox.setText("");
+					thisframe.revalidate();
+					thisframe.repaint();
+				//save to hashtable
+				
+				SaveNewDeck(nameBox.getText(),deck, data);
+				JOptionPane.showMessageDialog(null, "New Deck Created","Successfull", JOptionPane.INFORMATION_MESSAGE);
+			}
+    	}
+    }
+
+
 
     private static Hashtable LoadTable(Hashtable data){
 		try{
