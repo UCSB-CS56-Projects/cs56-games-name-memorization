@@ -39,7 +39,7 @@ public class NameGame extends JFrame{
 
     //East Control Panel
 	private JLabel deckName;
-	private JComboBox deckList;
+
     
     private DirectoryLister dir;
 
@@ -133,11 +133,7 @@ public class NameGame extends JFrame{
 	west.setLayout(new BorderLayout());
 	west.setBackground(Color.BLUE);
 
-	deckList = new JComboBox();
-	deckList.setForeground(Color.BLACK);
-	deckList.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	deckList.setSelectedItem("Select a Deck");
-	west.add(deckList,BorderLayout.CENTER);
+
 
 	deckName = new JLabel(d.getName());
 	deckName.setForeground(Color.WHITE);
