@@ -39,9 +39,13 @@ public class NameGame extends JFrame{
 
     //East Control Panel
 	private JLabel deckName;
+	private JButton restart;
+	private JLabel scoreLabel;
+	private JLabel scoreNum;
+	private int score;
 
     
-    private DirectoryLister dir;
+
 
     private Image pic;
 
@@ -76,7 +80,7 @@ public class NameGame extends JFrame{
 	
 	//Set Frame Layout
 	this.getContentPane().setLayout(new BorderLayout());
-
+	score=0;
 	//Initialize North Control Panel
 	north = new JPanel();
 	north.setVisible(true);
@@ -130,18 +134,42 @@ public class NameGame extends JFrame{
 	
 	//West Panel Components
 	JPanel west = new JPanel();
+	JPanel westCenter = new JPanel();
+	westCenter.setBackground(Color.BLUE);
 	west.setLayout(new BorderLayout());
 	west.setBackground(Color.BLUE);
 
+	scoreLabel= new JLabel("Score:");
+	scoreLabel.setForeground(Color.WHITE);
+	scoreLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 
+	scoreNum = new JLabel(Integer.toString(score));
+	scoreNum.setForeground(Color.WHITE);
+	scoreNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+	
+	westCenter.add(scoreLabel);
+	westCenter.add(scoreNum);
+
+	west.add(westCenter,BorderLayout.CENTER);
 
 	deckName = new JLabel(d.getName());
 	deckName.setForeground(Color.WHITE);
 	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	west.add(deckName,BorderLayout.NORTH);
 
+
 	this.add(west,BorderLayout.WEST);
 	
+	//East Panel
+
+	east = new JPanel();
+	east.setLayout(new BorderLayout());
+	east.setBackground(Color.BLUE);
+	
+	restart = new JButton("Restart");
+	east.add(restart, BorderLayout.SOUTH);
+
 	sizeLabel = new JLabel("Deck Size :");
 	sizeLabel.setForeground(Color.WHITE);
 	sizeLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
@@ -156,22 +184,24 @@ public class NameGame extends JFrame{
 	cNum.setForeground(Color.WHITE);
 	cNum.setFont(new Font("Lucida Grande",Font.PLAIN, 18));
 
+	
+
 	JPanel eastCenter = new JPanel();
+
 	eastCenter.setBackground(Color.BLUE);
 	eastCenter.add(cardNum);
 	eastCenter.add(cNum);
+	
 
 
-	east = new JPanel();
-	east.setLayout(new BorderLayout());
-	east.setBackground(Color.BLUE);
+
+
 	JPanel top = new JPanel();
 	top.setBackground(Color.BLUE);
 	top.add(sizeLabel, BorderLayout.NORTH);
 	top.add(deckSize, BorderLayout.NORTH);
 	
-	//east.add(cardNum, BorderLayout.CENTER);
-	east.add(eastCenter,BorderLayout.EAST);
+	east.add(eastCenter,BorderLayout.CENTER);
 	east.add(top,BorderLayout.NORTH);
 	this.add(east,BorderLayout.EAST);
 
