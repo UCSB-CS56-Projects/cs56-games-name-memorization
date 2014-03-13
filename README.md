@@ -23,8 +23,8 @@ Documentation:
 	Run by simply calling "ant run" in the root folder.
 	
 Screen Shots:
-#Main screen :
+##Main screen :
 ![] (http://i.imgur.com/v5kMnoq.png)
 
-#Add card / Edit Pop up Screen:
+##Add card / Edit Pop up Screen:
 ![](http://i.imgur.com/ImPA0L4.png)
