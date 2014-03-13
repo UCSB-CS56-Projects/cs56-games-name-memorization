@@ -26,5 +26,5 @@ Screen Shots:
 ##Main screen :
 ![] (http://i.imgur.com/v5kMnoq.png)
 
-##Add card / Edit Pop up Screen:
+##Add/Edit card pop up Screen:
 ![](http://i.imgur.com/ImPA0L4.png)
