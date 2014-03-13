@@ -21,3 +21,7 @@ Documentation:
 	Deck.java is an arraylist class of Cards (which is defined in Card.java)
 	Main.java initiates the frame.
 	Run by simply calling "ant run" in the root folder.
+	
+Screen Shot:
+
+![] (http://i.imgur.com/v5kMnoq.png)
