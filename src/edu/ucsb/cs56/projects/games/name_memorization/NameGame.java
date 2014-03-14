@@ -258,6 +258,18 @@ public class NameGame extends JFrame{
 	//Initialize Back Button Listener
 	backButtonListener backListener = new backButtonListener();
 	toBack.addActionListener(backListener);
+
+	correctButtonListener correctListener = new correctButtonListener();
+	correct.addActionListener(correctListener);
+
+	incorrectButtonListener incorrectListener = new incorrectButtonListener();
+	incorrect.addActionListener(incorrectListener);
+
+	restartButtonListener restartListener = new restartButtonListener();
+	restart.addActionListener(restartListener);
+
+
+	//
 	
 	this.pack();
     }  
@@ -334,24 +346,24 @@ public class NameGame extends JFrame{
 	
 		// Only adds a card once confirm has been pressed
 	private class confirmButtonListener implements ActionListener {
-		    public void actionPerformed(ActionEvent e) {
-			String side1 = editor.getFrontText();
-			String side2 = editor.getBackText();
-			
-			d.addCard(side1,side2,editor.isPic());
-			editor.dispose();
-			current = d.size() - 1;
-			Card h = (Card) d.get(current);
-			if(h.isPic()){
-			    setPic(h);
-			}//if(h.isPic())
-			else{
-			    setPrint(h,1);
-			}
-			next.setEnabled(true);
-			previous.setEnabled(true);
-			deckSize.setText(Integer.toString(d.size()));
-			cNum.setText(Integer.toString(current+1));
+	    public void actionPerformed(ActionEvent e) {
+		String side1 = editor.getFrontText();
+		String side2 = editor.getBackText();
+		
+		d.addCard(side1,side2,editor.isPic());
+		editor.dispose();
+		current = d.size() - 1;
+		Card h = (Card) d.get(current);
+		if(h.isPic()){
+		    setPic(h);
+		}//if(h.isPic())
+		else{
+		    setPrint(h,1);
+		}
+		next.setEnabled(true);
+		previous.setEnabled(true);
+		deckSize.setText(Integer.toString(d.size()));
+		cNum.setText(Integer.toString(current+1));
 			
 			
 		    }
@@ -476,6 +488,7 @@ public class NameGame extends JFrame{
 	}
     }
 
+
     private class previousButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
@@ -502,6 +515,7 @@ public class NameGame extends JFrame{
 	    }
 	    cNum.setText(Integer.toString(current+1));
 	}
+
     }
 
     private class frontButtonListener implements ActionListener {
@@ -531,6 +545,96 @@ public class NameGame extends JFrame{
 
 		}
     }
+
+    private class correctButtonListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+	    score++;
+	    if(d.size() == 0) {
+		score = 0;
+		scoreNum.setText(Integer.toString(score));
+		return;
+	    }
+	    current++;
+	    if(current == d.size()) {
+		current = 0;
+            }
+    
+	    Card h = (Card) d.get(current);
+	    if(h.isPic()){
+	    	setPic(h);
+	    }
+	    else{
+	    	setPrint(h,1);
+	    }
+	    cNum.setText(Integer.toString(current+1));
+	    
+
+	    if(score > d.size()) {
+		score = d.size();
+	    }
+	    scoreNum.setText(Integer.toString(score));
+	    
+	}
+
+	
+    }
+
+    private class incorrectButtonListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+	    score--;
+	    if(d.size() == 0) {
+		score = 0;
+		scoreNum.setText(Integer.toString(score));
+		return;
+	    }
+	    current++;
+	    if(current == d.size()) {
+		current = 0;
+            }
+    
+	    Card h = (Card) d.get(current);
+	    if(h.isPic()){
+	    	setPic(h);
+	    }
+	    else{
+	    	setPrint(h,1);
+	    }
+	    cNum.setText(Integer.toString(current+1));
+	    
+	    if(score < 0 ) {
+		score = 0;
+	    }
+	    scoreNum.setText(Integer.toString(score));
+	    
+	    
+	}
+
+	
+    }
+
+    private class restartButtonListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+	    score = 0;
+	    scoreNum.setText(Integer.toString(score));
+	    
+	    if(d.size() == 0) {
+		return;
+	    }
+	    
+	    Card h = (Card) d.get(0);
+	    if(h.isPic()){
+	    	setPic(h);
+	    }
+	    else{
+	    	setPrint(h,1);
+	    }  
+	    
+	    current = 0;
+	    cNum.setText(Integer.toString(current+1));
+  
+	}
+    }
+
 
     private static Hashtable LoadTable(Hashtable data){
 		try{
