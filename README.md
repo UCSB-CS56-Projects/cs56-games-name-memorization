@@ -17,7 +17,7 @@ W14 | andrewberls | Anthony Hoang and Colin Biafore | Å name memorization game
 
 Documentation:
 	The main screen and much of the implementation is inside NameGame.java
-	The pop up window to edit/add a card is implemented in CardEditor.java
+	The pop up window to edit/add a card is implemented in CardEditor.java.
 	Deck.java is an arraylist class of Cards (which is defined in Card.java)
 	Main.java initiates the frame.
 	Run by simply calling "ant run" in the root folder.
