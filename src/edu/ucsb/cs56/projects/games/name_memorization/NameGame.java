@@ -40,10 +40,17 @@ public class NameGame extends JFrame{
     //East Control Panel
 	private JLabel deckName;
 	private JButton restart;
+
+	//West Control Panel
 	private JLabel scoreLabel;
 	private JLabel scoreNum;
 	private int score;
 
+    private JLabel deckSize;
+    private JLabel sizeLabel;
+
+    private JButton correct;
+    private JButton incorrect;
     
 
 
@@ -62,9 +69,8 @@ public class NameGame extends JFrame{
     
     private JFrame thisframe = this;
     
-    private JLabel deckSize;
-    private JLabel sizeLabel;
-    private JPanel east;
+
+
     private JLabel picture;
 
     //Label for Card Number:
@@ -133,6 +139,7 @@ public class NameGame extends JFrame{
 	
 	
 	//West Panel Components
+
 	JPanel west = new JPanel();
 	JPanel westCenter = new JPanel();
 	westCenter.setBackground(Color.BLUE);
@@ -147,11 +154,21 @@ public class NameGame extends JFrame{
 	scoreNum.setForeground(Color.WHITE);
 	scoreNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 
+	JPanel westSouth = new JPanel();
+	westSouth.setBackground(Color.BLUE);
+	westSouth.setLayout(new BoxLayout(westSouth,BoxLayout.Y_AXIS));
+	correct = new JButton("Correct!");
+	incorrect = new JButton("Incorrect");
+	westSouth.add(correct);
+	westSouth.add(incorrect);
+	
+
 	
 	westCenter.add(scoreLabel);
 	westCenter.add(scoreNum);
 
 	west.add(westCenter,BorderLayout.CENTER);
+	west.add(westSouth,BorderLayout.SOUTH);
 
 	deckName = new JLabel(d.getName());
 	deckName.setForeground(Color.WHITE);
@@ -163,7 +180,7 @@ public class NameGame extends JFrame{
 	
 	//East Panel
 
-	east = new JPanel();
+	JPanel east = new JPanel();
 	east.setLayout(new BorderLayout());
 	east.setBackground(Color.BLUE);
 	
