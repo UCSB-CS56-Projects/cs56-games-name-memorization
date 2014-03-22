@@ -17,7 +17,8 @@ public class Card extends JPanel implements Serializable {
     private String side2;
     private boolean isPic;
     private JLabel frontPic;
-
+    private static final int xdim = 500;
+    private static final int ydim = 250;
 
 
      //method to resize the uploaded images to fit the screen.
@@ -36,7 +37,7 @@ public class Card extends JPanel implements Serializable {
 	this.side1 = side1;
 	this.side2 = side2;
 	cardText = new JTextArea(side1);
-    cardText.setPreferredSize(new Dimension(500,250));
+	cardText.setPreferredSize(new Dimension(xdim,ydim));
     cardText.setEditable(false);
     cardText.setLineWrap(true);
     frontPic = new JLabel();

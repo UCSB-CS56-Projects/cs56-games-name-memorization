@@ -39,9 +39,20 @@ public class NameGame extends JFrame{
 
     //East Control Panel
 	private JLabel deckName;
-	private JComboBox deckList;
+	private JButton restart;
+
+	//West Control Panel
+	private JLabel scoreLabel;
+	private JLabel scoreNum;
+	private int score;
+
+    private JLabel deckSize;
+    private JLabel sizeLabel;
+
+    private JButton correct;
+    private JButton incorrect;
     
-    private DirectoryLister dir;
+
 
     private Image pic;
 
@@ -58,9 +69,8 @@ public class NameGame extends JFrame{
     
     private JFrame thisframe = this;
     
-    private JLabel deckSize;
-    private JLabel sizeLabel;
-    private JPanel east;
+
+
     private JLabel picture;
 
     //Label for Card Number:
@@ -76,7 +86,7 @@ public class NameGame extends JFrame{
 	
 	//Set Frame Layout
 	this.getContentPane().setLayout(new BorderLayout());
-
+	score=0;
 	//Initialize North Control Panel
 	north = new JPanel();
 	north.setVisible(true);
@@ -129,23 +139,54 @@ public class NameGame extends JFrame{
 	
 	
 	//West Panel Components
+
 	JPanel west = new JPanel();
+	JPanel westCenter = new JPanel();
+	westCenter.setBackground(Color.BLUE);
 	west.setLayout(new BorderLayout());
 	west.setBackground(Color.BLUE);
 
-	deckList = new JComboBox();
-	deckList.setForeground(Color.BLACK);
-	deckList.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	deckList.setSelectedItem("Select a Deck");
-	west.add(deckList,BorderLayout.CENTER);
+	scoreLabel= new JLabel("Score:");
+	scoreLabel.setForeground(Color.WHITE);
+	scoreLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+	scoreNum = new JLabel(Integer.toString(score));
+	scoreNum.setForeground(Color.WHITE);
+	scoreNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+	JPanel westSouth = new JPanel();
+	westSouth.setBackground(Color.BLUE);
+	westSouth.setLayout(new BoxLayout(westSouth,BoxLayout.Y_AXIS));
+	correct = new JButton("Correct!");
+	incorrect = new JButton("Incorrect");
+	westSouth.add(correct);
+	westSouth.add(incorrect);
+	
+
+	
+	westCenter.add(scoreLabel);
+	westCenter.add(scoreNum);
+
+	west.add(westCenter,BorderLayout.CENTER);
+	west.add(westSouth,BorderLayout.SOUTH);
 
 	deckName = new JLabel(d.getName());
 	deckName.setForeground(Color.WHITE);
 	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	west.add(deckName,BorderLayout.NORTH);
 
+
 	this.add(west,BorderLayout.WEST);
 	
+	//East Panel
+
+	JPanel east = new JPanel();
+	east.setLayout(new BorderLayout());
+	east.setBackground(Color.BLUE);
+	
+	restart = new JButton("Restart");
+	east.add(restart, BorderLayout.SOUTH);
+
 	sizeLabel = new JLabel("Deck Size :");
 	sizeLabel.setForeground(Color.WHITE);
 	sizeLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
@@ -160,22 +201,24 @@ public class NameGame extends JFrame{
 	cNum.setForeground(Color.WHITE);
 	cNum.setFont(new Font("Lucida Grande",Font.PLAIN, 18));
 
+	
+
 	JPanel eastCenter = new JPanel();
+
 	eastCenter.setBackground(Color.BLUE);
 	eastCenter.add(cardNum);
 	eastCenter.add(cNum);
+	
 
 
-	east = new JPanel();
-	east.setLayout(new BorderLayout());
-	east.setBackground(Color.BLUE);
+
+
 	JPanel top = new JPanel();
 	top.setBackground(Color.BLUE);
 	top.add(sizeLabel, BorderLayout.NORTH);
 	top.add(deckSize, BorderLayout.NORTH);
 	
-	//east.add(cardNum, BorderLayout.CENTER);
-	east.add(eastCenter,BorderLayout.EAST);
+	east.add(eastCenter,BorderLayout.CENTER);
 	east.add(top,BorderLayout.NORTH);
 	this.add(east,BorderLayout.EAST);
 
@@ -215,6 +258,18 @@ public class NameGame extends JFrame{
 	//Initialize Back Button Listener
 	backButtonListener backListener = new backButtonListener();
 	toBack.addActionListener(backListener);
+
+	correctButtonListener correctListener = new correctButtonListener();
+	correct.addActionListener(correctListener);
+
+	incorrectButtonListener incorrectListener = new incorrectButtonListener();
+	incorrect.addActionListener(incorrectListener);
+
+	restartButtonListener restartListener = new restartButtonListener();
+	restart.addActionListener(restartListener);
+
+
+	//
 	
 	this.pack();
     }  
@@ -291,24 +346,24 @@ public class NameGame extends JFrame{
 	
 		// Only adds a card once confirm has been pressed
 	private class confirmButtonListener implements ActionListener {
-		    public void actionPerformed(ActionEvent e) {
-			String side1 = editor.getFrontText();
-			String side2 = editor.getBackText();
-			
-			d.addCard(side1,side2,editor.isPic());
-			editor.dispose();
-			current = d.size() - 1;
-			Card h = (Card) d.get(current);
-			if(h.isPic()){
-			    setPic(h);
-			}//if(h.isPic())
-			else{
-			    setPrint(h,1);
-			}
-			next.setEnabled(true);
-			previous.setEnabled(true);
-			deckSize.setText(Integer.toString(d.size()));
-			cNum.setText(Integer.toString(current+1));
+	    public void actionPerformed(ActionEvent e) {
+		String side1 = editor.getFrontText();
+		String side2 = editor.getBackText();
+		
+		d.addCard(side1,side2,editor.isPic());
+		editor.dispose();
+		current = d.size() - 1;
+		Card h = (Card) d.get(current);
+		if(h.isPic()){
+		    setPic(h);
+		}//if(h.isPic())
+		else{
+		    setPrint(h,1);
+		}
+		next.setEnabled(true);
+		previous.setEnabled(true);
+		deckSize.setText(Integer.toString(d.size()));
+		cNum.setText(Integer.toString(current+1));
 			
 			
 		    }
@@ -433,6 +488,7 @@ public class NameGame extends JFrame{
 	}
     }
 
+
     private class previousButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
@@ -459,6 +515,7 @@ public class NameGame extends JFrame{
 	    }
 	    cNum.setText(Integer.toString(current+1));
 	}
+
     }
 
     private class frontButtonListener implements ActionListener {
@@ -488,6 +545,96 @@ public class NameGame extends JFrame{
 
 		}
     }
+
+    private class correctButtonListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+	    score++;
+	    if(d.size() == 0) {
+		score = 0;
+		scoreNum.setText(Integer.toString(score));
+		return;
+	    }
+	    current++;
+	    if(current == d.size()) {
+		current = 0;
+            }
+    
+	    Card h = (Card) d.get(current);
+	    if(h.isPic()){
+	    	setPic(h);
+	    }
+	    else{
+	    	setPrint(h,1);
+	    }
+	    cNum.setText(Integer.toString(current+1));
+	    
+
+	    if(score > d.size()) {
+		score = d.size();
+	    }
+	    scoreNum.setText(Integer.toString(score));
+	    
+	}
+
+	
+    }
+
+    private class incorrectButtonListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+	    score--;
+	    if(d.size() == 0) {
+		score = 0;
+		scoreNum.setText(Integer.toString(score));
+		return;
+	    }
+	    current++;
+	    if(current == d.size()) {
+		current = 0;
+            }
+    
+	    Card h = (Card) d.get(current);
+	    if(h.isPic()){
+	    	setPic(h);
+	    }
+	    else{
+	    	setPrint(h,1);
+	    }
+	    cNum.setText(Integer.toString(current+1));
+	    
+	    if(score < 0 ) {
+		score = 0;
+	    }
+	    scoreNum.setText(Integer.toString(score));
+	    
+	    
+	}
+
+	
+    }
+
+    private class restartButtonListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+	    score = 0;
+	    scoreNum.setText(Integer.toString(score));
+	    
+	    if(d.size() == 0) {
+		return;
+	    }
+	    
+	    Card h = (Card) d.get(0);
+	    if(h.isPic()){
+	    	setPic(h);
+	    }
+	    else{
+	    	setPrint(h,1);
+	    }  
+	    
+	    current = 0;
+	    cNum.setText(Integer.toString(current+1));
+  
+	}
+    }
+
 
     private static Hashtable LoadTable(Hashtable data){
 		try{
