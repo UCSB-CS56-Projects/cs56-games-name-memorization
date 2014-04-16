@@ -1,6 +1,14 @@
 # cs56-games-name-memorization
 
-W14 | andrewberls | Anthony Hoang and Colin Biafore | Å name memorization game
+
+project history
+===============
+```
+ W14 | jstaahl 5pm | ahoang512,theredraid | (andrewberls) A name memorization game
+ W14 | andrewberls | Anthony Hoang and Colin Biafore | Å name memorization game
+```
+
+
 
 
  When the game starts up it loads the deck that was created the last time the program was ran.
