@@ -25,5 +25,20 @@ Maybe add a counter.
 
 -There should be cancel button when editing if the user decides not to create/edit a card/deck. Pop-up should come up if changes were made and user decides to cancel. User can decide whether to save changes or cancel without saving changes.
 
--If delete a card from deck, reset score and play again.
+-If delete a card from deck, reset score and play again; edit the button listener, so that delete also triggers restart.
+
+-Listed issue is to implement a menu screen instead of starting game instantly; menu screen has the options to play game or create deck.
+
+-Is the game exclusive to just people's names or does it include names of all living and non-living objects?
+
+-There should be a default Deck so that the system doesn't return exceptions upon starting the game because it couldn't find the Deck.ser.
+
+-When choosing play game, player can choose what deck they want to play with.
+
+-Player should be able to name the deck.
+
+-Refactoring at this point doesn't seem necessary, as the classes are clearly in their respective files (subject to change)
+
+ 
+
 
