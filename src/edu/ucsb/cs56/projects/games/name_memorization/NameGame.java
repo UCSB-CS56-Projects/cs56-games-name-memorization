@@ -337,10 +337,15 @@ public class NameGame extends JFrame{
 
 	    editor = new CardEditor();
 	    JButton confirm = new JButton("Confirm");
-	    confirm.setBounds(260,400,100,30);
+	    JButton cancel = new JButton("Cancel");
+	    confirm.setBounds(200,400,100,30);
+	    cancel.setBounds(360,400,100,30);
 	    editor.getContentPane().add(confirm);
+	    editor.getContentPane().add(cancel);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
+	    cancelButtonListener cancelListener = new cancelButtonListener();
 	    confirm.addActionListener(confirmListener);
+	    cancel.addActionListener(cancelListener);
 	    
 	}
 	
@@ -368,6 +373,12 @@ public class NameGame extends JFrame{
 			
 		    }
 		}
+
+	private class cancelButtonListener implements ActionListener{
+	    public void actionPerformed(ActionEvent e){
+		editor.dispose();
+	    }
+	}
     }
 
     private class editButtonListener implements ActionListener {
@@ -383,10 +394,15 @@ public class NameGame extends JFrame{
 
 	    editor = new CardEditor();
 	    JButton confirm = new JButton("Confirm");
-	    confirm.setBounds(260,400,100,30);
+	    JButton cancel = new JButton("Cancel");
+	    confirm.setBounds(200,400,100,30);
+	    cancel.setBounds(360,400,100,30);
 	    editor.getContentPane().add(confirm);
+	    editor.getContentPane().add(cancel);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
+	    cancelButtonListener cancelListener = new cancelButtonListener();
 	    confirm.addActionListener(confirmListener);
+	    cancel.addActionListener(cancelListener);
 	}
 	
 	private class confirmButtonListener implements ActionListener {
@@ -397,15 +413,21 @@ public class NameGame extends JFrame{
 
 		d.editCard(h, side1, side2);
 		if(h.isPic()){
-		   	setPic(h);
-	    }
-	    else{	
-	       	setPrint(h,1);
-	    }
+		    setPic(h);
+		}
+		else{	
+		    setPrint(h,1);
+		}
 
 		editor.dispose();
 	    }
 
+	}
+	
+	private class cancelButtonListener implements ActionListener{
+	    public void actionPerformed(ActionEvent e){
+		editor.dispose();
+	    }
 	}
     }
 
