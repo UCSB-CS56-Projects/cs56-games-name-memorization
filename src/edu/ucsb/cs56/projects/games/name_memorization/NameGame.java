@@ -65,9 +65,7 @@ public class NameGame extends JFrame{
     private JTextArea cardText;
     private int current;
     private Deck d;
-
-    
-    private JFrame thisframe = this;
+      private JFrame thisframe = this;
     
 
 
@@ -84,6 +82,13 @@ public class NameGame extends JFrame{
      */
     public NameGame(){
 	
+
+	//menu options and buttons
+	//JButton play = new JButton ("Start Game");
+	//JButton info = new JButton (" How to Play");
+	//JButton quit = new JButton ("Quit");
+
+
 	//Set Frame Layout
 	this.getContentPane().setLayout(new BorderLayout());
 	score=0;
@@ -208,9 +213,6 @@ public class NameGame extends JFrame{
 	eastCenter.setBackground(Color.BLUE);
 	eastCenter.add(cardNum);
 	eastCenter.add(cNum);
-	
-
-
 
 
 	JPanel top = new JPanel();
@@ -243,10 +245,9 @@ public class NameGame extends JFrame{
 	previousButtonListener previousListener = new previousButtonListener();
 	previous.addActionListener(previousListener);
 	
-	
 	//Initialize picture JLabel that is used in next listener
 	picture = new JLabel();
-	//Initialize Next Button Listener
+	//Initialize Next Button
 	nextButtonListener nextListener = new nextButtonListener();
 	next.addActionListener(nextListener);
 	
@@ -268,9 +269,6 @@ public class NameGame extends JFrame{
 	restartButtonListener restartListener = new restartButtonListener();
 	restart.addActionListener(restartListener);
 
-
-	//
-	
 	this.pack();
     }  
 
@@ -299,11 +297,11 @@ public class NameGame extends JFrame{
     }
 
     public void setDeck(Deck d) {
-	this.d = d;
+	    this.d = d;
     }
 
     public Deck getDeck() {
-	return d;
+	    return d;
     }
 
     public void updateSize(int deckSize) {
@@ -337,10 +335,15 @@ public class NameGame extends JFrame{
 
 	    editor = new CardEditor();
 	    JButton confirm = new JButton("Confirm");
-	    confirm.setBounds(260,400,100,30);
+	    JButton cancel = new JButton("Cancel");
+	    confirm.setBounds(200,400,100,30);
+	    cancel.setBounds(360,400,100,30);
 	    editor.getContentPane().add(confirm);
+	    editor.getContentPane().add(cancel);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
+	    cancelButtonListener cancelListener = new cancelButtonListener();
 	    confirm.addActionListener(confirmListener);
+	    cancel.addActionListener(cancelListener);
 	    
 	}
 	
@@ -368,6 +371,12 @@ public class NameGame extends JFrame{
 			
 		    }
 		}
+
+	private class cancelButtonListener implements ActionListener{
+	    public void actionPerformed(ActionEvent e){
+		editor.dispose();
+	    }
+	}
     }
 
     private class editButtonListener implements ActionListener {
@@ -377,40 +386,53 @@ public class NameGame extends JFrame{
 	public void actionPerformed(ActionEvent e) {
 	    
 	    if(d.size() == 0) {
-		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
-		return;
+		    JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
+		    return;
 	    }
 
 	    editor = new CardEditor();
 	    JButton confirm = new JButton("Confirm");
-	    confirm.setBounds(260,400,100,30);
+	    JButton cancel = new JButton("Cancel");
+	    confirm.setBounds(200,400,100,30);
+	    cancel.setBounds(360,400,100,30);
 	    editor.getContentPane().add(confirm);
+	    editor.getContentPane().add(cancel);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
+	    cancelButtonListener cancelListener = new cancelButtonListener();
 	    confirm.addActionListener(confirmListener);
+	    cancel.addActionListener(cancelListener);
 	}
 	
 	private class confirmButtonListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
-		String side1 = editor.getFrontText();
-		String side2 = editor.getBackText();
-		Card h = (Card) d.get(current);
+		    String side1 = editor.getFrontText();
+		    String side2 = editor.getBackText();
+		    Card h = d.get(current);
 
-		d.editCard(h, side1, side2);
-		if(h.isPic()){
-		   	setPic(h);
-	    }
-	    else{	
-	       	setPrint(h,1);
+		    d.editCard(h, side1, side2);
+		    if(h.isPic()){
+		        setPic(h);
+		    }
+		    else{
+		        setPrint(h,1);
+		    }
+
+		    editor.dispose();
 	    }
 
+	}
+	
+	private class cancelButtonListener implements ActionListener{
+	    public void actionPerformed(ActionEvent e){
 		editor.dispose();
 	    }
-
 	}
     }
 
     private class deleteButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
+	    score=0;
+	    {
 	    if(d.size() == 0) {
 		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
 		return;
@@ -460,7 +482,7 @@ public class NameGame extends JFrame{
 		cNum.setText(Integer.toString(current+1));
 
 	    deckSize.setText(Integer.toString(d.size()));
-
+	    }
 	}
     }
 
@@ -634,6 +656,8 @@ public class NameGame extends JFrame{
   
 	}
     }
+
+
 
 
     private static Hashtable LoadTable(Hashtable data){

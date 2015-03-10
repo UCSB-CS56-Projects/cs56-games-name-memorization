@@ -33,16 +33,16 @@ public class Card extends JPanel implements Serializable {
 
     
     public Card(String side1, String side2, boolean isPicture) {
-	isPic = isPicture;
-	this.side1 = side1;
-	this.side2 = side2;
-	cardText = new JTextArea(side1);
-	cardText.setPreferredSize(new Dimension(xdim,ydim));
-    cardText.setEditable(false);
-    cardText.setLineWrap(true);
-    frontPic = new JLabel();
+	    isPic = isPicture;
+	    this.side1 = side1;
+	    this.side2 = side2;
+	    cardText = new JTextArea(side1);
+	    cardText.setPreferredSize(new Dimension(xdim,ydim));
+        cardText.setEditable(false);
+        cardText.setLineWrap(true);
+        frontPic = new JLabel();
   
-	this.add(cardText);
+	    this.add(cardText);
     }
 
     public void setSide1(String side1) {
