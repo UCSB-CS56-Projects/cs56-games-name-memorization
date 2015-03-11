@@ -65,13 +65,7 @@ public class NameGame extends JFrame{
     private JTextArea cardText;
     private int current;
     private Deck d;
-    public static void main(String[] args){
-	Deck d = new Deck("");
-	try {
-
-
-    
-    private JFrame thisframe = this;
+      private JFrame thisframe = this;
     
 
 
@@ -90,9 +84,9 @@ public class NameGame extends JFrame{
 	
 
 	//menu options and buttons
-	play = new JButton ("Start Game");
-	info = new JButton (" How to Play");
-	quit = new jButton ("Quit");
+	//JButton play = new JButton ("Start Game");
+	//JButton info = new JButton (" How to Play");
+	//JButton quit = new JButton ("Quit");
 
 
 	//Set Frame Layout
@@ -104,8 +98,7 @@ public class NameGame extends JFrame{
 	add = new JButton("Add");
 	edit = new JButton("Edit");
 	delete = new JButton("Delete");
-	previous = new JButton("P
-        final NameGame game = newrevious");
+	previous = new JButton("Previous");
 	next = new JButton("Next");
 	newDeck = new JButton("New Deck");
 	north.add(add);
@@ -114,8 +107,7 @@ public class NameGame extends JFrame{
 	north.add(previous);
 	north.add(next);
 	north.add(newDeck);
-	north.setBackground(Color
-        final NameGame game = new.ORANGE);
+	north.setBackground(Color.ORANGE);
 	this.add(north,BorderLayout.NORTH);
 	
 	//Initialize South Control Panel
@@ -185,8 +177,7 @@ public class NameGame extends JFrame{
 
 	deckName = new JLabel(d.getName());
 	deckName.setForeground(Color.WHITE);
-	deckName.setFont(new Fon
-        final NameGame game = newt("Lucida Grande", Font.PLAIN, 18));
+	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	west.add(deckName,BorderLayout.NORTH);
 
 
@@ -196,11 +187,7 @@ public class NameGame extends JFrame{
 
 	JPanel east = new JPanel();
 	east.setLayout(new BorderLayout());
-	east.setBackground(Colo
-    public static void main(String[] args){
-	Deck d = new Deck("");
-	try {
-r.BLUE);
+	east.setBackground(Color.BLUE);
 	
 	restart = new JButton("Restart");
 	east.add(restart, BorderLayout.SOUTH);
@@ -226,18 +213,10 @@ r.BLUE);
 	eastCenter.setBackground(Color.BLUE);
 	eastCenter.add(cardNum);
 	eastCenter.add(cNum);
-	
-1
-
-        final NameGame game = new
 
 
 	JPanel top = new JPanel();
-	top.setBackground(Color
-    public static void main(String[] args){
-	Deck d = new Deck("");
-	try {
-.BLUE);
+	top.setBackground(Color.BLUE);
 	top.add(sizeLabel, BorderLayout.NORTH);
 	top.add(deckSize, BorderLayout.NORTH);
 	
@@ -265,12 +244,10 @@ r.BLUE);
 	//Initialize Previous Button Listener
 	previousButtonListener previousListener = new previousButtonListener();
 	previous.addActionListener(previousListener);
-	request can be automatically merged by project col
 	
 	//Initialize picture JLabel that is used in next listener
 	picture = new JLabel();
 	//Initialize Next Button
-        final NameGame game = new Listener
 	nextButtonListener nextListener = new nextButtonListener();
 	next.addActionListener(nextListener);
 	
@@ -285,32 +262,13 @@ r.BLUE);
 
 	correctButtonListener correctListener = new correctButtonListener();
 	correct.addActionListener(correctListener);
-1
+
 	incorrectButtonListener incorrectListener = new incorrectButtonListener();
 	incorrect.addActionListener(incorrectListener);
 
 	restartButtonListener restartListener = new restartButtonListener();
 	restart.addActionListener(restartListener);
 
-	//Initialize Add Button Listener
-	addButtonListener addListener = new addButtonListener();
-	add.addActionListener(addListener);
-	
-
-	//Initialize play Button Listener
-	addButtonListener playListener = new addButtonListener();
-	play.addActionListener(playListener);
-
-	//Initialize info Button Listener
-	addButtonListener infoListener = new addButtonListener();
-	info.addActionListener(infoListener);
-
-	//Initialize quit Button Listener
-	addButtonListener quitListener = new addButtonListener();
-	quit.addActionListener(quitListener);
-
-	
-	
 	this.pack();
     }  
 
@@ -339,18 +297,16 @@ r.BLUE);
     }
 
     public void setDeck(Deck d) {
-	this.d = d;
+	    this.d = d;
     }
 
     public Deck getDeck() {
-	return d;
+	    return d;
     }
 
     public void updateSize(int deckSize) {
 	
-	this.deckSize.setText(Integer.t//Initialize Add Button Listener
-	addButtonListener addListener = new addButtonListener();
-	add.addActionListener(addListener);oString(deckSize));
+	this.deckSize.setText(Integer.toString(deckSize));
     }
 
     public void setCardNum() {
@@ -379,10 +335,15 @@ r.BLUE);
 
 	    editor = new CardEditor();
 	    JButton confirm = new JButton("Confirm");
-	    confirm.setBounds(260,400,100,30);
+	    JButton cancel = new JButton("Cancel");
+	    confirm.setBounds(200,400,100,30);
+	    cancel.setBounds(360,400,100,30);
 	    editor.getContentPane().add(confirm);
+	    editor.getContentPane().add(cancel);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
+	    cancelButtonListener cancelListener = new cancelButtonListener();
 	    confirm.addActionListener(confirmListener);
+	    cancel.addActionListener(cancelListener);
 	    
 	}
 	
@@ -410,46 +371,61 @@ r.BLUE);
 			
 		    }
 		}
+
+	private class cancelButtonListener implements ActionListener{
+	    public void actionPerformed(ActionEvent e){
+		editor.dispose();
+	    }
+	}
     }
 
     private class editButtonListener implements ActionListener {
 
 	CardEditor editor;
 
-	public void actionPerformed(Ac//Initialize Add Button Listener
-	addButtonListener addListener = new addButtonListener();
-	add.addActionListener(addListener);tionEvent e) {
+	public void actionPerformed(ActionEvent e) {
 	    
 	    if(d.size() == 0) {
-		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
-		return;
+		    JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
+		    return;
 	    }
 
 	    editor = new CardEditor();
 	    JButton confirm = new JButton("Confirm");
-	    confirm.setBounds(260,400,100,30);
+	    JButton cancel = new JButton("Cancel");
+	    confirm.setBounds(200,400,100,30);
+	    cancel.setBounds(360,400,100,30);
 	    editor.getContentPane().add(confirm);
+	    editor.getContentPane().add(cancel);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
+	    cancelButtonListener cancelListener = new cancelButtonListener();
 	    confirm.addActionListener(confirmListener);
+	    cancel.addActionListener(cancelListener);
 	}
 	
 	private class confirmButtonListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
-		String side1 = editor.getFrontText();
-		String side2 = editor.getBackText();
-		Card h = (Card) d.get(current);
+		    String side1 = editor.getFrontText();
+		    String side2 = editor.getBackText();
+		    Card h = d.get(current);
 
-		d.editCard(h, side1, side2);
-		if(h.isPic()){
-		   	setPic(h);
-	    }
-	    else{	
-	       	setPrint(h,1);
+		    d.editCard(h, side1, side2);
+		    if(h.isPic()){
+		        setPic(h);
+		    }
+		    else{
+		        setPrint(h,1);
+		    }
+
+		    editor.dispose();
 	    }
 
+	}
+	
+	private class cancelButtonListener implements ActionListener{
+	    public void actionPerformed(ActionEvent e){
 		editor.dispose();
 	    }
-
 	}
     }
 
@@ -680,15 +656,8 @@ r.BLUE);
   
 	}
     }
-	
-private class playButtonListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-		
 
 
-	}
-    }
-		
 
 
     private static Hashtable LoadTable(Hashtable data){
