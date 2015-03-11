@@ -12,7 +12,14 @@ import java.io.*;
  */
 public class Main{
     public static void main(String[] args){
-	    Deck d = new Deck("");
+	Menu nameGame = new Menu();
+	nameGame.setTitle("Name Memorization Game");
+	nameGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	nameGame.setSize(800,600);
+	nameGame.setLocationRelativeTo(null);
+	nameGame.getContentPane().setBackground(Color.BLUE);
+	nameGame.setVisible(true);
+	    /**Deck d = new Deck("");
 	    try {
 	        FileInputStream fileStream = new FileInputStream("Deck.ser");
 	        ObjectInputStream os = new ObjectInputStream(fileStream);
@@ -59,7 +66,7 @@ public class Main{
 	    });
 	    
 
-	
+	*/
 	
     }
 }
