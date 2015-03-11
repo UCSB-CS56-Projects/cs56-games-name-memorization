@@ -38,13 +38,13 @@ public class NameGame extends JFrame{
     private JButton toBack;
 
     //East Control Panel
-	private JLabel deckName;
-	private JButton restart;
+    private JLabel deckName;
+    private JButton restart;
 
-	//West Control Panel
-	private JLabel scoreLabel;
-	private JLabel scoreNum;
-	private int score;
+    //West Control Panel
+    private JLabel scoreLabel;
+    private JLabel scoreNum;
+    private int score;
 
     private JLabel deckSize;
     private JLabel sizeLabel;
@@ -65,7 +65,7 @@ public class NameGame extends JFrame{
     private JTextArea cardText;
     private int current;
     private Deck d;
-      private JFrame thisframe = this;
+    private JFrame thisframe = this;
     
 
 
@@ -81,13 +81,6 @@ public class NameGame extends JFrame{
      * (Buttons, pics, etc)
      */
     public NameGame(){
-	
-
-	//menu options and buttons
-	//JButton play = new JButton ("Start Game");
-	//JButton info = new JButton (" How to Play");
-	//JButton quit = new JButton ("Quit");
-
 
 	//Set Frame Layout
 	this.getContentPane().setLayout(new BorderLayout());
