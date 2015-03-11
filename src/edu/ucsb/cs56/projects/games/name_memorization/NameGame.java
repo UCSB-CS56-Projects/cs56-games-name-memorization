@@ -227,7 +227,7 @@ r.BLUE);
 	eastCenter.add(cardNum);
 	eastCenter.add(cNum);
 	
-
+1
 
         final NameGame game = new
 
@@ -285,7 +285,7 @@ r.BLUE);
 
 	correctButtonListener correctListener = new correctButtonListener();
 	correct.addActionListener(correctListener);
-
+1
 	incorrectButtonListener incorrectListener = new incorrectButtonListener();
 	incorrect.addActionListener(incorrectListener);
 
@@ -680,8 +680,15 @@ r.BLUE);
   
 	}
     }
+	
+private class playButtonListener implements ActionListener {
+	public void actionPerformed(ActionEvent e) {
+		
 
 
+	}
+    }
+		
 
 
     private static Hashtable LoadTable(Hashtable data){
