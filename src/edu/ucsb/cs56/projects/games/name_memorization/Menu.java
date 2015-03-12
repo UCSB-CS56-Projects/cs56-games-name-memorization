@@ -128,7 +128,53 @@ public class Menu extends JFrame{
 
 	private class practiceButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			System.out.println("Practice button pressed");
+		thisMenu.setVisible(false);
+			Deck d = new Deck("");
+	    		try {
+	        		FileInputStream fileStream = new FileInputStream("Deck.ser");
+	        		ObjectInputStream os = new ObjectInputStream(fileStream);
+
+	        		Object deck = os.readObject();
+	        		d = (Deck) deck;
+	        		os.close();
+	    		} catch (Exception ex) {
+	        		ex.printStackTrace();
+	    		}
+        		final PracticeMode game = new PracticeMode();
+	    		game.setDeck(d);
+	    		if(d.size() > 0) {
+	       			 if(d.get(0).isPic()) {
+		    			game.setPic(d.get(0));
+	        		 }
+	        		else {
+		    			game.setPrint(d.get(0),1);
+	       		 	}
+	    		}
+	    		game.updateSize(d.size());
+	    		game.setCardNum();
+        		game.setTitle("PRACTICE MODE");
+        		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        		game.setSize(800, 600);
+	    		game.setLocationRelativeTo(null);
+	    		game.getContentPane().setBackground(Color.BLUE);
+        		game.setVisible(true);
+	
+
+	    		game.addWindowListener(new java.awt.event.WindowAdapter() {
+				@Override 
+				public void windowClosing(java.awt.event.WindowEvent windowEvent) { 
+		    			try {
+						FileOutputStream fs = new FileOutputStream("Deck.ser");
+						ObjectOutputStream os = new ObjectOutputStream(fs);
+						os.writeObject(game.getDeck());
+						os.close();
+			
+		    			} catch(Exception ex) {
+						ex.printStackTrace();
+		    			}
+				}
+	    		});
+			
 		}
 	}
 
