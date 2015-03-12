@@ -1,0 +1,6 @@
+Welcome to the Name Memorization Game! This is a sort of flash card application that will help you
+memorize a person's name and what he or she looks like by displaying an image on one side of a "card"
+and his/her name on the other. You get points for every card you get correct and minus points for
+every card you get incorrect. You can create your own deck of cards so that you can memorize your
+preferred group of people. Use practice mode to help you memorize names so that you can do well in
+the actual game.
