@@ -33,6 +33,9 @@ public class Menu extends JFrame{
 	private JFrame thisMenu = this;
 	private JLabel howToPlay;
 	
+	/**
+	 * Constructor that sets up the main menu.
+	 */
 	public Menu(){
 
 		this.getContentPane().setLayout(new BorderLayout());
@@ -128,7 +131,7 @@ public class Menu extends JFrame{
 
 	private class practiceButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-		thisMenu.setVisible(false);
+			thisMenu.setVisible(false);
 			Deck d = new Deck("");
 	    		try {
 	        		FileInputStream fileStream = new FileInputStream("Deck.ser");
@@ -180,7 +183,15 @@ public class Menu extends JFrame{
 
 	private class deckButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
-			System.out.println("Deck button pressed");
+			thisMenu.setVisible(false);
+			DeckEditor dEditor =  new DeckEditor();
+			dEditor.setTitle("Deck Editor");
+			dEditor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			dEditor.setSize(800,600);
+			dEditor.setLocationRelativeTo(null);
+	    		dEditor.getContentPane().setBackground(Color.BLUE);
+        		dEditor.setVisible(true);
+			//System.out.println("Deck button pressed");
 		}
 	}
 

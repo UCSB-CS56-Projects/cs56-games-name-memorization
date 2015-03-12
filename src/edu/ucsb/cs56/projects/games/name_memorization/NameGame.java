@@ -17,8 +17,11 @@ import java.util.Hashtable;
   /**
    * Preliminary engine for running a name memorization game
    *
-   *@author Anthony Hoang, Colin Biafore
-   *@version  for cs56, Winter 2014
+   * @author Anthony Hoang, Colin Biafore
+   * @version  for cs56, Winter 2014
+   *
+   * @author Tamky Ngo, Kevin Lau
+   * @version CS56, Winter 2015
    */
 
 public class NameGame extends JFrame{

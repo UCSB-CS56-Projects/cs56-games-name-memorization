@@ -14,9 +14,14 @@ import java.io.*;
 import java.util.*;
 import java.util.Hashtable;
 
-  /**
-  practice mode for the game. does not keep track of score to allow players to memorize
-   */
+ /**
+ * Practice mode that lets the player practice memorizing names without
+ * keeping score.
+ * 
+ * @author Tamky Ngo, Kevin Lau
+ * @version CS56, Winter 2015
+ */
+
 
 public class PracticeMode extends JFrame{
 
@@ -28,6 +33,8 @@ public class PracticeMode extends JFrame{
     private JButton next;
     private JButton previous;
     private JButton newDeck;
+    private JButton returnMenu;
+    private JFrame thisPractice = this;
 
     //Bottom Control Panel
     private JPanel south;
@@ -36,11 +43,10 @@ public class PracticeMode extends JFrame{
 
     //East Control Panel
     private JLabel deckName;
-    private JButton restart;
 
     //West Control Panel
     private JLabel scoreLabel;
-    private JLabel scoreNum;
+
     private int score;
 
     private JLabel deckSize;
@@ -85,28 +91,26 @@ public class PracticeMode extends JFrame{
 	//Initialize North Control Panel
 	north = new JPanel();
 	north.setVisible(true);
-	add = new JButton("Add");
-	edit = new JButton("Edit");
-	delete = new JButton("Delete");
+	
 	previous = new JButton("Previous");
 	next = new JButton("Next");
-	newDeck = new JButton("New Deck");
-	north.add(add);
-	north.add(edit);
-	north.add(delete);
+	
+
 	north.add(previous);
 	north.add(next);
-	north.add(newDeck);
+
 	north.setBackground(Color.ORANGE);
 	this.add(north,BorderLayout.NORTH);
 	
 	//Initialize South Control Panel
 	south = new JPanel();
 	south.setVisible(true);
+	returnMenu = new JButton("Return to Menu");
 	toFront = new JButton("Show Front");
 	toBack = new JButton("Show Back");
 	south.add(toFront);
 	south.add(toBack);
+	south.add(returnMenu);
 	south.setBackground(Color.ORANGE);
 	this.add(south, BorderLayout.SOUTH);
 
@@ -150,11 +154,7 @@ public class PracticeMode extends JFrame{
 	JPanel westSouth = new JPanel();
 	westSouth.setBackground(Color.BLUE);
 	westSouth.setLayout(new BoxLayout(westSouth,BoxLayout.Y_AXIS));
-	correct = new JButton("Correct!");
-	incorrect = new JButton("Incorrect");
-	westSouth.add(correct);
-	westSouth.add(incorrect);
-	
+
 
 	
 	westCenter.add(scoreLabel);
@@ -177,8 +177,7 @@ public class PracticeMode extends JFrame{
 	east.setLayout(new BorderLayout());
 	east.setBackground(Color.BLUE);
 	
-	restart = new JButton("Restart");
-	east.add(restart, BorderLayout.SOUTH);
+
 
 	sizeLabel = new JLabel("Deck Size :");
 	sizeLabel.setForeground(Color.WHITE);
@@ -217,18 +216,7 @@ public class PracticeMode extends JFrame{
 	//Go to the next or previous card in the deck,
 	//And see both sides of the current card 
 
-	//Initialize Add Button Listener
-	addButtonListener addListener = new addButtonListener();
-	add.addActionListener(addListener);
-
-	//Initialize Edit Button Listener
-	editButtonListener editListener = new editButtonListener();
-	edit.addActionListener(editListener);
 	
-	//Initialize Delete Button Listener
-	deleteButtonListener deleteListener = new deleteButtonListener();
-	delete.addActionListener(deleteListener);
-
 	//Initialize Previous Button Listener
 	previousButtonListener previousListener = new previousButtonListener();
 	previous.addActionListener(previousListener);
@@ -248,14 +236,8 @@ public class PracticeMode extends JFrame{
 	backButtonListener backListener = new backButtonListener();
 	toBack.addActionListener(backListener);
 
-	correctButtonListener correctListener = new correctButtonListener();
-	correct.addActionListener(correctListener);
-
-	incorrectButtonListener incorrectListener = new incorrectButtonListener();
-	incorrect.addActionListener(incorrectListener);
-
-	restartButtonListener restartListener = new restartButtonListener();
-	restart.addActionListener(restartListener);
+	returnButtonListener returnListener = new returnButtonListener();
+	returnMenu.addActionListener(returnListener);
 
 	this.pack();
     }  
@@ -309,170 +291,8 @@ public class PracticeMode extends JFrame{
 
 
 
-    /**
-     * addButtonListener, Brings up a window to add a card
-     */
-    private class addButtonListener implements ActionListener {
+   
 
-	CardEditor editor;
-
-
-        public void actionPerformed(ActionEvent event) {
-	    
-	    //Creates a new card editor
-
-	    editor = new CardEditor();
-	    JButton confirm = new JButton("Confirm");
-	    JButton cancel = new JButton("Cancel");
-	    confirm.setBounds(200,400,100,30);
-	    cancel.setBounds(360,400,100,30);
-	    editor.getContentPane().add(confirm);
-	    editor.getContentPane().add(cancel);
-	    confirmButtonListener confirmListener = new confirmButtonListener();
-	    cancelButtonListener cancelListener = new cancelButtonListener();
-	    confirm.addActionListener(confirmListener);
-	    cancel.addActionListener(cancelListener);
-	    
-	}
-	
-		// Only adds a card once confirm has been pressed
-	private class confirmButtonListener implements ActionListener {
-	    public void actionPerformed(ActionEvent e) {
-		String side1 = editor.getFrontText();
-		String side2 = editor.getBackText();
-		
-		d.addCard(side1,side2,editor.isPic());
-		editor.dispose();
-		current = d.size() - 1;
-		Card h = (Card) d.get(current);
-		if(h.isPic()){
-		    setPic(h);
-		}//if(h.isPic())
-		else{
-		    setPrint(h,1);
-		}
-		next.setEnabled(true);
-		previous.setEnabled(true);
-		deckSize.setText(Integer.toString(d.size()));
-		cNum.setText(Integer.toString(current+1));
-			
-			
-		    }
-		}
-
-	private class cancelButtonListener implements ActionListener{
-	    public void actionPerformed(ActionEvent e){
-		editor.dispose();
-	    }
-	}
-    }
-
-    private class editButtonListener implements ActionListener {
-
-	CardEditor editor;
-
-	public void actionPerformed(ActionEvent e) {
-	    
-	    if(d.size() == 0) {
-		    JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
-		    return;
-	    }
-
-	    editor = new CardEditor();
-	    JButton confirm = new JButton("Confirm");
-	    JButton cancel = new JButton("Cancel");
-	    confirm.setBounds(200,400,100,30);
-	    cancel.setBounds(360,400,100,30);
-	    editor.getContentPane().add(confirm);
-	    editor.getContentPane().add(cancel);
-	    confirmButtonListener confirmListener = new confirmButtonListener();
-	    cancelButtonListener cancelListener = new cancelButtonListener();
-	    confirm.addActionListener(confirmListener);
-	    cancel.addActionListener(cancelListener);
-	}
-	
-	private class confirmButtonListener implements ActionListener {
-	    public void actionPerformed(ActionEvent e) {
-		    String side1 = editor.getFrontText();
-		    String side2 = editor.getBackText();
-		    Card h = d.get(current);
-
-		    d.editCard(h, side1, side2);
-		    if(h.isPic()){
-		        setPic(h);
-		    }
-		    else{
-		        setPrint(h,1);
-		    }
-
-		    editor.dispose();
-	    }
-
-	}
-	
-	private class cancelButtonListener implements ActionListener{
-	    public void actionPerformed(ActionEvent e){
-		editor.dispose();
-	    }
-	}
-    }
-
-    private class deleteButtonListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    score=0;
-	    {
-	    if(d.size() == 0) {
-		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
-		return;
-	    }
-	    if(d.size() == 1) {
-		d.remove(0);
-		currentCard.removeAll();
-		cardText.setText("Deck is Empty!");
-		currentCard.add(cardText);
-		thisframe.getContentPane().validate();
-		thisframe.getContentPane().repaint();
-
-		current = 0;
-	      
-	    }
-	    if(d.size() > 1) {
-		if(current == 0) {
-		    Card h = (Card) d.get(current+1);
-		
-		    if(h.isPic()){
-		    	setPic(h);
-		    }
-		    else{
-		    	setPrint(h,1);
-		    }
-		    d.remove(current);
-		    
-		    
-		}
-		else {
-		    d.remove(current);
-		    current--;
-		    Card h = (Card) d.get(current);
-		
-		    if(h.isPic()){
-		    	setPic(h);
-		    }
-		    else{
-		    	setPrint(h,1);
-		    }
-		}
-	    }
-
-	    if(d.size() == 0) 
-		cNum.setText("0");
-	    else
-		cNum.setText(Integer.toString(current+1));
-
-	    deckSize.setText(Integer.toString(d.size()));
-	    }
-	}
-    }
 
     private class nextButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
@@ -556,137 +376,17 @@ public class PracticeMode extends JFrame{
 		}
     }
 
-    private class correctButtonListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    score++;
-	    if(d.size() == 0) {
-		score = 0;
-		
-		return;
-	    }
-	    current++;
-	    if(current == d.size()) {
-		current = 0;
-            }
+   
+    private class returnButtonListener implements ActionListener{
+		public void actionPerformed(ActionEvent e){
+			thisPractice.dispose();
+		}
+    }
     
-	    Card h = (Card) d.get(current);
-	    if(h.isPic()){
-	    	setPic(h);
-	    }
-	    else{
-	    	setPrint(h,1);
-	    }
-	    cNum.setText(Integer.toString(current+1));
-	    
 
-	    if(score > d.size()) {
-		score = d.size();
-	    }
-	   
-	    
-	}
 
-	
-    }
 
-    private class incorrectButtonListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    score--;
-	    if(d.size() == 0) {
-		score = 0;
-	
-		return;
-	    }
-	    current++;
-	    if(current == d.size()) {
-		current = 0;
-            }
     
-	    Card h = (Card) d.get(current);
-	    if(h.isPic()){
-	    	setPic(h);
-	    }
-	    else{
-	    	setPrint(h,1);
-	    }
-	    cNum.setText(Integer.toString(current+1));
-	    
-	    if(score < 0 ) {
-		score = 0;
-	    }
-
-	    
-	    
-	}
-
-	
-    }
-
-    private class restartButtonListener implements ActionListener {
-	public void actionPerformed(ActionEvent e) {
-	    score = 0;
-
-	    
-	    if(d.size() == 0) {
-		return;
-	    }
-	    
-	    Card h = (Card) d.get(0);
-	    if(h.isPic()){
-	    	setPic(h);
-	    }
-	    else{
-	    	setPrint(h,1);
-	    }  
-	    
-	    current = 0;
-	    cNum.setText(Integer.toString(current+1));
-  
-	}
-    }
-
-
-
-
-    private static Hashtable LoadTable(Hashtable data){
-		try{
-			FileInputStream fileIn = new FileInputStream("Savefiles/Saved_Decks.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			data = (Hashtable)in.readObject();
-			in.close();
-			fileIn.close();
-	
-		}
-		catch(ClassNotFoundException e){
-			e.printStackTrace();
-		}
-		catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-		return data;
-	}
-
-	//Saves new decks ---------------------
-	private void SaveNewDeck(String name, Deck d, Hashtable<String, Deck> data)
-	{
-	
-		data.put(name, d);
-		
-		try{
-			FileOutputStream fileOut = new FileOutputStream("Savefiles/Saved_Decks.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(data);
-			out.close();
-			fileOut.close();
-		}catch(FileNotFoundException e){
-			e.printStackTrace();
-		}catch(IOException e){
-			e.printStackTrace();
-			}
-	}
 
     
 }

@@ -7,8 +7,11 @@ import java.io.*;
 /**
  *Main function which runs the preliminaries of a name memorization game
  *
- *@author Jasper Fredrickson
- *@version Mantis Ticket 0000231 for cs56, Spring 2011
+ * @author Jasper Fredrickson
+ * @version Mantis Ticket 0000231 for cs56, Spring 2011
+ *
+ * @author Tamky Ngo, Kevin Lau
+ * @version CS56 Winter 2015
  */
 public class Main{
     public static void main(String[] args){
