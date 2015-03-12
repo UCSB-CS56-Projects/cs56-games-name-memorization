@@ -29,5 +29,5 @@ Documentation for Name Memorization Game
 
 // NameGame.java
 
-	Consists of the implementation of 
+	Consists of the implementation of the actual game. Consists of all the panels and labels that appear in the game. Players flip through cards that have an image on the front and text on the back.
 	

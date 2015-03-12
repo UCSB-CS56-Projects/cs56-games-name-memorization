@@ -76,7 +76,7 @@ public class Menu extends JFrame{
 
 		this.pack();
 	}
-
+    // opens the main game in a new window
 	private class playButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			thisMenu.setVisible(false);
@@ -125,10 +125,10 @@ public class Menu extends JFrame{
 		    			}
 				}
 	    		});
-			//System.out.println("Play button pressed");
+	        
 		}
 	}
-
+    // opens the practice mode of the game, where it does not keep track of score when played
 	private class practiceButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			thisMenu.setVisible(false);
@@ -180,7 +180,7 @@ public class Menu extends JFrame{
 			
 		}
 	}
-
+    // opens the deck editor in a new window where the player can choose to create a new deck or edit an existing one
 	private class deckButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			thisMenu.setVisible(false);
@@ -191,10 +191,10 @@ public class Menu extends JFrame{
 			dEditor.setLocationRelativeTo(null);
 	    		dEditor.getContentPane().setBackground(Color.BLUE);
         		dEditor.setVisible(true);
-			//System.out.println("Deck button pressed");
+	        
 		}
 	}
-
+    // Instructions appear in the menu screen when pressed
 	private class howToButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			try {
@@ -219,10 +219,10 @@ public class Menu extends JFrame{
 	    		} catch (Exception ex) {
 	        		ex.printStackTrace();
 	    		}
-			//System.out.println("How to play button pressed");
+        
 		}
 	}
-
+    // Quit button, exits on press
 	private class quitButtonListener implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			System.exit(1);
