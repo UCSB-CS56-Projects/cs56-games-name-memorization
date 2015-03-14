@@ -13,8 +13,8 @@ public class Deck extends ArrayList<Card> implements Serializable {
     }
 
     public void addCard(String side1, String side2, boolean isPicture) {
-	Card c = new Card(side1,side2, isPicture);
-	this.add(c);
+	    Card c = new Card(side1,side2, isPicture);
+	    this.add(c);
     }
 
     public void removeCard(int i) {
@@ -22,8 +22,8 @@ public class Deck extends ArrayList<Card> implements Serializable {
     }
 
     public void editCard(Card c, String side1, String side2) {
-	c.setSide1(side1);
-	c.setSide2(side2);
+	    c.setSide1(side1);
+	    c.setSide2(side2);
 	
     }
 

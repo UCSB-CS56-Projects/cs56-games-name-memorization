@@ -1,0 +1,33 @@
+Documentation for Name Memorization Game
+
+// Additions and Improvements
+
+	Previously, when running the game, it instantly takes you straight to the game. We implemented a menu screen that allows you to choose to either play the game, play a practice run, added instructions on how to play the game, added a section to create/edit decks, and a quit button that would terminate the game.
+
+	When editing a card, you now have the option to cancel the addition or editing of a card should you choose not to. 
+	
+	Created a new class called DeckEditor, which has the starting code to create and edit decks.
+
+	Created a new class called PracticeMode, which implements much of the same methods as NameGame.java, but removes most of of the functions and the scoring system to allow players to practice with a deck of cards.
+
+	
+// Card.java
+
+	Class that stores a card created in CardEditor.java
+
+// CardEditor.java
+	
+	Creates a Card that displays an image on the front of the card, and a name on the back.
+	getPic allows you to browse files and select an image.	
+	reSizeImage scales the selected image to fit on the bounds of the card.
+	getBacktext returns whatever text inputted to be displayed on the back of the card.
+	
+// Deck.java
+
+	Class that stores a deck created in DeckEditor.java
+
+
+// NameGame.java
+
+	Consists of the implementation of the actual game. Consists of all the panels and labels that appear in the game. Players flip through cards that have an image on the front and text on the back.
+	
