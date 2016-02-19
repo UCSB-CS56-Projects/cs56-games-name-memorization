@@ -1,4 +1,3 @@
-
 package edu.ucsb.cs56.projects.games.name_memorization;
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -57,10 +56,7 @@ public class Main{
 			ex.printStackTrace();
 		    }
 		}
-	    });
-	    
-
-	
-	
+	    });	
+  
     }
 }

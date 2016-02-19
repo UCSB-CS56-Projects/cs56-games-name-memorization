@@ -7,6 +7,12 @@ import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+/**
+ * A class that creates the GUI that allows the user to edit cards
+ *
+ * @author Domenic Dipeppe
+ * @version CS56 W16
+ */
 public class CardEditor extends JDialog{
     private JTextArea front;
     private JTextArea back;
@@ -21,12 +27,13 @@ public class CardEditor extends JDialog{
     private String backText; 
     private String path; //path to people folder
     private JLabel frontPic;
+    
+    private boolean isPicture; 
 
-    private boolean isPicture;
-
- 
- 
-
+    /**
+     * Constructor for CardEditor
+     * Creates the GUI in which the user can edit cards
+     */
     public CardEditor(){
 	//sets path variable to directory of the people pictures
 	path=System.getProperty("user.dir");
@@ -69,15 +76,10 @@ public class CardEditor extends JDialog{
 	upload.setBounds(110,360 ,150,25);
 	upload.addActionListener(uploadListener);
 	getContentPane().add(upload);
-
-
+	
 	BACK = new JLabel("BACK");
 	BACK.setBounds(440,80, 200, 19);
-	getContentPane().add(BACK);
-
-
-
-	
+	getContentPane().add(BACK);	
     }
 
     //method to resize the uploaded images to fit the screen.
@@ -90,21 +92,34 @@ public class CardEditor extends JDialog{
         return resizedImage;  
     }  
 
-
+    /**
+     * Gets the text on the front of the card
+     *
+     * @return frontText the text on the front
+     */
     public String getFrontText() {
 	frontText = front.getText();
 	return frontText; 
     }
+
+    /**
+     * Gets the text on the back of the card
+     *
+     * @return backText the text on the back
+     */
     public String getBackText() { 
 	backText = back.getText();
 	return backText; 
     }
 
+    /**
+     * Gets the picture on the front card
+     *
+     * @return frontPic the picture on the front of the card
+     */
     public JLabel getPic(){
 	return frontPic;
     }
-
-
 
 
     private class uploadButtonListener implements ActionListener {
@@ -139,14 +154,13 @@ public class CardEditor extends JDialog{
 	}
     }
 
+    /**
+     * Tells us if the Card has a picture
+     *
+     * @return isPicture A boolean that is true if the card has a picture, false otherwise
+     */
     public boolean isPic(){
-		return isPicture;
+	return isPicture;
     }
-
-
-
-
     
-
-
 }

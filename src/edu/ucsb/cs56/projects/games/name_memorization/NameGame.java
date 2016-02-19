@@ -274,7 +274,12 @@ public class NameGame extends JFrame{
 	this.pack();
     }  
 
- 	//this method will be called with next/previous button if card has a pic
+    
+    /**
+     * This method will be called with next/previous button if card has a pic
+     *
+     * @param c A card
+     */
     public void setPic(Card c){
     	cardText.setVisible(false);
     	currentCard.remove(picture);
@@ -285,7 +290,12 @@ public class NameGame extends JFrame{
 		thisframe.getContentPane().repaint();
     }
 
-    //this method will be called with next/previous if card is text
+    /**
+     * This method will be called with next/previous if card is text
+     * 
+     * @param c A card
+     * @param side the side of the card
+     */    
     public void setPrint(Card c, int side){
     	picture.setVisible(false);
 		cardText.setVisible(true);
@@ -298,29 +308,43 @@ public class NameGame extends JFrame{
 
     }
 
+    /**
+     * Sets the current deck
+     *
+     * @param d A deck
+     */
     public void setDeck(Deck d) {
 	this.d = d;
     }
 
+    /**
+     * Returns a deck
+     * 
+     * @return d A deck
+     */
     public Deck getDeck() {
 	return d;
     }
 
+    /**
+     * Updates the size of the deck to be the value specified
+     *
+     * @param decksize The new size of the deck
+     */
     public void updateSize(int deckSize) {
 	
 	this.deckSize.setText(Integer.toString(deckSize));
     }
 
+    /**
+     * Sets the index of the current card
+     */
     public void setCardNum() {
 	if (d.size() < 1) {
 	    this.cNum.setText("0");
 	} else
 	    this.cNum.setText("1");
     }
-
-
-
-
 
 
     /**
