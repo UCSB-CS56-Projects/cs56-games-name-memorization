@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import javax.swing.*;
 import java.io.*;
@@ -18,7 +19,8 @@ import java.util.Hashtable;
    * Preliminary engine for running a name memorization game
    *
    *@author Anthony Hoang, Colin Biafore
-   *@version  for cs56, Winter 2014
+   *@author Domenic DiPeppe
+   *@version  for CS56, W16
    */
 
 public class NameGame extends JFrame{
@@ -30,46 +32,41 @@ public class NameGame extends JFrame{
     private JButton delete;
     private JButton next;
     private JButton previous;
-    private JButton newDeck;
-
+    //private JButton newDeck;
+    private JButton selectDeck;
+    
     //Bottom Control Panel
     private JPanel south;
     private JButton toFront;
     private JButton toBack;
 
     //East Control Panel
-	private JLabel deckName;
-	private JButton restart;
-
-	//West Control Panel
-	private JLabel scoreLabel;
-	private JLabel scoreNum;
-	private int score;
+    private JLabel deckName;
+    private JButton restart;
+    
+    //West Control Panel
+    private JLabel scoreLabel;
+    private JLabel scoreNum;
+    private int score;
 
     private JLabel deckSize;
     private JLabel sizeLabel;
 
     private JButton correct;
     private JButton incorrect;
-    
-
 
     private Image pic;
-
-
-    //HashTable for decks
-    Hashtable<String,Deck> data;
-
+    
+    //DeckList for Decks
+    private DeckList decks;
+    
     //Current Card Viewer
     private JPanel currentCard;
     private JTextArea cardText;
     private int current;
     private Deck d;
-
     
     private JFrame thisframe = this;
-    
-
 
     private JLabel picture;
 
@@ -95,13 +92,13 @@ public class NameGame extends JFrame{
 	delete = new JButton("Delete");
 	previous = new JButton("Previous");
 	next = new JButton("Next");
-	newDeck = new JButton("New Deck");
+	selectDeck = new JButton("Select Deck");
 	north.add(add);
 	north.add(edit);
 	north.add(delete);
 	north.add(previous);
 	north.add(next);
-	north.add(newDeck);
+	north.add(selectDeck);
 	north.setBackground(Color.ORANGE);
 	this.add(north,BorderLayout.NORTH);
 	
@@ -129,13 +126,14 @@ public class NameGame extends JFrame{
 
 	//Create a new deck
 	d = new Deck("First Deck");
-	
+
+	/*
 	// initialize the hashtable of decks
 	data = new Hashtable<String,Deck>();
+	*/
 
-
-     
-	
+	decks = new DeckList();
+	decks.addDeck(d);
 	
 	
 	//West Panel Components
@@ -208,10 +206,7 @@ public class NameGame extends JFrame{
 	eastCenter.setBackground(Color.BLUE);
 	eastCenter.add(cardNum);
 	eastCenter.add(cNum);
-	
-
-
-
+ 
 
 	JPanel top = new JPanel();
 	top.setBackground(Color.BLUE);
@@ -243,14 +238,16 @@ public class NameGame extends JFrame{
 	previousButtonListener previousListener = new previousButtonListener();
 	previous.addActionListener(previousListener);
 	
-	
 	//Initialize picture JLabel that is used in next listener
 	picture = new JLabel();
 	//Initialize Next Button Listener
 	nextButtonListener nextListener = new nextButtonListener();
 	next.addActionListener(nextListener);
-	
 
+	//Initialize SelectDeck Button Listener
+	selectDeckButtonListener selectDeckListener = new selectDeckButtonListener();
+	selectDeck.addActionListener(selectDeckListener);
+	
 	//Initialize Front Button Listener
 	frontButtonListener frontListener = new frontButtonListener();
 	toFront.addActionListener(frontListener);
@@ -267,9 +264,6 @@ public class NameGame extends JFrame{
 
 	restartButtonListener restartListener = new restartButtonListener();
 	restart.addActionListener(restartListener);
-
-
-	//
 	
 	this.pack();
     }  
@@ -326,6 +320,23 @@ public class NameGame extends JFrame{
 	return d;
     }
 
+
+    /**
+     * Sets the current DeckList
+     * @param decks A DeckList
+     */
+    public void setDeckList(DeckList decks){
+	this.decks = decks;
+    }
+
+    /**
+     * Returns the current deckList
+     * @return decks a DeckList
+     */
+    public DeckList getDeckList(){
+	return decks;
+    }
+    
     /**
      * Updates the size of the deck to be the value specified
      *
@@ -488,6 +499,41 @@ public class NameGame extends JFrame{
 	}
     }
 
+
+    //Creates the GUI that allows the user to selct decks or make a new one
+    private class selectDeckButtonListener implements ActionListener {
+
+	DeckEditor editor;	
+	JButton selectDeck = new JButton("Select Deck");
+       	
+	public void actionPerformed(ActionEvent e) {
+	    
+	    editor = new DeckEditor(decks);
+	    editor.getContentPane().add(selectDeck, BorderLayout.SOUTH);
+	    
+	    selectDeck.addActionListener(new ActionListener() {
+		    
+		    public void actionPerformed(ActionEvent e){
+			JList deckList = editor.getDeckList();
+			int selection = deckList.getSelectedIndex();
+
+			if(selection >= 0){
+			    setDeck(decks.getDeck(selection));
+			
+			    if(d.size() == 0){
+				cardText.setText("Deck is Empty!");
+				saveNewDeck(decks);
+			    }
+			    else
+				setPrint(d.get(0),1);
+			    
+			    deckName = new JLabel(d.getName());
+			}		     
+		    }
+		});
+	}
+    }
+    
     private class nextButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 	    if(d.size() == 0) {
@@ -508,7 +554,6 @@ public class NameGame extends JFrame{
 	    cNum.setText(Integer.toString(current+1));
 	    
 
-	    
 	}
     }
 
@@ -524,10 +569,6 @@ public class NameGame extends JFrame{
 	    if(current == -1) {
 		current = d.size() - 1;
 	    }
-
-
-
-
 
 	    Card h = (Card) d.get(current);
 
@@ -659,46 +700,43 @@ public class NameGame extends JFrame{
 	}
     }
 
-
-    private static Hashtable LoadTable(Hashtable data){
-		try{
-			FileInputStream fileIn = new FileInputStream("Savefiles/Saved_Decks.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			data = (Hashtable)in.readObject();
-			in.close();
-			fileIn.close();
-	
-		}
-		catch(ClassNotFoundException e){
-			e.printStackTrace();
-		}
-		catch(FileNotFoundException e){
-			e.printStackTrace();
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-		return data;
+    //Loads the Saved DeckList into the game
+    private static DeckList LoadDecks(DeckList decks){
+	try{
+	    FileInputStream fileIn = new FileInputStream("Deck.ser");
+	    ObjectInputStream in = new ObjectInputStream(fileIn);
+	    decks = (DeckList)in.readObject();
+	    in.close();
+	    fileIn.close();
+	    
 	}
-
-	//Saves new decks ---------------------
-	private void SaveNewDeck(String name, Deck d, Hashtable<String, Deck> data)
-	{
-	
-		data.put(name, d);
-		
-		try{
-			FileOutputStream fileOut = new FileOutputStream("Savefiles/Saved_Decks.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(data);
-			out.close();
-			fileOut.close();
-		}catch(FileNotFoundException e){
-			e.printStackTrace();
-		}catch(IOException e){
-			e.printStackTrace();
-			}
+	catch(ClassNotFoundException e){
+	    e.printStackTrace();
 	}
+	catch(FileNotFoundException e){
+	    e.printStackTrace();
+	}
+	catch(IOException e){
+	    e.printStackTrace();
+	}
+	return decks;
+    }
 
+    //Saves new decks 
+    private void saveNewDeck(DeckList decks)
+    {
+	
+	try{
+	    FileOutputStream fileOut = new FileOutputStream("Deck.ser");
+	    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	    out.writeObject(decks);
+	    out.close();
+	    fileOut.close();
+	}catch(FileNotFoundException e){
+	    e.printStackTrace();
+	}catch(IOException e){
+	    e.printStackTrace();
+	}
+    }
     
 }

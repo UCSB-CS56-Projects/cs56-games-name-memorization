@@ -5,9 +5,6 @@ import java.util.ArrayList;
 
 /**
  * A class that represents a collection of Card objects
- *
- * @author Domenic Dipeppe
- * @version CS56 W16
  */
 public class Deck extends ArrayList<Card> implements Serializable {
     

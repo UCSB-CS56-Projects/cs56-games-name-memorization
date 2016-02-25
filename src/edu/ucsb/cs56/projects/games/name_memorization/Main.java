@@ -7,24 +7,38 @@ import java.io.*;
  *Main function which runs the preliminaries of a name memorization game
  *
  *@author Jasper Fredrickson
- *@version Mantis Ticket 0000231 for cs56, Spring 2011
+ *@author Domenic DiPeppe
+ *@version for CS56 W16
  */
 public class Main{
+
+    public static DeckList decks;
     public static void main(String[] args){
-	Deck d = new Deck("");
+	
+	Deck d;
+	decks = new DeckList();
 	try {
 	    FileInputStream fileStream = new FileInputStream("Deck.ser");
 	    ObjectInputStream os = new ObjectInputStream(fileStream);
 
-	    Object deck = os.readObject();
-	    d = (Deck) deck;
+	    Object deckList = os.readObject();
+	    decks = (DeckList) deckList ;
 	    os.close();
 	} catch (Exception ex) {
 	    ex.printStackTrace();
 	}
 	
         final NameGame game = new NameGame();
-	game.setDeck(d);
+
+	game.setDeckList(decks);
+	if(decks.size() !=0){
+	    d = decks.getDeck(0);
+	    game.setDeck(d);
+	}
+	
+	else
+	    d = new Deck("");
+	    
 	if(d.size() > 0) {
 	    if(d.get(0).isPic()) {
 		game.setPic(d.get(0));
@@ -49,7 +63,7 @@ public class Main{
 		    try {
 			FileOutputStream fs = new FileOutputStream("Deck.ser");
 			ObjectOutputStream os = new ObjectOutputStream(fs);
-			os.writeObject(game.getDeck());
+			os.writeObject(game.getDeckList());
 			os.close();
 			
 		    } catch(Exception ex) {

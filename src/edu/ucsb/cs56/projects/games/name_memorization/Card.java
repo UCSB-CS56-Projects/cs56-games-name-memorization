@@ -11,9 +11,6 @@ import javax.imageio.ImageIO;
 
 /**
  * A class that represents a card with two sides
- *
- * @author Domenic Dipeppe
- * @version CS56 W16
  */
 public class Card extends JPanel implements Serializable {
 

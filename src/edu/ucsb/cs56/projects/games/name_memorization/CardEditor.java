@@ -9,9 +9,6 @@ import javax.imageio.ImageIO;
 
 /**
  * A class that creates the GUI that allows the user to edit cards
- *
- * @author Domenic Dipeppe
- * @version CS56 W16
  */
 public class CardEditor extends JDialog{
     private JTextArea front;
