@@ -509,7 +509,7 @@ public class NameGame extends JFrame{
 	public void actionPerformed(ActionEvent e) {
 	    
 	    editor = new DeckEditor(decks);
-	    editor.getContentPane().add(selectDeck, BorderLayout.SOUTH);
+	    editor.getDataPanel().add(selectDeck, BorderLayout.CENTER);
 	    
 	    selectDeck.addActionListener(new ActionListener() {
 		    
@@ -528,6 +528,7 @@ public class NameGame extends JFrame{
 				setPrint(d.get(0),1);
 			    
 			    deckName = new JLabel(d.getName());
+			    editor.dispose();
 			}		     
 		    }
 		});

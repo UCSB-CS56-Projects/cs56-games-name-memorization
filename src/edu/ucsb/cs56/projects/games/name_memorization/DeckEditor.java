@@ -16,9 +16,10 @@ public class DeckEditor extends JFrame implements ActionListener, ListSelectionL
 
     private JPanel topPanel;
     private JPanel botPanel;
+    private JPanel dataPanel;
+    private JPanel infoPanel;
+    
     private JList deckList;
-
-    private DeckList decks;
     private Vector deckNames;
     private JButton addDeck;
     private JButton removeDeck;
@@ -26,6 +27,10 @@ public class DeckEditor extends JFrame implements ActionListener, ListSelectionL
     private JScrollPane deckScroller;
     private JTextField deckText;
 
+    private JLabel deckSize;
+    private JLabel currentName;
+    
+    private DeckList decks;
     private Deck deck;
 
     /** 
@@ -63,7 +68,7 @@ public class DeckEditor extends JFrame implements ActionListener, ListSelectionL
      * Creates the GUI for JButtons and JTextField
      */
     public void CreateDeckEntryPanel(){
-	JPanel dataPanel = new JPanel();
+        dataPanel = new JPanel();
 	dataPanel.setLayout(new BorderLayout());
 	topPanel.add(dataPanel, BorderLayout.SOUTH);
 
@@ -77,6 +82,17 @@ public class DeckEditor extends JFrame implements ActionListener, ListSelectionL
 	
 	deckText = new JTextField("Enter Deck Name");
 	dataPanel.add(deckText, BorderLayout.NORTH);
+
+	infoPanel = new JPanel();
+	infoPanel.setLayout(new BorderLayout());
+	topPanel.add(infoPanel, BorderLayout.NORTH);
+
+	currentName = new JLabel("");
+	infoPanel.add(currentName, BorderLayout.EAST);
+
+	deckSize = new JLabel("");
+	infoPanel.add(deckSize, BorderLayout.WEST);
+	
     }
 
     //Handles list selection changes
@@ -84,8 +100,11 @@ public class DeckEditor extends JFrame implements ActionListener, ListSelectionL
 
 	if(event.getSource() == deckList && !event.getValueIsAdjusting()){
 	    String deckName = (String)deckList.getSelectedValue();
-	    if(deckName != null)
+	    if(deckName != null){
 		deckText.setText(deckName);
+		currentName.setText(decks.get(deckList.getSelectedIndex()).getName());
+		deckSize.setText("Size: " + decks.get(deckList.getSelectedIndex()).size());		
+	    }
 	}
     }
 
@@ -127,5 +146,8 @@ public class DeckEditor extends JFrame implements ActionListener, ListSelectionL
     public JList getDeckList(){
 	return this.deckList;
     }
-    
+
+    public JPanel getDataPanel(){
+	return this.dataPanel;
+    }
 }
