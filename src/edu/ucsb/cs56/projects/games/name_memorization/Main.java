@@ -32,7 +32,7 @@ public class Main{
 
 	game.setDeckList(decks);
 	if(decks.size() !=0){
-	    d = decks.getDeck(0);
+	    d = decks.get(0);
 	    game.setDeck(d);
 	}
 	

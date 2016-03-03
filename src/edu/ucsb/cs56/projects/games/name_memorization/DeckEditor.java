@@ -50,7 +50,7 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
 	
 	deckNames = new Vector();
 	for(int i=0;i<decks.size();i++)
-	    deckNames.addElement(decks.getDeck(i).getName());
+	    deckNames.addElement(decks.get(i).getName());
 	
 	deckList = new JList(deckNames);
 	deckList.addListSelectionListener(this);
@@ -114,7 +114,7 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
 	    deckText.setText("");
 
 	    if(deckName != null){
-		this.decks.addDeck(new Deck(deckName));
+		this.decks.add(new Deck(deckName));
 		deckNames.addElement(deckName);
 		deckList.setListData(deckNames);
 		deckScroller.revalidate();
@@ -128,7 +128,7 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
 	    int selection = deckList.getSelectedIndex();
 	    if(selection >=0){
 
-		decks.removeDeck(selection);
+		decks.remove(selection);
 		deckNames.removeElementAt(selection);
 		deckList.setListData(deckNames);
 		deckScroller.revalidate();

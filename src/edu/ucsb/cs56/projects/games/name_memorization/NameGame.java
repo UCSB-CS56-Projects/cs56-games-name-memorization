@@ -134,7 +134,7 @@ public class NameGame extends JFrame{
 	//Create a new deck
 	d = new Deck("First Deck");
 	decks = new DeckList();
-	decks.addDeck(d);
+	decks.add(d);
 	
 	
 	//West Panel Components
@@ -527,7 +527,7 @@ public class NameGame extends JFrame{
 			int selection = deckList.getSelectedIndex();
 
 			if(selection >= 0){
-			    setDeck(decks.getDeck(selection));
+			    setDeck(decks.get(selection));
 			
 			    if(d.size() == 0){
 				cardText.setText("Deck is Empty!");
