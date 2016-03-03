@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
+import java.awt.Dimension;
 
 /**
  * An editor that allows the user to select, add, and delete decks
@@ -12,7 +13,7 @@ import javax.swing.event.*;
  * @version for CS56 W16
  */
 
-public class DeckEditor extends JFrame implements ActionListener, ListSelectionListener {
+public class DeckEditor extends JPanel implements ActionListener, ListSelectionListener {
 
     private JPanel topPanel;
     private JPanel botPanel;
@@ -40,12 +41,13 @@ public class DeckEditor extends JFrame implements ActionListener, ListSelectionL
     public DeckEditor(DeckList decks){
 
 	this.decks = decks;
-	setTitle("Deck Selector");
+	this.setBackground(Color.CYAN);
 
 	topPanel = new JPanel();
 	topPanel.setLayout(new BorderLayout());
-	getContentPane().add(topPanel);
-
+	topPanel.setPreferredSize(new Dimension(300,500));
+	this.add(topPanel);
+	
 	deckNames = new Vector();
 	for(int i=0;i<decks.size();i++)
 	    deckNames.addElement(decks.getDeck(i).getName());
@@ -56,10 +58,6 @@ public class DeckEditor extends JFrame implements ActionListener, ListSelectionL
 	deckScroller = new JScrollPane();
 	deckScroller.getViewport().add(deckList);
 	topPanel.add(deckScroller, BorderLayout.CENTER);
-
-	this.setSize(500,600);
-	this.setLocationRelativeTo(null);
-	this.setVisible(true);
 	
 	CreateDeckEntryPanel();	
     }
@@ -87,10 +85,10 @@ public class DeckEditor extends JFrame implements ActionListener, ListSelectionL
 	infoPanel.setLayout(new BorderLayout());
 	topPanel.add(infoPanel, BorderLayout.NORTH);
 
-	currentName = new JLabel("");
+	currentName = new JLabel("Name");
 	infoPanel.add(currentName, BorderLayout.EAST);
 
-	deckSize = new JLabel("");
+	deckSize = new JLabel("Size");
 	infoPanel.add(deckSize, BorderLayout.WEST);
 	
     }

@@ -25,6 +25,9 @@ import java.util.Hashtable;
 
 public class NameGame extends JFrame{
 
+    //Main JPanel
+    private JPanel nameGame;
+    
     //Top Control Panel
     private JPanel north;
     private JButton add;
@@ -32,7 +35,6 @@ public class NameGame extends JFrame{
     private JButton delete;
     private JButton next;
     private JButton previous;
-    //private JButton newDeck;
     private JButton selectDeck;
     
     //Bottom Control Panel
@@ -65,8 +67,11 @@ public class NameGame extends JFrame{
     private JTextArea cardText;
     private int current;
     private Deck d;
+
+    //Deck viewer
+    private JPanel DeckEditor;
     
-    private JFrame thisframe = this;
+    private JFrame thisFrame = this;
 
     private JLabel picture;
 
@@ -82,7 +87,9 @@ public class NameGame extends JFrame{
     public NameGame(){
 	
 	//Set Frame Layout
-	this.getContentPane().setLayout(new BorderLayout());
+	nameGame = new JPanel();
+	this.add(nameGame);
+	nameGame.setLayout(new BorderLayout());
 	score=0;
 	//Initialize North Control Panel
 	north = new JPanel();
@@ -100,7 +107,7 @@ public class NameGame extends JFrame{
 	north.add(next);
 	north.add(selectDeck);
 	north.setBackground(Color.ORANGE);
-	this.add(north,BorderLayout.NORTH);
+	nameGame.add(north,BorderLayout.NORTH);
 	
 	//Initialize South Control Panel
 	south = new JPanel();
@@ -110,7 +117,7 @@ public class NameGame extends JFrame{
 	south.add(toFront);
 	south.add(toBack);
 	south.setBackground(Color.ORANGE);
-	this.add(south, BorderLayout.SOUTH);
+	nameGame.add(south, BorderLayout.SOUTH);
 
 	//Initialize Card Viewer
 	currentCard = new JPanel();
@@ -121,17 +128,11 @@ public class NameGame extends JFrame{
 	cardText.setEditable(false);
 	currentCard.add(cardText);
 	currentCard.setBackground(Color.WHITE);
-	this.add(currentCard, BorderLayout.CENTER);
+	nameGame.add(currentCard, BorderLayout.CENTER);
 	
 
 	//Create a new deck
 	d = new Deck("First Deck");
-
-	/*
-	// initialize the hashtable of decks
-	data = new Hashtable<String,Deck>();
-	*/
-
 	decks = new DeckList();
 	decks.addDeck(d);
 	
@@ -160,8 +161,6 @@ public class NameGame extends JFrame{
 	westSouth.add(correct);
 	westSouth.add(incorrect);
 	
-
-	
 	westCenter.add(scoreLabel);
 	westCenter.add(scoreNum);
 
@@ -173,8 +172,7 @@ public class NameGame extends JFrame{
 	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	west.add(deckName,BorderLayout.NORTH);
 
-
-	this.add(west,BorderLayout.WEST);
+	nameGame.add(west,BorderLayout.WEST);
 	
 	//East Panel
 
@@ -199,7 +197,6 @@ public class NameGame extends JFrame{
 	cNum.setForeground(Color.WHITE);
 	cNum.setFont(new Font("Lucida Grande",Font.PLAIN, 18));
 
-	
 
 	JPanel eastCenter = new JPanel();
 
@@ -215,7 +212,7 @@ public class NameGame extends JFrame{
 	
 	east.add(eastCenter,BorderLayout.CENTER);
 	east.add(top,BorderLayout.NORTH);
-	this.add(east,BorderLayout.EAST);
+	nameGame.add(east,BorderLayout.EAST);
 
 	//BUTTON LISTENERS -- Uncommented = implemented and functioning!!
 	//Currently you can add as many cards as you want,
@@ -280,8 +277,8 @@ public class NameGame extends JFrame{
 		picture=c.getPic();
 		picture.setVisible(true);		    
 		currentCard.add(picture, BorderLayout.CENTER);
-		thisframe.getContentPane().validate();
-		thisframe.getContentPane().repaint();
+		thisFrame.getContentPane().validate();
+		thisFrame.getContentPane().repaint();
     }
 
     /**
@@ -365,15 +362,18 @@ public class NameGame extends JFrame{
 
 	CardEditor editor;
 
-
+	
         public void actionPerformed(ActionEvent event) {
 	    
+	    nameGame.setVisible(false);
 	    //Creates a new card editor
 
 	    editor = new CardEditor();
+	    thisFrame.add(editor);
+	    
 	    JButton confirm = new JButton("Confirm");
 	    confirm.setBounds(260,400,100,30);
-	    editor.getContentPane().add(confirm);
+	    editor.getBotPanel().add(confirm);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
 	    confirm.addActionListener(confirmListener);
 	    
@@ -386,12 +386,11 @@ public class NameGame extends JFrame{
 		String side2 = editor.getBackText();
 		
 		d.addCard(side1,side2,editor.isPic());
-		editor.dispose();
 		current = d.size() - 1;
 		Card h = (Card) d.get(current);
 		if(h.isPic()){
 		    setPic(h);
-		}//if(h.isPic())
+		}
 		else{
 		    setPrint(h,1);
 		}
@@ -399,7 +398,8 @@ public class NameGame extends JFrame{
 		previous.setEnabled(true);
 		deckSize.setText(Integer.toString(d.size()));
 		cNum.setText(Integer.toString(current+1));
-			
+		thisFrame.remove(editor);
+		nameGame.setVisible(true);
 			
 		    }
 		}
@@ -416,10 +416,13 @@ public class NameGame extends JFrame{
 		return;
 	    }
 
+	    nameGame.setVisible(false);
 	    editor = new CardEditor();
+	    thisFrame.add(editor);
+	    
 	    JButton confirm = new JButton("Confirm");
 	    confirm.setBounds(260,400,100,30);
-	    editor.getContentPane().add(confirm);
+	    editor.getBotPanel().add(confirm);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
 	    confirm.addActionListener(confirmListener);
 	}
@@ -438,7 +441,9 @@ public class NameGame extends JFrame{
 	       	setPrint(h,1);
 	    }
 
-		editor.dispose();
+		thisFrame.remove(editor);
+		nameGame.setVisible(true);
+		
 	    }
 
 	}
@@ -455,8 +460,8 @@ public class NameGame extends JFrame{
 		currentCard.removeAll();
 		cardText.setText("Deck is Empty!");
 		currentCard.add(cardText);
-		thisframe.getContentPane().validate();
-		thisframe.getContentPane().repaint();
+		thisFrame.getContentPane().validate();
+		thisFrame.getContentPane().repaint();
 
 		current = 0;
 	      
@@ -507,8 +512,12 @@ public class NameGame extends JFrame{
 	JButton selectDeck = new JButton("Select Deck");
        	
 	public void actionPerformed(ActionEvent e) {
-	    
+
+	    nameGame.setVisible(false);
 	    editor = new DeckEditor(decks);
+	    
+	    thisFrame.add(editor);
+	    
 	    editor.getDataPanel().add(selectDeck, BorderLayout.CENTER);
 	    
 	    selectDeck.addActionListener(new ActionListener() {
@@ -528,7 +537,9 @@ public class NameGame extends JFrame{
 				setPrint(d.get(0),1);
 			    
 			    deckName = new JLabel(d.getName());
-			    editor.dispose();
+
+			    thisFrame.remove(editor);
+			    nameGame.setVisible(true);
 			}		     
 		    }
 		});
