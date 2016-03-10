@@ -35,7 +35,7 @@ public class CardEditor extends JPanel{
      * Constructor for CardEditor
      * Creates the GUI in which the user can edit cards
      */
-    public CardEditor(){
+    public CardEditor(Card c){
 	//sets path variable to directory of the people pictures
 	path=System.getProperty("user.dir");
 	path=path + "/src/people/";
@@ -60,11 +60,11 @@ public class CardEditor extends JPanel{
 	//FRONT.setBounds(155,80, 200, 19);
 	midPanel.add(FRONT);
 
-	front = new JTextArea("Enter Text");
+	front = new JTextArea(c.getSide1());
 	front.setPreferredSize(new Dimension(250,350));
 	midPanel.add(front);
 
-	back = new JTextArea("Enter Text");
+	back = new JTextArea(c.getSide2());
 	back.setLineWrap(true);
 	back.setPreferredSize(new Dimension(250,350));
 	midPanel.add(back);

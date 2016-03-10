@@ -41,12 +41,11 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
     public DeckEditor(DeckList decks){
 
 	this.decks = decks;
-	this.setBackground(Color.CYAN);
-
+	this.setLayout(new BorderLayout());
+	
 	topPanel = new JPanel();
 	topPanel.setLayout(new BorderLayout());
-	topPanel.setPreferredSize(new Dimension(300,500));
-	this.add(topPanel);
+	this.add(topPanel, BorderLayout.CENTER);
 	
 	deckNames = new Vector();
 	for(int i=0;i<decks.size();i++)
@@ -67,29 +66,30 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
      */
     public void CreateDeckEntryPanel(){
         dataPanel = new JPanel();
-	dataPanel.setLayout(new BorderLayout());
-	topPanel.add(dataPanel, BorderLayout.SOUTH);
+	dataPanel.setBackground(Color.CYAN);
+	this.add(dataPanel, BorderLayout.SOUTH);
+
+	deckText = new JTextField("Enter Deck Name");
+	topPanel.add(deckText, BorderLayout.SOUTH);
 
 	addDeck = new JButton("Add");
-	dataPanel.add(addDeck, BorderLayout.WEST);
+	dataPanel.add(addDeck);
 	addDeck.addActionListener(this);
 
 	removeDeck = new JButton("Remove");
-	dataPanel.add(removeDeck, BorderLayout.EAST);
+	dataPanel.add(removeDeck);
 	removeDeck.addActionListener(this);
 	
-	deckText = new JTextField("Enter Deck Name");
-	dataPanel.add(deckText, BorderLayout.NORTH);
-
 	infoPanel = new JPanel();
-	infoPanel.setLayout(new BorderLayout());
+	infoPanel.setBackground(Color.CYAN);
+
 	topPanel.add(infoPanel, BorderLayout.NORTH);
 
-	currentName = new JLabel("Name");
-	infoPanel.add(currentName, BorderLayout.EAST);
+	currentName = new JLabel("Current Deck: ");
+	infoPanel.add(currentName);
 
-	deckSize = new JLabel("Size");
-	infoPanel.add(deckSize, BorderLayout.WEST);
+	deckSize = new JLabel("Size: ");
+	infoPanel.add(deckSize);
 	
     }
 
@@ -100,7 +100,7 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
 	    String deckName = (String)deckList.getSelectedValue();
 	    if(deckName != null){
 		deckText.setText(deckName);
-		currentName.setText(decks.get(deckList.getSelectedIndex()).getName());
+		currentName.setText("Current Deck: " + decks.get(deckList.getSelectedIndex()).getName() + "            ");
 		deckSize.setText("Size: " + decks.get(deckList.getSelectedIndex()).size());		
 	    }
 	}
@@ -112,13 +112,34 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
 	if(event.getSource() == addDeck){
 	    String deckName = deckText.getText();
 	    deckText.setText("");
-
+	    boolean invalid = false;
+	    
 	    if(deckName != null){
-		this.decks.add(new Deck(deckName));
-		deckNames.addElement(deckName);
-		deckList.setListData(deckNames);
-		deckScroller.revalidate();
-		deckScroller.repaint();	 
+		//Prevents the user from inputting a deck name that is a space or one that already exists		
+		
+		for(int i=0;i<deckNames.size();i++){
+		    if(deckName.equals(deckNames.get(i))){
+			invalid = true;
+			JOptionPane.showMessageDialog(null, "Deck Name Already Exists","Error", JOptionPane.ERROR_MESSAGE);
+			return;
+		    }
+		}
+		
+		if (deckName.trim().length() == 0){
+		    invalid = true;
+		    JOptionPane.showMessageDialog(null, "Deck Name Must Contain A Charater","Error", JOptionPane.ERROR_MESSAGE);
+		    return;
+		}
+		
+		else if(!invalid){
+		    this.decks.add(new Deck(deckName));
+		    deckNames.addElement(deckName);
+		    deckList.setListData(deckNames);
+		    deckList.setSelectedIndex(decks.size()-1);
+		    deckScroller.revalidate();
+		    deckScroller.repaint();
+		       
+		}
 		
 	    }
 	}
@@ -131,12 +152,11 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
 		decks.remove(selection);
 		deckNames.removeElementAt(selection);
 		deckList.setListData(deckNames);
-		deckScroller.revalidate();
-		deckScroller.repaint();
-		
 		if(selection >= deckNames.size())
 		    selection = deckNames.size() - 1;
 		deckList.setSelectedIndex(selection);
+		deckScroller.revalidate();
+		deckScroller.repaint();
 	    }
 	}
     }

@@ -27,18 +27,17 @@ public class Main{
 	} catch (Exception ex) {
 	    ex.printStackTrace();
 	}
-	
-        final NameGame game = new NameGame();
 
-	game.setDeckList(decks);
 	if(decks.size() !=0){
 	    d = decks.get(0);
-	    game.setDeck(d);
+	}
+	else{
+	    d = new Deck("First Deck");
+	    decks.add(d);
 	}
 	
-	else
-	    d = new Deck("");
-	    
+        final NameGame game = new NameGame(decks);
+	
 	if(d.size() > 0) {
 	    if(d.get(0).isPic()) {
 		game.setPic(d.get(0));
@@ -47,6 +46,7 @@ public class Main{
 		game.setPrint(d.get(0),1);
 	    }
 	}
+	
 	game.updateSize(d.size());
 	game.setCardNum();
         game.setTitle("FlashCard App");

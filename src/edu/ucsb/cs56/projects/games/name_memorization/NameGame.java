@@ -13,7 +13,6 @@ import java.awt.BorderLayout;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
-import java.util.Hashtable;
 
   /**
    * Preliminary engine for running a name memorization game
@@ -84,7 +83,7 @@ public class NameGame extends JFrame{
      * No arg constructor for the name game. Initializes everyting in a JFrame
      * (Buttons, pics, etc)
      */
-    public NameGame(){
+    public NameGame(DeckList decks){
 	
 	//Set Frame Layout
 	nameGame = new JPanel();
@@ -130,12 +129,10 @@ public class NameGame extends JFrame{
 	currentCard.setBackground(Color.WHITE);
 	nameGame.add(currentCard, BorderLayout.CENTER);
 	
-
-	//Create a new deck
-	d = new Deck("First Deck");
-	decks = new DeckList();
-	decks.add(d);
-	
+	//decks is set in Main
+	this.decks = decks;
+	d = decks.get(0);
+	if(d.size() == 0) cardText.setText("Deck is Empty!");
 	
 	//West Panel Components
 
@@ -368,7 +365,8 @@ public class NameGame extends JFrame{
 	    nameGame.setVisible(false);
 	    //Creates a new card editor
 
-	    editor = new CardEditor();
+	    Card c = new Card("Enter Text", "Enter Text", false);
+	    editor = new CardEditor(c);
 	    thisFrame.add(editor);
 	    
 	    JButton confirm = new JButton("Confirm");
@@ -376,7 +374,11 @@ public class NameGame extends JFrame{
 	    editor.getBotPanel().add(confirm);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
 	    confirm.addActionListener(confirmListener);
-	    
+
+	    JButton cancel = new JButton("Cancel");
+	    editor.getBotPanel().add(cancel);
+	    cancelButtonListener cancelListener = new cancelButtonListener();
+	    cancel.addActionListener(cancelListener);
 	}
 	
 		// Only adds a card once confirm has been pressed
@@ -403,6 +405,13 @@ public class NameGame extends JFrame{
 			
 		    }
 		}
+	private class cancelButtonListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+		thisFrame.remove(editor);
+		nameGame.setVisible(true);
+	    }
+	}
+	
     }
 
     private class editButtonListener implements ActionListener {
@@ -417,7 +426,7 @@ public class NameGame extends JFrame{
 	    }
 
 	    nameGame.setVisible(false);
-	    editor = new CardEditor();
+	    editor = new CardEditor(d.get(current));
 	    thisFrame.add(editor);
 	    
 	    JButton confirm = new JButton("Confirm");
@@ -425,6 +434,11 @@ public class NameGame extends JFrame{
 	    editor.getBotPanel().add(confirm);
 	    confirmButtonListener confirmListener = new confirmButtonListener();
 	    confirm.addActionListener(confirmListener);
+
+	    JButton cancel = new JButton("Cancel");
+	    editor.getBotPanel().add(cancel);
+	    cancelButtonListener cancelListener = new cancelButtonListener();
+	    cancel.addActionListener(cancelListener);
 	}
 	
 	private class confirmButtonListener implements ActionListener {
@@ -446,6 +460,13 @@ public class NameGame extends JFrame{
 		
 	    }
 
+	}
+
+	private class cancelButtonListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+		thisFrame.remove(editor);
+		nameGame.setVisible(true);
+	    }
 	}
     }
 
@@ -509,8 +530,9 @@ public class NameGame extends JFrame{
     private class selectDeckButtonListener implements ActionListener {
 
 	DeckEditor editor;	
-	JButton selectDeck = new JButton("Select Deck");
-       	
+	JButton selectDeck = new JButton("Select");
+	JButton cancel = new JButton("Cancel");
+	
 	public void actionPerformed(ActionEvent e) {
 
 	    nameGame.setVisible(false);
@@ -518,32 +540,49 @@ public class NameGame extends JFrame{
 	    
 	    thisFrame.add(editor);
 	    
-	    editor.getDataPanel().add(selectDeck, BorderLayout.CENTER);
-	    
-	    selectDeck.addActionListener(new ActionListener() {
-		    
-		    public void actionPerformed(ActionEvent e){
-			JList deckList = editor.getDeckList();
-			int selection = deckList.getSelectedIndex();
+	    editor.getDataPanel().add(selectDeck);
+	    SelectButtonListener selectListener = new SelectButtonListener();
+	    selectDeck.addActionListener(selectListener);
 
-			if(selection >= 0){
-			    setDeck(decks.get(selection));
-			
-			    if(d.size() == 0){
-				cardText.setText("Deck is Empty!");
-				saveNewDeck(decks);
-			    }
-			    else
-				setPrint(d.get(0),1);
-			    
-			    deckName = new JLabel(d.getName());
-
-			    thisFrame.remove(editor);
-			    nameGame.setVisible(true);
-			}		     
-		    }
-		});
+	    editor.getDataPanel().add(cancel);
+	    cancelButtonListener cancelListener = new cancelButtonListener();
+	    cancel.addActionListener(cancelListener);
 	}
+	
+	private class SelectButtonListener implements ActionListener {
+		    
+	    public void actionPerformed(ActionEvent e){
+		JList deckList = editor.getDeckList();
+		int selection = deckList.getSelectedIndex();
+		
+		if(selection >= 0){
+		    setDeck(decks.get(selection));
+		    
+		    if(d.size() == 0){
+			cardText.setText("Deck is Empty!");
+			saveNewDeck(decks);
+		    }
+		    else
+			setPrint(d.get(0),1);
+		}			    
+		
+		thisFrame.remove(editor);
+			
+		deckSize.setText(Integer.toString(d.size()));
+		deckName.setText(d.getName());
+		setCardNum();
+		
+		nameGame.setVisible(true);		
+	    }
+	}
+	
+	private class cancelButtonListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+		thisFrame.remove(editor);
+		nameGame.setVisible(true);
+	    }
+	}
+	
     }
     
     private class nextButtonListener implements ActionListener {
