@@ -30,6 +30,13 @@ Documentation:
 	Deck.java is an arraylist class of Cards (which is defined in Card.java)
 	Main.java initiates the frame.
 	Run by simply calling "ant run" in the root folder.
+
+
+W16 Final Remarks (to help you get started):
+
+Everything is handled in NameGame for the most part. The rest is done in Main. The best thing you can do to understand the code is to understand NameGame. Almost all of the functional code comes from the actionlisteners (which are tied to the editor classes). The rest of it is tied to the gui for the most part. At the time I'm writing this, the back end should have little to no errors. The GUI has a couple of bugs, most of them come from updating the GUI and from using the cancel button. You could probably get some points from updating the README.
+
+
 	
 Screen Shots:
 ##Main screen :
