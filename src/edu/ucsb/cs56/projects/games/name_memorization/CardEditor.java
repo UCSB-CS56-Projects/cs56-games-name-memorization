@@ -38,7 +38,7 @@ public class CardEditor extends JPanel{
     public CardEditor(Card c){
 	//sets path variable to directory of the people pictures
 	path=System.getProperty("user.dir");
-	path=path + "/src/people/";
+	path=path + "/src/edu/ucsb/cs56/projects/games/name_memorization/people/";
 	
 	isPicture = false;
 
