@@ -24,6 +24,7 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
     private Vector deckNames;
     private JButton addDeck;
     private JButton removeDeck;
+    private JButton copyDeck;
     private JButton selectDeck;
     private JScrollPane deckScroller;
     private JTextField deckText;
@@ -79,6 +80,10 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
 	removeDeck = new JButton("Remove");
 	dataPanel.add(removeDeck);
 	removeDeck.addActionListener(this);
+
+	copyDeck = new JButton("Copy");
+	dataPanel.add(copyDeck);
+	copyDeck.addActionListener(this);
 	
 	infoPanel = new JPanel();
 	infoPanel.setBackground(Color.CYAN);
@@ -158,6 +163,21 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
 		deckScroller.revalidate();
 		deckScroller.repaint();
 	    }
+	}
+
+
+	if(event.getSource() == copyDeck){
+	    int selection = deckList.getSelectedIndex();
+	    String deckName = this.decks.get(selection).getName();
+	    if(selection >= 0){
+	        this.decks.add(this.decks.get(selection));
+		deckNames.add(deckName);
+		deckList.setListData(deckNames);
+		deckList.setSelectedIndex(decks.size()-1);
+		deckScroller.revalidate();
+		deckScroller.repaint();
+	    }
+
 	}
     }
     
