@@ -77,41 +77,61 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
      */
     public void CreateDeckEntryPanel(){
         dataPanel = new JPanel();
-	dataPanel.setBackground(Color.CYAN);
+	dataPanel.setBackground(Color.BLUE);
 	this.add(dataPanel, BorderLayout.SOUTH);
 
-	deckText = new JTextField("Enter Deck Name");
-	topPanel.add(deckText, BorderLayout.SOUTH);
+	JPanel embossDeck = new JPanel();
+	embossDeck.setBackground(Color.BLACK);
+	embossDeck.setPreferredSize(new Dimension(100, 100));
+	topPanel.add(embossDeck, BorderLayout.SOUTH);
+
+	deckText = new JTextField("Enter Deck Name: ");
+	deckText.setPreferredSize(new Dimension(780,90));
+	embossDeck.add(deckText, BorderLayout.CENTER);
 
 	addDeck = new JButton("Add");
 	dataPanel.add(addDeck);
 	addDeck.addActionListener(this);
 
+	dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
+
 	removeDeck = new JButton("Remove");
 	dataPanel.add(removeDeck);
 	removeDeck.addActionListener(this);
+
+	dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
 
 	copyDeck = new JButton("Copy");
 	dataPanel.add(copyDeck);
 	copyDeck.addActionListener(this);
 
-  saveDeck = new JButton("Save");
-  dataPanel.add(saveDeck);
-  saveDeck.addActionListener(this);
+	dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
 
-  loadDeck = new JButton("Load");
-  dataPanel.add(loadDeck);
-  loadDeck.addActionListener(this);
+	saveDeck = new JButton("Save");
+	dataPanel.add(saveDeck);
+	saveDeck.addActionListener(this);
+
+	dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
+	
+	loadDeck = new JButton("Load");
+	dataPanel.add(loadDeck);
+	loadDeck.addActionListener(this);
+
+	dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
+
+	
 
 	infoPanel = new JPanel();
-	infoPanel.setBackground(Color.CYAN);
+	infoPanel.setBackground(Color.BLUE);
 
 	topPanel.add(infoPanel, BorderLayout.NORTH);
 
 	currentName = new JLabel("Current Deck: ");
+	currentName.setForeground(Color.WHITE);
 	infoPanel.add(currentName);
 
 	deckSize = new JLabel("Size: ");
+	deckSize.setForeground(Color.WHITE);
 	infoPanel.add(deckSize);
 
     }

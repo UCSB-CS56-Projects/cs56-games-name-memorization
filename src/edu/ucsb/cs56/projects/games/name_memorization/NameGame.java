@@ -100,12 +100,17 @@ public class NameGame extends JFrame{
 	next = new JButton("Next");
 	selectDeck = new JButton("Select Deck");
 	north.add(add);
+	north.add(Box.createRigidArea(new Dimension(20, 20)));
 	north.add(edit);
+	north.add(Box.createRigidArea(new Dimension(20, 20)));
 	north.add(delete);
+	north.add(Box.createRigidArea(new Dimension(20, 20)));
 	north.add(previous);
+	north.add(Box.createRigidArea(new Dimension(20, 20)));
 	north.add(next);
+	north.add(Box.createRigidArea(new Dimension(20, 20)));
 	north.add(selectDeck);
-	north.setBackground(Color.ORANGE);
+	north.setBackground(Color.lightGray);
 	nameGame.add(north,BorderLayout.NORTH);
 	
 	//Initialize South Control Panel
@@ -114,8 +119,9 @@ public class NameGame extends JFrame{
 	toFront = new JButton("Show Front");
 	toBack = new JButton("Show Back");
 	south.add(toFront);
+	south.add(Box.createRigidArea(new Dimension(50, 50)));
 	south.add(toBack);
-	south.setBackground(Color.ORANGE);
+	south.setBackground(Color.lightGray);
 	nameGame.add(south, BorderLayout.SOUTH);
 
 	//Initialize Card Viewer
@@ -153,10 +159,12 @@ public class NameGame extends JFrame{
 	JPanel westSouth = new JPanel();
 	westSouth.setBackground(Color.BLUE);
 	westSouth.setLayout(new BoxLayout(westSouth,BoxLayout.Y_AXIS));
-	correct = new JButton("Correct!");
-	incorrect = new JButton("Incorrect");
+	correct = new JButton("      Correct!      ");
+	incorrect = new JButton("     Incorrect     ");
 	westSouth.add(correct);
+	westSouth.add(Box.createRigidArea(new Dimension(0, 50)));
 	westSouth.add(incorrect);
+	westSouth.add(Box.createRigidArea(new Dimension(0,200)));
 	
 	westCenter.add(scoreLabel);
 	westCenter.add(scoreNum);
@@ -176,9 +184,6 @@ public class NameGame extends JFrame{
 	JPanel east = new JPanel();
 	east.setLayout(new BorderLayout());
 	east.setBackground(Color.BLUE);
-	
-	restart = new JButton("Restart");
-	east.add(restart, BorderLayout.SOUTH);
 
 	sizeLabel = new JLabel("Deck Size :");
 	sizeLabel.setForeground(Color.WHITE);
@@ -193,6 +198,10 @@ public class NameGame extends JFrame{
 	cNum = new JLabel(Integer.toString(current));
 	cNum.setForeground(Color.WHITE);
 	cNum.setFont(new Font("Lucida Grande",Font.PLAIN, 18));
+
+
+       	restart = new JButton(" Restart ");
+	east.add(restart, BorderLayout.SOUTH);
 
 
 	JPanel eastCenter = new JPanel();
@@ -372,6 +381,7 @@ public class NameGame extends JFrame{
 	    JButton confirm = new JButton("Confirm");
 	    confirm.setBounds(260,400,100,30);
 	    editor.getBotPanel().add(confirm);
+	    editor.getBotPanel().add(Box.createRigidArea(new Dimension(40,0)));
 	    confirmButtonListener confirmListener = new confirmButtonListener();
 	    confirm.addActionListener(confirmListener);
 
@@ -432,6 +442,7 @@ public class NameGame extends JFrame{
 	    JButton confirm = new JButton("Confirm");
 	    confirm.setBounds(260,400,100,30);
 	    editor.getBotPanel().add(confirm);
+	    editor.getBotPanel().add(Box.createRigidArea(new Dimension(40,0)));
 	    confirmButtonListener confirmListener = new confirmButtonListener();
 	    confirm.addActionListener(confirmListener);
 
@@ -541,6 +552,7 @@ public class NameGame extends JFrame{
 	    thisFrame.add(editor);
 	    
 	    editor.getDataPanel().add(selectDeck);
+	    editor.getDataPanel().add(Box.createRigidArea(new Dimension(20,0)));
 	    SelectButtonListener selectListener = new SelectButtonListener();
 	    selectDeck.addActionListener(selectListener);
 
