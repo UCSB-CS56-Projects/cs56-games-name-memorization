@@ -35,6 +35,7 @@ public class NameGame extends JFrame{
     private JButton next;
     private JButton previous;
     private JButton selectDeck;
+    private JButton menu;
     
     //Bottom Control Panel
     private JPanel south;
@@ -99,6 +100,7 @@ public class NameGame extends JFrame{
 	previous = new JButton("Previous");
 	next = new JButton("Next");
 	selectDeck = new JButton("Select Deck");
+	menu = new JButton("Main Menu");
 	north.add(add);
 	north.add(Box.createRigidArea(new Dimension(20, 20)));
 	north.add(edit);
@@ -110,6 +112,8 @@ public class NameGame extends JFrame{
 	north.add(next);
 	north.add(Box.createRigidArea(new Dimension(20, 20)));
 	north.add(selectDeck);
+	north.add(Box.createRigidArea(new Dimension(20,20)));
+	north.add(menu);
 	north.setBackground(Color.lightGray);
 	nameGame.add(north,BorderLayout.NORTH);
 	
@@ -250,6 +254,9 @@ public class NameGame extends JFrame{
 	//Initialize SelectDeck Button Listener
 	selectDeckButtonListener selectDeckListener = new selectDeckButtonListener();
 	selectDeck.addActionListener(selectDeckListener);
+
+	menuButtonListener menuListener = new menuButtonListener();
+	menu.addActionListener(menuListener);
 	
 	//Initialize Front Button Listener
 	frontButtonListener frontListener = new frontButtonListener();
@@ -535,6 +542,35 @@ public class NameGame extends JFrame{
 
 	}
     }
+
+    	private class menuButtonListener implements ActionListener {
+
+	Menu menu;
+
+	public void actionPerformed(ActionEvent e) {
+
+	    nameGame.setVisible(false);
+	    menu = new Menu();
+	    thisFrame.add(menu);
+	    
+	    JButton start = new JButton("Start");
+	    start.setBounds(260,400,100,30);
+	    menu.getBotPanel().add(start);
+	    menu.getBotPanel().add(Box.createRigidArea(new Dimension(40,0)));
+	    startButtonListener startListener = new startButtonListener();
+	    start.addActionListener(startListener);
+
+	}
+	
+	private class startButtonListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+		thisFrame.remove(menu);
+		nameGame.setVisible(true);
+		
+	    }
+
+	}
+	}
 
 
     //Creates the GUI that allows the user to selct decks or make a new one

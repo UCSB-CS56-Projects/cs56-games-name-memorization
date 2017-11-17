@@ -3,6 +3,8 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.io.*;
+import java.awt.*;
+
 /**
  *Main function which runs the preliminaries of a name memorization game
  *
@@ -55,7 +57,6 @@ public class Main{
 	game.setLocationRelativeTo(null);
 	game.getContentPane().setBackground(Color.BLUE);
         game.setVisible(true);
-	
 
 	game.addWindowListener(new java.awt.event.WindowAdapter() {
 		@Override 
