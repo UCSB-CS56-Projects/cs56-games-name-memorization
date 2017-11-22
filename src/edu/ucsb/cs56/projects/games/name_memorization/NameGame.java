@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
@@ -39,23 +40,32 @@ public class NameGame extends JFrame{
 
     //Bottom Control Panel
     private JPanel south;
+    private JPanel southQuiz;
     private JButton toFront;
     private JButton toBack;
+    private JButton guess;
+    private JTextField guessText;
 
     //East Control Panel
     private JLabel deckName;
     private JButton restart;
 
     //West Control Panel
+    JPanel west = new JPanel();
+    JPanel westQuiz = new JPanel();
     private JLabel scoreLabel;
     private JLabel scoreNum;
+    private JLabel scoreLabelQuiz;
+    private JLabel scoreNumQuiz;
     private int score;
+    private int scoreQuiz;
 
     private JLabel deckSize;
     private JLabel sizeLabel;
 
     private JButton correct;
     private JButton incorrect;
+    private JButton correctQuiz;
 
     private Image pic;
 
@@ -130,6 +140,17 @@ public class NameGame extends JFrame{
 	south.setBackground(Color.lightGray);
 	nameGame.add(south, BorderLayout.SOUTH);
 
+  // South Quiz Mode
+  southQuiz = new JPanel();
+  southQuiz.setVisible(true);
+  guess = new JButton("Guess!");
+  guessText = new JTextField("Enter Guess Here", 30);
+  southQuiz.add(guessText);
+  southQuiz.add(Box.createRigidArea(new Dimension(10, 50)));
+  southQuiz.add(guess);
+  southQuiz.setBackground(Color.lightGray);
+
+
 	//Initialize Card Viewer
 	currentCard = new JPanel();
 	currentCard.setVisible(true);
@@ -148,7 +169,6 @@ public class NameGame extends JFrame{
 
 	//West Panel Components
 
-	JPanel west = new JPanel();
 	JPanel westCenter = new JPanel();
 	westCenter.setBackground(Color.BLUE);
 	west.setLayout(new BorderLayout());
@@ -184,6 +204,45 @@ public class NameGame extends JFrame{
 	west.add(deckName,BorderLayout.NORTH);
 
 	nameGame.add(west,BorderLayout.WEST);
+
+  //West panel Quiz
+
+  JPanel westCenterQuiz = new JPanel();
+	westCenterQuiz.setBackground(Color.BLUE);
+	westQuiz.setLayout(new BorderLayout());
+	westQuiz.setBackground(Color.BLUE);
+
+	scoreLabelQuiz= new JLabel("Score:");
+	scoreLabelQuiz.setForeground(Color.WHITE);
+	scoreLabelQuiz.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+	scoreNumQuiz = new JLabel(Integer.toString(scoreQuiz));
+	scoreNumQuiz.setForeground(Color.WHITE);
+	scoreNumQuiz.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+	JPanel westSouthQuiz = new JPanel();
+	westSouthQuiz.setBackground(Color.BLUE);
+	westSouthQuiz.setLayout(new BoxLayout(westSouthQuiz,BoxLayout.Y_AXIS));
+	correctQuiz = new JButton("Override Correct");
+  correctQuiz.setVisible(false);
+
+  JLabel space = new JLabel();
+  space= new JLabel("AAAAAAAAAAAA "); //set width of left panel
+	space.setForeground(Color.BLUE);
+	space.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+  westSouthQuiz.add(space);
+  westSouthQuiz.add(correctQuiz);
+
+	westCenterQuiz.add(scoreLabelQuiz);
+	westCenterQuiz.add(scoreNumQuiz);
+
+	westQuiz.add(westCenterQuiz,BorderLayout.CENTER);
+	westQuiz.add(westSouthQuiz,BorderLayout.SOUTH);
+
+	deckName = new JLabel(d.getName());
+	deckName.setForeground(Color.WHITE);
+	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	westQuiz.add(deckName,BorderLayout.NORTH);
 
 	//East Panel
 
@@ -260,7 +319,15 @@ public class NameGame extends JFrame{
 	menuButtonListener menuListener = new menuButtonListener();
 	menu.addActionListener(menuListener);
 
-	//Initialize Front Button Listener
+  //Initialize Override correct Button Listener
+	overcorrectButtonListener overcorrectListener = new overcorrectButtonListener();
+	correctQuiz.addActionListener(overcorrectListener);
+
+  //Initialize Guess Button Listener
+	guessButtonListener guessListener = new guessButtonListener();
+	guess.addActionListener(guessListener);
+
+  //Initialize Front Button Listener
 	frontButtonListener frontListener = new frontButtonListener();
 	toFront.addActionListener(frontListener);
 
@@ -573,19 +640,42 @@ public class NameGame extends JFrame{
 	    menu = new Menu();
 	    thisFrame.add(menu);
 
-	    JButton start = new JButton("Start");
+	    JButton start = new JButton("Normal Mode");
+      JButton quiz = new JButton("Quiz Mode");
 	    start.setBounds(260,400,100,30);
+      quiz.setBounds(260,400,150,30);
 	    menu.getBotPanel().add(start);
+	    menu.getBotPanel().add(Box.createRigidArea(new Dimension(40,0)));
+      menu.getBotPanel().add(quiz);
 	    menu.getBotPanel().add(Box.createRigidArea(new Dimension(40,0)));
 	    startButtonListener startListener = new startButtonListener();
 	    start.addActionListener(startListener);
+      quizButtonListener quizListener = new quizButtonListener();
+	    quiz.addActionListener(quizListener);
 
 	}
 
 	private class startButtonListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
-		thisFrame.remove(menu);
-		nameGame.setVisible(true);
+        nameGame.remove(westQuiz);
+        nameGame.remove(southQuiz);
+        nameGame.add(west,BorderLayout.WEST);
+        nameGame.add(south, BorderLayout.SOUTH);
+        thisFrame.remove(menu);
+    		nameGame.setVisible(true);
+
+	    }
+
+	}
+
+  private class quizButtonListener implements ActionListener {
+	    public void actionPerformed(ActionEvent e) {
+        nameGame.remove(west);
+        nameGame.remove(south);
+        nameGame.add(westQuiz,BorderLayout.WEST);
+        nameGame.add(southQuiz, BorderLayout.SOUTH);
+        thisFrame.remove(menu);
+    		nameGame.setVisible(true);
 
 	    }
 
@@ -655,7 +745,8 @@ public class NameGame extends JFrame{
 
     private class nextButtonListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
-	    if(d.size() == 0) {
+      correctQuiz.setVisible(false);
+      if(d.size() == 0) {
 		return;
 	    }
 	    current++;
@@ -700,6 +791,72 @@ public class NameGame extends JFrame{
 	    cNum.setText(Integer.toString(current+1));
 	}
 
+    }
+
+    private class guessButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+      if(d.size() == 0) {
+        scoreQuiz = 0;
+    		scoreNumQuiz.setText(Integer.toString(scoreQuiz));
+        return;
+      }
+      Card h = (Card) d.get(current);
+      if (h.getSide2().equals(guessText.getText())) {
+        scoreQuiz = scoreQuiz + 1;
+  	    current++;
+  	    if(current == d.size()) {
+  		    current = 0;
+        }
+        h = (Card) d.get(current);
+  	    if(h.isPic()){
+  	    	setPic(h);
+  	    }
+  	    else{
+  	    	setPrint(h,1);
+  	    }
+  	    cNum.setText(Integer.toString(current+1));
+
+
+  	    if(scoreQuiz > d.size()) {
+  		scoreQuiz = d.size();
+  	    }
+  	    scoreNumQuiz.setText(Integer.toString(scoreQuiz));
+      }
+      else {
+        correctQuiz.setVisible(true);
+        setPrint(h,2);
+      }
+
+		}
+    }
+
+    private class overcorrectButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+      if(d.size() == 0) {
+    return;
+      }
+      scoreQuiz = scoreQuiz + 1;
+      current++;
+      if(current == d.size()) {
+    current = 0;
+            }
+
+      Card h = (Card) d.get(current);
+      if(h.isPic()){
+        setPic(h);
+      }
+      else{
+        setPrint(h,1);
+      }
+      cNum.setText(Integer.toString(current+1));
+
+
+      if(scoreQuiz > d.size()) {
+    scoreQuiz = d.size();
+      }
+      scoreNumQuiz.setText(Integer.toString(scoreQuiz));
+      correctQuiz.setVisible(false);
+		}
     }
 
     private class frontButtonListener implements ActionListener {
@@ -800,6 +957,8 @@ public class NameGame extends JFrame{
 	public void actionPerformed(ActionEvent e) {
 	    score = 0;
 	    scoreNum.setText(Integer.toString(score));
+      scoreQuiz = 0;
+	    scoreNumQuiz.setText(Integer.toString(scoreQuiz));
 
 	    if(d.size() == 0) {
 		return;

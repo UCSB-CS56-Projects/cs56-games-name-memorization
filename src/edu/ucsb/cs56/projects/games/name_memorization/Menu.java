@@ -13,15 +13,15 @@ public class Menu extends JPanel{
     private JPanel botPanel;
     private JPanel midPanel;
     private String instructions0, instructions1, instructions2, instructions3, instructions4, instructions5, instructions6, instructions7, instructions8, instructions9, mainInstruction;
-    
+
 
     /**
      * Constructor for Menu
-     * Creates the GUI 
+     * Creates the GUI
      */
     public Menu(){
 	mainInstruction = "Welcome to the name memorization game!";
-	instructions0 = "Press start to launch the game in standard mode.";
+	instructions0 = "Press Normal Mode or Quiz mode to start the game.";
 	instructions1 = "Use the Add button to add cards to the current deck.";
 	instructions2 = "Use the Edit button to edit the current card.";
 	instructions5 = "Use the Delete button to delete the current card.";
