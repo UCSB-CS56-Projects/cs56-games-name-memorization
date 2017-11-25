@@ -5,18 +5,18 @@
        Original Author : Jasper Fredrickson S11
        updated Anthony Hoang and Colin Biafore W14 -->
 
-  <property environment="env"/> <!-- load the environment variables --> 
+  <property environment="env"/> <!-- load the environment variables -->
   <property name="webRoot" value="${env.HOME}/public_html/cs56" />
   <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}/cs56"/>
-  <property name="project" value="cs56-games-name-memorization" /> 
+  <property name="project" value="cs56-games-name-memorization" />
 
-  <property name="javadocDest" value="${webRoot}/${project}/javadoc" /> 
-  <property name="javadocURL" value="${webBaseUrl}/${project}/javadoc" /> 
+  <property name="javadocDest" value="${webRoot}/${project}/javadoc" />
+  <property name="javadocURL" value="${webBaseUrl}/${project}/javadoc" />
   <property name="mainClass" value="edu.ucsb.cs56.projects.games.name_memorization.Main"/>
 
   <path id="project.class.path">
-    <pathelement location="build"/>
-    <pathelement location="lib/junit-4.8.2.jar"/>
+    <pathelement path="build"/>
+    <pathelement path="lib/junit-4.8.2.jar"/>
   </path>
 
 
@@ -31,6 +31,18 @@
     <java classname="${mainClass}" classpath="build" fork="true"/>
   </target>
 
+  <target name="test" depends="compile" description="run JUnit tests">
+    <junit haltonerror="no" haltonfailure="no">
+      <classpath refid="project.class.path"/>
+      <batchtest fork="yes">
+	<fileset dir="src">
+	  <include name="**/*Test.java"/>
+	</fileset>
+      </batchtest>
+      <formatter type="brief" usefile="false" />
+    </junit>
+  </target>
+
   <target name="clean" description="delete unnecessary files and directories">
     <delete dir="build" quiet="true" />
     <delete dir="javadoc" quiet="true"/>
@@ -42,22 +54,21 @@
     <delete dir="javadoc" quiet="true" />
     <javadoc  destdir="javadoc" author="true" version="true" use="true" >
       <fileset dir="src" includes="**/*.java"/>
-      <classpath refid="project.class.path"/>        
+      <classpath refid="project.class.path"/>
     </javadoc>
 
     <delete quiet="true" dir="${javadocDest}" />
-    
+
     <copy todir="${javadocDest}" >
       <fileset dir="javadoc"/>
     </copy>
     <chmod dir="${javadocDest}" perm="755"  type="dir" includes="**" />
     <chmod dir="${javadocDest}" perm="755"  type="file" includes="**/*" />
     <echo>Javadoc deployed to ${javadocURL}</echo>
-    
+
   </target>
 
-   
+
 
 
 </project>
-

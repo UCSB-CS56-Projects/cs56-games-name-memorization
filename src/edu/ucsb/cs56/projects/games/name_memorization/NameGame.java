@@ -164,7 +164,7 @@ public class NameGame extends JFrame{
 
 	//decks is set in Main
 	this.decks = decks;
-	d = decks.get(0);
+	this.d = decks.get(0);
 	if(d.size() == 0) cardText.setText("Deck is Empty!");
 
 	//West Panel Components
@@ -414,7 +414,7 @@ public class NameGame extends JFrame{
      * @return d A deck
      */
     public Deck getDeck() {
-	return d;
+	return this.d;
     }
 
 
