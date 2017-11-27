@@ -31,8 +31,6 @@ public class NameGameTest {
   ng1 = new NameGame(dl1);
     }
 
-    //currently all tests cause errors 
-
     @Test
     public void test_getDeck() {
 	assertEquals(d1, ng1.getDeck());
