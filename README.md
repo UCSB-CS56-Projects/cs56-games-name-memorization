@@ -30,6 +30,17 @@ Documentation:
 	Deck.java is an arraylist class of Cards (which is defined in Card.java)
 	Main.java initiates the frame.
 	Run by simply calling "ant run" in the root folder.
+	
+
+# F17 Final Remarks
+
+Everything in this project currently compiles and runs properly. As of right now, the program is a flash card game similar to Quizlet, but used for memorizing people's names. The point of the program is that you can add someone's picture to one side of the card and their name to the other, and then quiz yourself. There is currently a main mode where you manually quiz yourself, and a quiz mode that automatically checks your answers. 
+
+The code can be somewhat dense, but it is fairly easy to understand. Most of the GUI is handled in NameGame, but some of it is spread throughout the other classes. It might be a good idea to factor out all of the GUI into one central class. We have now added some basic JUnit tests, but not all of the tests pass. This is because of some errors in previously written code. A good first step might be to run the JUnit tests and fix the currently failing issues.
+
+Other than fixing these small bugs and refactoring the GUI, moving forward with the project could go in a few different directions. One main direction we see is switching the GUI from Swing to JavaFX. This would make it look much nicer and be easier to add new animations and features in the future. Another possible route would be to turn it into a web app with shared card decks.
+
+
 
 
 W16 Final Remarks (to help you get started):
