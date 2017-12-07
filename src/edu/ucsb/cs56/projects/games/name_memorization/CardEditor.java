@@ -38,15 +38,15 @@ public class CardEditor extends JPanel{
     public CardEditor(Card c){
 	//sets path variable to directory of the people pictures
 	path=System.getProperty("user.dir");
-	path=path + "/src/people/";
+	path=path + "/src/edu/ucsb/cs56/projects/games/name_memorization/people/";
 	
 	isPicture = false;
 
 	this.setLayout(new BorderLayout());
 	topPanel = new JPanel();
-	topPanel.setBackground(Color.GREEN);
+	topPanel.setBackground(Color.BLUE);
 	prompt1 = new JLabel("Edit Card");
-	prompt1.setForeground(Color.BLACK);
+	prompt1.setForeground(Color.WHITE);
 	prompt1.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
 	//prompt1.setBounds(175,25,250,45);
 	prompt1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -54,20 +54,31 @@ public class CardEditor extends JPanel{
 	this.add(topPanel, BorderLayout.NORTH);
 
 	midPanel = new JPanel();
-	midPanel.setBackground(Color.GREEN);
+	midPanel.setBackground(Color.lightGray);
 	
 	FRONT = new JLabel("FRONT");
 	//FRONT.setBounds(155,80, 200, 19);
 	midPanel.add(FRONT);
 
+	JPanel debossFront = new JPanel();
+	debossFront.setBackground(Color.BLACK);
+	debossFront.setPreferredSize(new Dimension(260, 360));
+	midPanel.add(debossFront, BorderLayout.CENTER);
+	
+
 	front = new JTextArea(c.getSide1());
 	front.setPreferredSize(new Dimension(250,350));
-	midPanel.add(front);
+	debossFront.add(front);
+
+	JPanel debossBack = new JPanel();
+	debossBack.setBackground(Color.BLACK);
+	debossBack.setPreferredSize(new Dimension(260, 360));
+	midPanel.add(debossBack, BorderLayout.CENTER);
 
 	back = new JTextArea(c.getSide2());
 	back.setLineWrap(true);
 	back.setPreferredSize(new Dimension(250,350));
-	midPanel.add(back);
+	debossBack.add(back);
 	this.add(midPanel, BorderLayout.CENTER);
 
 	BACK = new JLabel("BACK");
@@ -75,12 +86,13 @@ public class CardEditor extends JPanel{
 	midPanel.add(BACK);
 	
 	botPanel = new JPanel();
-	botPanel.setBackground(Color.GREEN);
+	botPanel.setBackground(Color.lightGray);
 	uploadButtonListener uploadListener = new uploadButtonListener();
-	upload = new JButton("upload a picture");
+	upload = new JButton("Upload a Picture");
 	//upload.setBounds(110,360 ,150,25);
 	upload.addActionListener(uploadListener);
 	botPanel.add(upload);
+	botPanel.add(Box.createRigidArea(new Dimension(40,0)));
 	this.add(botPanel, BorderLayout.SOUTH);
 
     }
