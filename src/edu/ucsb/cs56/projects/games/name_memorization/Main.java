@@ -12,7 +12,7 @@ import java.awt.*;
  *@author Domenic DiPeppe
  *@version for CS56 W16
  */
-public class Main{
+public class Main {
 
     public static DeckList decks;
     public static void main(String[] args){
@@ -24,7 +24,7 @@ public class Main{
 	    ObjectInputStream os = new ObjectInputStream(fileStream);
 
 	    Object deckList = os.readObject();
-	    decks = (DeckList) deckList ;
+	    decks = (DeckList) deckList;
 	    os.close();
 	} catch (Exception ex) {
 	    ex.printStackTrace();
@@ -72,6 +72,6 @@ public class Main{
 		    }
 		}
 	    });	
-  
+	
     }
 }

@@ -23,7 +23,7 @@ import java.util.*;
    *@version  for CS56, W16
    */
 
-public class NameGame extends JFrame{
+public class NameGame extends JFrame {
 
     //Main JPanel
     private JPanel nameGame;
