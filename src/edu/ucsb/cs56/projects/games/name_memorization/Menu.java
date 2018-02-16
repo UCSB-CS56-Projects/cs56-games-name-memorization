@@ -16,7 +16,7 @@ import java.awt.Dimension;
  */
 public class Menu extends JPanel{
     private JButton start;
-    private JLabel[] instr = new String[10];
+    private JLabel[] instr = new JLabel[10];
     private JPanel botPanel;
     private JPanel midPanel;
     private String[] instructions = new String[10];
