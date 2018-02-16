@@ -4,6 +4,13 @@ import java.awt.Color;
 import javax.swing.JOptionPane;
 import java.io.*;
 import java.awt.*;
+import javafx.application.Application;
+//import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  *Main function which runs the preliminaries of a name memorization game

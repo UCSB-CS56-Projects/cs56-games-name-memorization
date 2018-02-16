@@ -14,6 +14,13 @@ import java.awt.Dimension;
 import javax.swing.*;
 import java.io.*;
 import java.util.*;
+import javafx.application.Application;
+//import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
   /**
    * Preliminary engine for running a name memorization game
@@ -23,7 +30,7 @@ import java.util.*;
    *@version  for CS56, W16
    */
 
-public class NameGame extends JFrame {
+public class NameGame extends JFrame{
 
     //Main JPanel
     private JPanel nameGame;
@@ -106,7 +113,8 @@ public class NameGame extends JFrame {
 	//Initialize North Control Panel
 	north = new JPanel();
 	north.setVisible(true);
-	add = new JButton("Add");
+	add = new Button("Add");
+
 	edit = new JButton("Edit");
 	delete = new JButton("Delete");
 	previous = new JButton("Previous");
