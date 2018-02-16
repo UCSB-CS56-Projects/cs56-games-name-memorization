@@ -37,7 +37,7 @@ public class Menu extends JPanel{
 	midPanel.setBackground(Color.lightGray);
 	botPanel = new JPanel();
 	botPanel.setBackground(Color.lightGray);
-	mainInstr = new JLabel(mainInstruction);
+	JLabel mainInstr = new JLabel(mainInstruction);
 	
 	for (int i = 0; i < 10; i++) {
 	    instr[i] = new JLabel(instructions[i]);
