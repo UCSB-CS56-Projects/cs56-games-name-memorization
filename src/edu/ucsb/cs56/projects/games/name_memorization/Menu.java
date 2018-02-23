@@ -20,6 +20,8 @@ public class Menu extends JPanel{
     private JPanel botPanel;
     private JPanel midPanel;
     private String[] instructions = new String[10];
+    private JLabel mainInstr;
+
 
     /**
      * Constructor for Menu
