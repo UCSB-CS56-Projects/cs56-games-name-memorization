@@ -19,6 +19,7 @@ public class Menu extends JPanel{
     private JLabel[] instr = new JLabel[10];
     private JPanel botPanel;
     private JPanel midPanel;
+    private JLabel mainInstr;
     private String[] instructions = new String[10];
 
     /**

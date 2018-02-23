@@ -37,7 +37,7 @@ public class NameGame extends JFrame{
 
     //Top Control Panel
     private JPanel north;
-    private JButton add;
+    private Button add;
     private JButton edit;
     private JButton delete;
     private JButton next;
@@ -88,7 +88,7 @@ public class NameGame extends JFrame{
     //Deck viewer
     private JPanel DeckEditor;
 
-    private JFrame thisFrame = this;
+    private Stage thisFrame = this;
 
     private JLabel picture;
 
@@ -111,8 +111,8 @@ public class NameGame extends JFrame{
 	nameGame.setLayout(new BorderLayout());
 	score=0;
 	//Initialize North Control Panel
-	north = new JPanel();
-	north.setVisible(true);
+	north = new Scene(thisFrame);
+	//north.setVisible(true);
 	add = new Button("Add");
 
 	edit = new JButton("Edit");
