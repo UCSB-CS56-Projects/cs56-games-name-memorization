@@ -16,9 +16,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
@@ -33,8 +38,8 @@ import javafx.geometry.Insets;
 
 public class newNameGame extends Application {
 
-    //Main grid
-    private GridPane grid;
+    //Main pane
+    private BorderPane pane;
 
     //Top Control Panel
     private Button add;
@@ -51,11 +56,11 @@ public class newNameGame extends Application {
     private Button guess;
     private TextField guessText;
 
-    /*
     //East Control Panel
-    private JLabel deckName;
-    private JButton restart;
+    private Label deckName;
+    private Button restart;
 
+    /*
     //West Control Panel
     JPanel west = new JPanel();
     JPanel westQuiz = new JPanel();
@@ -64,11 +69,12 @@ public class newNameGame extends Application {
     private JLabel scoreLabelQuiz;
     private JLabel scoreNumQuiz;
     private int score = 0;
-    private int scoreQuiz;
+    private int scoreQuiz;*/
 
-    private JLabel deckSize;
-    private JLabel sizeLabel;
+    private Label deckSize;
+    private Label sizeLabel;
 
+    /*
     private JButton correct;
     private JButton incorrect;
     private JButton correctQuiz;
@@ -83,17 +89,17 @@ public class newNameGame extends Application {
     private JPanel currentCard;
     private JTextArea cardText;
     private int current;
-    private Deck d;
+    private Deck d;*/
 
     //Deck viewer
-    private JPanel DeckEditor;
+    //private JPanel DeckEditor;
 
     //Label for Card Number:
-    private JLabel cardNum;
+    private Label cardNum;
     //UI Card Index
-    private JLabel cNum;
+    private Label cNum;
 
-    private static JDialog myStart;*/
+    //private static JDialog myStart;
 
     public static void main(String[] args) {
 	launch(args);
@@ -110,77 +116,40 @@ public class newNameGame extends Application {
     public void start(Stage primaryStage) {
 	primaryStage.setTitle("JavaFX attempt");
 	
-	//Setup grid
-	grid = new GridPane();
-	grid.setAlignment(Pos.CENTER);
-	grid.setHgap(10);
-	grid.setVgap(10);
-	grid.setPadding(new Insets(25, 25, 25, 25));
-	grid.getColumnConstraints().add(new ColumnConstraints(100));
-	grid.getColumnConstraints().add(new ColumnConstraints(100));
+	//Setup pane
+	pane = new BorderPane();
 
-	Scene scene = new Scene(grid, 800, 600, Color.BEIGE);
+	Scene scene = new Scene(pane, 800, 600);
 	primaryStage.setScene(scene);
 	
 	//Initialize North Control Panel
+	HBox northBox = new HBox(10);
+	pane.setTop(northBox);
+	northBox.setPadding(new Insets(10, 10, 10, 10));
+	northBox.setAlignment(Pos.CENTER);
+	northBox.setStyle("-fx-background-color: #112233;");
+	
 	add = new Button("Add");
-	HBox hbAdd = new HBox(10);
-	hbAdd.setAlignment(Pos.CENTER);
-	hbAdd.getChildren().add(add);
-	grid.add(hbAdd, 0, 0);
-	
 	edit = new Button("Edit");
-	HBox hbEdit = new HBox(10);
-	hbEdit.setAlignment(Pos.CENTER);
-	hbEdit.getChildren().add(edit);
-	grid.add(hbEdit, 1, 0);
-	
 	delete = new Button("Delete");
-	HBox hbDelete = new HBox(10);
-	hbDelete.setAlignment(Pos.CENTER);
-	hbDelete.getChildren().add(delete);
-	grid.add(hbDelete, 2, 0);
-	
 	previous = new Button("Previous");
-	HBox hbPrevious = new HBox(10);
-	hbPrevious.setAlignment(Pos.CENTER);
-	hbPrevious.getChildren().add(previous);
-	grid.add(hbPrevious, 3, 0);
-
 	next = new Button("Next");
-	HBox hbNext = new HBox(10);
-	hbNext.setAlignment(Pos.CENTER);
-	hbNext.getChildren().add(next);
-	grid.add(hbNext, 4, 0);
-	
 	selectDeck = new Button("Select Deck");
-	HBox hbSelect = new HBox(10);
-	hbSelect.setAlignment(Pos.CENTER);
-	hbSelect.getChildren().add(selectDeck);
-	grid.add(hbSelect, 5, 0);
-	
 	menu = new Button("Main Menu");
-	HBox hbMenu = new HBox(10);
-	hbMenu.setAlignment(Pos.CENTER);
-	hbMenu.getChildren().add(menu);
-	grid.add(hbMenu, 6, 0);
-	
-        
-	/*north.setBackground(Color.lightGray);
-	  nameGame.add(north,BorderLayout.NORTH);*/
+
+	northBox.getChildren().addAll(add, edit, delete, previous, next, selectDeck, menu);
 
 	//Initialize South Control Panel
-	toFront = new Button("Show Front");
-	HBox hbFront = new HBox(10);
-	hbFront.setAlignment(Pos.CENTER);
-	hbFront.getChildren().add(toFront);
-	grid.add(hbFront, 1, 8);
+	HBox southBox = new HBox(10);
+	pane.setBottom(southBox);
+	southBox.setPadding(new Insets(10, 10, 10, 10));
+	southBox.setAlignment(Pos.CENTER);
+	southBox.setStyle("-fx-background-color: #112233;");
 	
+	toFront = new Button("Show Front");
 	toBack = new Button("Show Back");
-        HBox hbBack = new HBox(10);
-	hbBack.setAlignment(Pos.CENTER);
-	hbBack.getChildren().add(toBack);
-	grid.add(hbBack, 2, 8);
+
+	southBox.getChildren().addAll(toFront, toBack);
 	
 	/*
 	// South Quiz Mode
@@ -283,31 +252,32 @@ public class newNameGame extends Application {
 	deckName = new JLabel(d.getName());
 	deckName.setForeground(Color.WHITE);
 	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	westQuiz.add(deckName,BorderLayout.NORTH);
+	westQuiz.add(deckName,BorderLayout.NORTH);*/
 		
 	//East Panel
-	JPanel east = new JPanel();
-	east.setLayout(new BorderLayout());
-	east.setBackground(Color.BLUE);
+	VBox eastBox = new VBox(10);
+	pane.setRight(eastBox);
+	eastBox.setPadding(new Insets(10, 10, 10, 10));
+	eastBox.setAlignment(Pos.CENTER);
+	eastBox.setStyle("-fx-background-color: #336699;");
 	
-	sizeLabel = new JLabel("Deck Size :");
-	sizeLabel.setForeground(Color.WHITE);
-	sizeLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	deckSize = new JLabel( Integer.toString(d.size()));
-	deckSize.setForeground(Color.WHITE);
-	deckSize.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		
-	cardNum = new JLabel("Card Number:");
-	cardNum.setForeground(Color.WHITE);
-	cardNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	cNum = new JLabel(Integer.toString(current));
-	cNum.setForeground(Color.WHITE);
-	cNum.setFont(new Font("Lucida Grande",Font.PLAIN, 18));
-		
-	restart = new JButton(" Restart ");
-	east.add(restart, BorderLayout.SOUTH);
+	sizeLabel = new Label("Deck Size:");
+	sizeLabel.setFont(new Font("Lucida Grande", 18));
 	
-	JPanel eastCenter = new JPanel();
+	deckSize = new Label("deckSize" /*Integer.toString(d.size())*/);
+	deckSize.setFont(new Font("Lucida Grande", 18));
+		
+	cardNum = new Label("Card Number:");
+	cardNum.setFont(new Font("Lucida Grande", 18));
+	
+	cNum = new Label("cNum" /*Integer.toString(current)*/);
+	cNum.setFont(new Font("Lucida Grande", 18));
+		
+	restart = new Button("Restart");
+
+	eastBox.getChildren().addAll(sizeLabel, deckSize, cardNum, cNum, restart);
+	
+	/*JPanel eastCenter = new JPanel();
 	eastCenter.setBackground(Color.BLUE);
 	eastCenter.add(cardNum);
 	eastCenter.add(cNum);
@@ -319,8 +289,9 @@ public class newNameGame extends Application {
 	
 	east.add(eastCenter,BorderLayout.CENTER);
 	east.add(top,BorderLayout.NORTH);
-	nameGame.add(east,BorderLayout.EAST);
-	
+	nameGame.add(east,BorderLayout.EAST);*/
+
+	/*
 	//BUTTON LISTENERS -- Uncommented = implemented and functioning!!
 	//Currently you can add as many cards as you want,
 	//Go to the next or previous card in the deck,
