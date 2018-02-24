@@ -1,4 +1,5 @@
-package edu.ucsb.cs56.projects.games.name_memorization;
+//package edu.ucsb.cs56.projects.games.name_memorization;
+
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -133,11 +134,36 @@ public class newNameGame extends Application {
 	hbEdit.getChildren().add(edit);
 	grid.add(hbEdit, 2, 4);
 	
-	/*delete = new Button("Delete");
+	delete = new Button("Delete");
+	HBox hbDelete = new HBox(10);
+	hbDelete.setAlignment(Pos.BOTTOM_RIGHT);
+	hbDelete.getChildren().add(delete);
+	grid.add(hbDelete, 3, 4);
+	
 	previous = new Button("Previous");
+	HBox hbPrevious = new HBox(10);
+	hbPrevious.setAlignment(Pos.BOTTOM_RIGHT);
+	hbPrevious.getChildren().add(previous);
+	grid.add(hbPrevious, 4, 4);
+
 	next = new Button("Next");
+	HBox hbNext = new HBox(10);
+	hbNext.setAlignment(Pos.BOTTOM_RIGHT);
+	hbNext.getChildren().add(next);
+	grid.add(hbNext, 1, 5);
+	
 	selectDeck = new Button("Select Deck");
-	menu = new Button("Main Menu");*/
+	HBox hbSelect = new HBox(10);
+	hbSelect.setAlignment(Pos.BOTTOM_RIGHT);
+	hbSelect.getChildren().add(selectDeck);
+	grid.add(hbSelect, 2, 5);
+	
+	menu = new Button("Main Menu");
+	HBox hbMenu = new HBox(10);
+	hbMenu.setAlignment(Pos.BOTTOM_RIGHT);
+	hbMenu.getChildren().add(menu);
+	grid.add(hbMenu, 3, 5);
+	
         
 	/*north.setBackground(Color.lightGray);
 	  nameGame.add(north,BorderLayout.NORTH);*/
