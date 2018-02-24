@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
+//import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
@@ -11,8 +11,16 @@ import java.awt.Dimension;
 import java.io.*;
 import java.util.*;
 import javafx.application.Application;
-import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+    
   /**
    * Preliminary engine for running a name memorization game
    *
@@ -21,27 +29,27 @@ import javafx.scene.Scene;
    *@version  for CS56, W16
    */
 
-public class NameGame extends Application{
+public class newNameGame extends Application {
 
-    //Main JPanel
-    //private StackPane nameGame;
+    //Main grid
+    private GridPane grid;
 
     //Top Control Panel
-    private JPanel north;
     private Button add;
-    private JButton edit;
-    private JButton delete;
-    private JButton next;
-    private JButton previous;
-    private JButton selectDeck;
-    private JButton menu;
+    private Button edit;
+    private Button delete;
+    private Button next;
+    private Button previous;
+    private Button selectDeck;
+    private Button menu;
 
+    /*
     //Bottom Control Panel
     private JPanel south;
     private JPanel southQuiz;
-    private JButton toFront;
-    private JButton toBack;
-    private JButton guess;
+    private Button toFront;
+    private Button toBack;
+    private Button guess;
     private JTextField guessText;
 
     //East Control Panel
@@ -55,7 +63,7 @@ public class NameGame extends Application{
     private JLabel scoreNum;
     private JLabel scoreLabelQuiz;
     private JLabel scoreNumQuiz;
-    private int score;
+    private int score = 0;
     private int scoreQuiz;
 
     private JLabel deckSize;
@@ -85,50 +93,56 @@ public class NameGame extends Application{
     //UI Card Index
     private JLabel cNum;
 
-    private static JDialog myStart;
+    private static JDialog myStart;*/
+
+    public static void main(String[] args) {
+	launch(args);
+    }
 
     /**
-     * No arg constructor for the name game. Initializes everyting in a JFrame
-     * (Buttons, pics, etc)
+     * No arg constructor for the name game
      */
-    public NameGame(DeckList decks) {
+    public newNameGame(/*DeckList decks*/) {
 
     }
     
     @Override 
     public void start(Stage primaryStage) {
-	//Set Frame Layout
-	StackPane nameGame = new StackPane();
-	//this.add(nameGame);
-	nameGame.setLayout(new BorderLayout());
-	score=0;
+	primaryStage.setTitle("JavaFX attempt");
+	
+	//Setup grid
+	grid = new GridPane();
+	grid.setAlignment(Pos.CENTER);
+	grid.setHgap(10);
+	grid.setVgap(10);
+	grid.setPadding(new Insets(25, 25, 25, 25));
+
+	Scene scene = new Scene(grid, 300, 275);
+	primaryStage.setScene(scene);
+	
 	//Initialize North Control Panel
-	north = new Scene(thisFrame);
-	//north.setVisible(true);
 	add = new Button("Add");
+	HBox hbAdd = new HBox(10);
+	hbAdd.setAlignment(Pos.BOTTOM_RIGHT);
+	hbAdd.getChildren().add(add);
+	grid.add(hbAdd, 1, 4);
 	
-	edit = new JButton("Edit");
-	delete = new JButton("Delete");
-	previous = new JButton("Previous");
-	next = new JButton("Next");
-	selectDeck = new JButton("Select Deck");
-	menu = new JButton("Main Menu");
-	north.add(add);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(edit);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(delete);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(previous);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(next);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(selectDeck);
-	north.add(Box.createRigidArea(new Dimension(20,20)));
-	north.add(menu);
-	north.setBackground(Color.lightGray);
-	nameGame.add(north,BorderLayout.NORTH);
+	edit = new Button("Edit");
+	HBox hbEdit = new HBox(10);
+	hbEdit.setAlignment(Pos.BOTTOM_RIGHT);
+	hbEdit.getChildren().add(edit);
+	grid.add(hbEdit, 2, 4);
 	
+	/*delete = new Button("Delete");
+	previous = new Button("Previous");
+	next = new Button("Next");
+	selectDeck = new Button("Select Deck");
+	menu = new Button("Main Menu");*/
+        
+	/*north.setBackground(Color.lightGray);
+	  nameGame.add(north,BorderLayout.NORTH);*/
+
+	/*
 	//Initialize South Control Panel
 	south = new JPanel();
 	south.setVisible(true);
@@ -352,5 +366,10 @@ public class NameGame extends Application{
 	myStart.add(b);
 	myStart.add(b);
 	myStart.setSize(500,130);
-	myStart.setVisible(true);
+	myStart.setVisible(true);*/
+	
+	primaryStage.show();
+
+    }
+    
 }
