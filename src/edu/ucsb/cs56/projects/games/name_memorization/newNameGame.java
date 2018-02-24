@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
@@ -44,15 +45,13 @@ public class newNameGame extends Application {
     private Button selectDeck;
     private Button menu;
 
-    /*
     //Bottom Control Panel
-    private JPanel south;
-    private JPanel southQuiz;
     private Button toFront;
     private Button toBack;
     private Button guess;
-    private JTextField guessText;
+    private TextField guessText;
 
+    /*
     //East Control Panel
     private JLabel deckName;
     private JButton restart;
@@ -117,69 +116,73 @@ public class newNameGame extends Application {
 	grid.setHgap(10);
 	grid.setVgap(10);
 	grid.setPadding(new Insets(25, 25, 25, 25));
+	grid.getColumnConstraints().add(new ColumnConstraints(100));
+	grid.getColumnConstraints().add(new ColumnConstraints(100));
 
-	Scene scene = new Scene(grid, 300, 275);
+	Scene scene = new Scene(grid, 800, 600, Color.BEIGE);
 	primaryStage.setScene(scene);
 	
 	//Initialize North Control Panel
 	add = new Button("Add");
 	HBox hbAdd = new HBox(10);
-	hbAdd.setAlignment(Pos.BOTTOM_RIGHT);
+	hbAdd.setAlignment(Pos.CENTER);
 	hbAdd.getChildren().add(add);
-	grid.add(hbAdd, 1, 4);
+	grid.add(hbAdd, 0, 0);
 	
 	edit = new Button("Edit");
 	HBox hbEdit = new HBox(10);
-	hbEdit.setAlignment(Pos.BOTTOM_RIGHT);
+	hbEdit.setAlignment(Pos.CENTER);
 	hbEdit.getChildren().add(edit);
-	grid.add(hbEdit, 2, 4);
+	grid.add(hbEdit, 1, 0);
 	
 	delete = new Button("Delete");
 	HBox hbDelete = new HBox(10);
-	hbDelete.setAlignment(Pos.BOTTOM_RIGHT);
+	hbDelete.setAlignment(Pos.CENTER);
 	hbDelete.getChildren().add(delete);
-	grid.add(hbDelete, 3, 4);
+	grid.add(hbDelete, 2, 0);
 	
 	previous = new Button("Previous");
 	HBox hbPrevious = new HBox(10);
-	hbPrevious.setAlignment(Pos.BOTTOM_RIGHT);
+	hbPrevious.setAlignment(Pos.CENTER);
 	hbPrevious.getChildren().add(previous);
-	grid.add(hbPrevious, 4, 4);
+	grid.add(hbPrevious, 3, 0);
 
 	next = new Button("Next");
 	HBox hbNext = new HBox(10);
-	hbNext.setAlignment(Pos.BOTTOM_RIGHT);
+	hbNext.setAlignment(Pos.CENTER);
 	hbNext.getChildren().add(next);
-	grid.add(hbNext, 1, 5);
+	grid.add(hbNext, 4, 0);
 	
 	selectDeck = new Button("Select Deck");
 	HBox hbSelect = new HBox(10);
-	hbSelect.setAlignment(Pos.BOTTOM_RIGHT);
+	hbSelect.setAlignment(Pos.CENTER);
 	hbSelect.getChildren().add(selectDeck);
-	grid.add(hbSelect, 2, 5);
+	grid.add(hbSelect, 5, 0);
 	
 	menu = new Button("Main Menu");
 	HBox hbMenu = new HBox(10);
-	hbMenu.setAlignment(Pos.BOTTOM_RIGHT);
+	hbMenu.setAlignment(Pos.CENTER);
 	hbMenu.getChildren().add(menu);
-	grid.add(hbMenu, 3, 5);
+	grid.add(hbMenu, 6, 0);
 	
         
 	/*north.setBackground(Color.lightGray);
 	  nameGame.add(north,BorderLayout.NORTH);*/
 
-	/*
 	//Initialize South Control Panel
-	south = new JPanel();
-	south.setVisible(true);
-	toFront = new JButton("Show Front");
-	toBack = new JButton("Show Back");
-	south.add(toFront);
-	south.add(Box.createRigidArea(new Dimension(50, 50)));
-	south.add(toBack);
-	south.setBackground(Color.lightGray);
-	nameGame.add(south, BorderLayout.SOUTH);
+	toFront = new Button("Show Front");
+	HBox hbFront = new HBox(10);
+	hbFront.setAlignment(Pos.CENTER);
+	hbFront.getChildren().add(toFront);
+	grid.add(hbFront, 1, 8);
 	
+	toBack = new Button("Show Back");
+        HBox hbBack = new HBox(10);
+	hbBack.setAlignment(Pos.CENTER);
+	hbBack.getChildren().add(toBack);
+	grid.add(hbBack, 2, 8);
+	
+	/*
 	// South Quiz Mode
 	southQuiz = new JPanel();
 	southQuiz.setVisible(true);
