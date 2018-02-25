@@ -15,6 +15,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -61,8 +62,7 @@ public class Main extends Application {
     private Button restart;
 
     //West Control Panel
-    Panel west = new Panel();
-    Panel westQuiz = new Panel();
+    private BorderPane westQuiz = new BorderPane();
     private Label scoreLabel;
     private Label scoreNum;
     private Label scoreLabelQuiz;
@@ -77,7 +77,6 @@ public class Main extends Application {
     private Button incorrect;
     private Button correctQuiz;
 
-    /*
     private Label picture;
     private Image pic;
 
@@ -85,10 +84,10 @@ public class Main extends Application {
     private DeckList decks;
 
     //Current Card Viewer
-    private JPanel currentCard;
-    private JTextArea cardText;
+    //private JPanel currentCard;
+    private TextArea cardText;
     private int current;
-    private Deck d;*/
+    private Deck d;
 
     //Deck viewer
     //private JPanel DeckEditor;
@@ -98,7 +97,7 @@ public class Main extends Application {
     //UI Card Index
     private Label cNum;
 
-    //private static JDialog myStart;
+    private static Alert myStart;
 
     public static void main(String[] args) {
 	launch(args);
@@ -200,45 +199,32 @@ public class Main extends Application {
 	westBox.setTop(westNorth);
 	westBox.setCenter(westCenter);
 	
-	
-	/*	
 	//West panel Quiz
-	JPanel westCenterQuiz = new JPanel();
-	westCenterQuiz.setBackground(Color.BLUE);
-	westQuiz.setLayout(new BorderLayout());
-	westQuiz.setBackground(Color.BLUE);
+	westQuiz.setStyle("-fx-background-color: #117799;");
+
+	VBox westCenterQuiz = new VBox();
+	westQuiz.setCenter(westCenterQuiz);
+	westCenterQuiz.setPadding(new Insets(10, 10, 10, 10));
+	westCenterQuiz.setAlignment(Pos.CENTER);
 	
-	scoreLabelQuiz= new JLabel("Score:");
-	scoreLabelQuiz.setForeground(Color.WHITE);
-	scoreLabelQuiz.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	scoreLabelQuiz = new Label("Score: " + Integer.toString(scoreQuiz));
+	scoreLabelQuiz.setFont(new Font("Lucida Grande", 18));
 	
-	scoreNumQuiz = new JLabel(Integer.toString(scoreQuiz));
-	scoreNumQuiz.setForeground(Color.WHITE);
-	scoreNumQuiz.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+	westCenterQuiz.getChildren().addAll(scoreLabelQuiz);
 		
-	JPanel westSouthQuiz = new JPanel();
-	westSouthQuiz.setBackground(Color.BLUE);
-	westSouthQuiz.setLayout(new BoxLayout(westSouthQuiz,BoxLayout.Y_AXIS));
-	correctQuiz = new JButton("Override Correct");
+	VBox westSouthQuiz = new VBox();
+	westQuiz.setBottom(westSouthQuiz);
+	westSouthQuiz.setPadding(new Insets(10, 10, 10, 10));
+	westSouthQuiz.setAlignment(Pos.CENTER);
+	
+	correctQuiz = new Button("Override Correct");
 	correctQuiz.setVisible(false);
+        
+	westSouthQuiz.getChildren().addAll(correctQuiz);
 		
-	JLabel space = new JLabel();
-	space= new JLabel("AAAAAAAAAAAA "); //set width of left panel
-	space.setForeground(Color.BLUE);
-	space.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	westSouthQuiz.add(space);
-	westSouthQuiz.add(correctQuiz);
-		
-	westCenterQuiz.add(scoreLabelQuiz);
-	westCenterQuiz.add(scoreNumQuiz);
-	
-	westQuiz.add(westCenterQuiz,BorderLayout.CENTER);
-	westQuiz.add(westSouthQuiz,BorderLayout.SOUTH);
-		
-	deckName = new JLabel(d.getName());
-	deckName.setForeground(Color.WHITE);
-	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	westQuiz.add(deckName,BorderLayout.NORTH);*/
+	deckName = new Label("DECK NAME"); //d.getName()
+	deckName.setFont(new Font("Lucida Grande", 18));
+	westQuiz.setTop(deckName);
 		
 	//East Panel
 	VBox eastBox = new VBox(10);
@@ -336,26 +322,619 @@ public class Main extends Application {
 	restart.addActionListener(restartListener);
 	
 	this.pack();
-	
-	myStart = new JDialog(thisFrame , "Welcome", true);
-	myStart.setLayout( new FlowLayout() );
-	JButton b = new JButton ("OK");
-	b.addActionListener ( new ActionListener()
-	    {
-		public void actionPerformed( ActionEvent e )
-		{
-		    NameGame.myStart.setVisible(false);
-		}
-	    });
-	myStart.add( new JLabel ("Welcome to the Name Memorization Game."));
-	myStart.add( new JLabel ("For instructions and mode changing click Main Menu in the game."));
-	myStart.add(b);
-	myStart.add(b);
-	myStart.setSize(500,130);
-	myStart.setVisible(true);*/
+
+	myStart = new Alert(AlertType.CONFIRMATION);
+	myStart.setTitle("Welcome");
+	myStart.setHeaderText("Welcome to the Name Memorization Game.");
+	myStart.setContentText("For instructions and mode changing click Main Menu in the game.");
+
+	myStart.showAndWait();*/
 	
 	primaryStage.show();
 
     }
+
+
+
+
+
+
+
     
+//     /**
+//      * This method will be called with next/previous button if card has a pic
+//      *
+//      * @param c A card
+//      */
+//     public void setPic(Card c) {
+//     	cardText.setVisible(false);
+//     	currentCard.remove(picture);
+// 	picture = c.getPic();
+// 	picture.setVisible(true);
+// 	currentCard.add(picture, BorderLayout.CENTER);
+// 	thisFrame.getContentPane().validate();
+// 	thisFrame.getContentPane().repaint();
+//     }
+
+//     /**
+//      * This method will be called with next/previous if card is text
+//      *
+//      * @param c A card
+//      * @param side the side of the card
+//      */
+//     public void setPrint(Card c, int side) {
+//     	picture.setVisible(false);
+// 	cardText.setVisible(true);
+// 	currentCard.remove(picture);
+// 	if(side == 1) {
+// 	    cardText.setText(c.getSide1());
+// 	} else if(side == 2) {
+// 	    cardText.setText(c.getSide2());
+// 	}
+
+//     }
+
+//     /**
+//      * Sets the current deck
+//      *
+//      * @param d A deck
+//      */
+//     public void setDeck(Deck d) {
+// 	this.d = d;
+//     }
+
+//     /**
+//      * Returns a deck
+//      *
+//      * @return d A deck
+//      */
+//     public Deck getDeck() {
+// 	return this.d;
+//     }
+
+//     /**
+//      * Sets the current DeckList
+//      * @param decks A DeckList
+//      */
+//     public void setDeckList(DeckList decks) {
+// 	this.decks = decks;
+//     }
+
+//     /**
+//      * Returns the current deckList
+//      * @return decks a DeckList
+//      */
+//     public DeckList getDeckList() {
+// 	return decks;
+//     }
+
+//     /**
+//      * Updates the size of the deck to be the value specified
+//      *
+//      * @param decksize The new size of the deck
+//      */
+//     public void updateSize(int deckSize) {
+// 	this.deckSize.setText(Integer.toString(deckSize));
+//     }
+
+//     /**
+//      * Sets the index of the current card
+//      */
+//     public void setCardNum() {
+// 	if (d.size() < 1) {
+// 	    this.cNum.setText("0");
+// 	} else {
+// 	    this.cNum.setText("1");
+// 	}
+//     }
+
+
+//     /**
+//      * addButtonListener, Brings up a window to add a card
+//      */
+//     private class addButtonListener implements ActionListener {
+
+// 	CardEditor editor;
+
+//         public void actionPerformed(ActionEvent event) {
+// 	    nameGame.setVisible(false);
+	    
+// 	    //Creates a new card editor
+// 	    Card c = new Card("Enter Text", "Enter Text", false);
+// 	    editor = new CardEditor(c);
+// 	    thisFrame.add(editor);
+
+// 	    JButton confirm = new JButton("Confirm");
+// 	    confirm.setBounds(260, 400, 100, 30);
+// 	    editor.getBotPanel().add(confirm);
+// 	    editor.getBotPanel().add(Box.createRigidArea(new Dimension(40, 0)));
+// 	    confirmButtonListener confirmListener = new confirmButtonListener();
+// 	    confirm.addActionListener(confirmListener);
+
+// 	    JButton cancel = new JButton("Cancel");
+// 	    editor.getBotPanel().add(cancel);
+// 	    cancelButtonListener cancelListener = new cancelButtonListener();
+// 	    cancel.addActionListener(cancelListener);
+// 	}
+
+// 	// Only adds a card once confirm has been pressed
+// 	private class confirmButtonListener implements ActionListener {
+// 	    public void actionPerformed(ActionEvent e) {
+// 		String side1 = editor.getFrontText();
+// 		String side2 = editor.getBackText();
+
+// 		d.addCard(side1, side2, editor.isPic());
+// 		current = d.size() - 1;
+// 		Card h = (Card)d.get(current);
+// 		if (h.isPic()) {
+// 		    setPic(h);
+// 		} else {
+// 		    setPrint(h, 1);
+// 		}
+// 		next.setEnabled(true);
+// 		previous.setEnabled(true);
+// 		deckSize.setText(Integer.toString(d.size()));
+// 		cNum.setText(Integer.toString(current + 1));
+// 		thisFrame.remove(editor);
+// 		nameGame.setVisible(true);
+// 	    }
+// 	}
+	
+// 	private class cancelButtonListener implements ActionListener {
+// 	    public void actionPerformed(ActionEvent e) {
+// 		thisFrame.remove(editor);
+// 		nameGame.setVisible(true);
+// 	    }
+// 	}	
+//     }
+
+//     private class editButtonListener implements ActionListener {
+
+// 	CardEditor editor;
+
+// 	public void actionPerformed(ActionEvent e) {
+
+// 	    if (d.size() == 0) {
+// 		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
+// 		return;
+// 	    }
+
+// 	    nameGame.setVisible(false);
+// 	    editor = new CardEditor(d.get(current));
+// 	    thisFrame.add(editor);
+
+// 	    JButton confirm = new JButton("Confirm");
+// 	    confirm.setBounds(260, 400, 100, 30);
+// 	    editor.getBotPanel().add(confirm);
+// 	    editor.getBotPanel().add(Box.createRigidArea(new Dimension(40, 0)));
+// 	    confirmButtonListener confirmListener = new confirmButtonListener();
+// 	    confirm.addActionListener(confirmListener);
+
+// 	    JButton cancel = new JButton("Cancel");
+// 	    editor.getBotPanel().add(cancel);
+// 	    cancelButtonListener cancelListener = new cancelButtonListener();
+// 	    cancel.addActionListener(cancelListener);
+// 	}
+
+// 	private class confirmButtonListener implements ActionListener {
+// 	    public void actionPerformed(ActionEvent e) {
+// 		String side1 = editor.getFrontText();
+// 		String side2 = editor.getBackText();
+// 		Card h = (Card) d.get(current);
+		
+// 		d.editCard(h, side1, side2);
+// 		if(h.isPic()){
+// 		    setPic(h);
+// 		} else {
+// 		    setPrint(h, 1);
+// 		}
+// 		thisFrame.remove(editor);
+// 		nameGame.setVisible(true);
+// 	    }
+// 	}
+
+// 	private class cancelButtonListener implements ActionListener {
+// 	    public void actionPerformed(ActionEvent e) {
+// 		thisFrame.remove(editor);
+// 		nameGame.setVisible(true);
+// 	    }
+// 	}
+//     }
+
+//     private class deleteButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    if (d.size() == 0) {
+// 		JOptionPane.showMessageDialog(null, "Deck is currently empty","Error", JOptionPane.ERROR_MESSAGE);
+// 		return;
+// 	    }
+// 	    if (d.size() == 1) {
+// 		d.remove(0);
+// 		currentCard.removeAll();
+// 		cardText.setText("Deck is Empty!");
+// 		currentCard.add(cardText);
+// 		thisFrame.getContentPane().validate();
+// 		thisFrame.getContentPane().repaint();
+
+// 		current = 0;
+// 	    }
+// 	    if (d.size() > 1) {
+// 		if (current == 0) {
+// 		    Card h = (Card) d.get(current+1);
+
+// 		    if (h.isPic()) {
+// 		    	setPic(h);
+// 		    } else {
+// 		    	setPrint(h,1);
+// 		    }
+// 		    d.remove(current);
+// 		} else {
+// 		    d.remove(current);
+// 		    current--;
+// 		    Card h = (Card) d.get(current);
+
+// 		    if(h.isPic()){
+// 		    	setPic(h);
+// 		    }
+// 		    else{
+// 		    	setPrint(h,1);
+// 		    }
+// 		}
+// 	    }
+
+// 	    if (d.size() == 0) {
+// 		cNum.setText("0");
+// 	    } else {
+// 		cNum.setText(Integer.toString(current + 1));
+// 	    }
+
+// 	    deckSize.setText(Integer.toString(d.size()));
+// 	}
+//     }
+
+//     private class menuButtonListener implements ActionListener {
+	
+// 	Menu menu;
+	
+// 	public void actionPerformed(ActionEvent e) {
+// 	    nameGame.setVisible(false);
+// 	    menu = new Menu();
+// 	    thisFrame.add(menu);
+	    
+// 	    JButton start = new JButton("Normal Mode");
+// 	    JButton quiz = new JButton("Quiz Mode");
+// 	    start.setBounds(260,400,100,30);
+// 	    quiz.setBounds(260,400,150,30);
+// 	    menu.getBotPanel().add(start);
+// 	    menu.getBotPanel().add(Box.createRigidArea(new Dimension(40,0)));
+// 	    menu.getBotPanel().add(quiz);
+// 	    menu.getBotPanel().add(Box.createRigidArea(new Dimension(40,0)));
+// 	    startButtonListener startListener = new startButtonListener();
+// 	    start.addActionListener(startListener);
+// 	    quizButtonListener quizListener = new quizButtonListener();
+// 	    quiz.addActionListener(quizListener);
+// 	}
+	
+// 	private class startButtonListener implements ActionListener {
+// 	    public void actionPerformed(ActionEvent e) {
+// 		nameGame.remove(westQuiz);
+// 		nameGame.remove(southQuiz);
+// 		nameGame.add(west,BorderLayout.WEST);
+// 		nameGame.add(south, BorderLayout.SOUTH);
+// 		thisFrame.remove(menu);
+//     		nameGame.setVisible(true);
+// 	    }
+// 	}
+
+// 	private class quizButtonListener implements ActionListener {
+// 	    public void actionPerformed(ActionEvent e) {
+// 		nameGame.remove(west);
+// 		nameGame.remove(south);
+// 		nameGame.add(westQuiz,BorderLayout.WEST);
+// 		nameGame.add(southQuiz, BorderLayout.SOUTH);
+// 		thisFrame.remove(menu);
+// 		nameGame.setVisible(true);
+// 	    }
+// 	}
+//     }
+    
+    
+//     //Creates the GUI that allows the user to selct decks or make a new one
+//     private class selectDeckButtonListener implements ActionListener {
+	
+// 	DeckEditor editor;
+// 	JButton selectDeck = new JButton("Select");
+// 	JButton cancel = new JButton("Cancel");
+	
+// 	public void actionPerformed(ActionEvent e) {
+// 	    nameGame.setVisible(false);
+// 	    editor = new DeckEditor(decks);
+
+// 	    thisFrame.add(editor);
+
+// 	    editor.getDataPanel().add(selectDeck);
+// 	    editor.getDataPanel().add(Box.createRigidArea(new Dimension(20, 0)));
+// 	    SelectButtonListener selectListener = new SelectButtonListener();
+// 	    selectDeck.addActionListener(selectListener);
+
+// 	    editor.getDataPanel().add(cancel);
+// 	    cancelButtonListener cancelListener = new cancelButtonListener();
+// 	    cancel.addActionListener(cancelListener);
+// 	}
+
+// 	private class SelectButtonListener implements ActionListener {
+// 	    public void actionPerformed(ActionEvent e) {
+// 		JList deckList = editor.getDeckList();
+// 		int selection = deckList.getSelectedIndex();
+
+// 		if (selection >= 0) {
+// 		    setDeck(decks.get(selection));
+
+// 		    if (d.size() == 0) {
+// 			cardText.setText("Deck is Empty!");
+// 			saveNewDeck(decks);
+// 		    } else {
+// 			setPrint(d.get(0),1);
+// 		    }
+// 		}
+
+// 		thisFrame.remove(editor);
+
+// 		deckSize.setText(Integer.toString(d.size()));
+// 		deckName.setText(d.getName());
+// 		setCardNum();
+
+// 		nameGame.setVisible(true);
+// 	    }
+// 	}
+
+// 	private class cancelButtonListener implements ActionListener {
+// 	    public void actionPerformed(ActionEvent e) {
+// 		thisFrame.remove(editor);
+// 		nameGame.setVisible(true);
+// 	    }
+// 	}
+	
+//     }
+    
+//     private class nextButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    correctQuiz.setVisible(false);
+// 	    if (d.size() == 0) {
+// 		return;
+// 	    }
+// 	    current++;
+// 	    if (current == d.size()) {
+// 		current = 0;
+//             }
+
+// 	    Card h = (Card)d.get(current);
+// 	    if(h.isPic()){
+// 	    	setPic(h);
+// 	    } else {
+// 	    	setPrint(h, 1);
+// 	    }
+// 	    cNum.setText(Integer.toString(current + 1));
+// 	}
+//     }
+
+
+//     private class previousButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    if (d.size() == 0) {
+// 		return;
+// 	    }
+// 	    current--;
+
+// 	    if (current == -1) {
+// 		current = d.size() - 1;
+// 	    }
+
+// 	    Card h = (Card)d.get(current);
+
+// 	    if(h.isPic()){
+// 	    	setPic(h);
+// 	    } else {
+// 	    	setPrint(h, 1);
+// 	    }
+// 	    cNum.setText(Integer.toString(current + 1));
+// 	}
+//     }
+
+//     private class guessButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    if (d.size() == 0) {
+// 		scoreQuiz = 0;
+//     		scoreNumQuiz.setText(Integer.toString(scoreQuiz));
+// 		return;
+// 	    }
+// 	    Card h = (Card)d.get(current);
+// 	    if (h.getSide2().equals(guessText.getText())) {
+// 		scoreQuiz = scoreQuiz + 1;
+// 		current++;
+// 		if(current == d.size()) {
+//   		    current = 0;
+// 		}
+// 		h = (Card) d.get(current);
+// 		if(h.isPic()){
+// 		    setPic(h);
+// 		} else {
+// 		    setPrint(h, 1);
+// 		}
+// 		cNum.setText(Integer.toString(current + 1));
+	        
+// 		if (scoreQuiz > d.size()) {
+// 		    scoreQuiz = d.size();
+// 		}
+// 		scoreNumQuiz.setText(Integer.toString(scoreQuiz));
+// 	    } else {
+// 		correctQuiz.setVisible(true);
+// 		setPrint(h, 2);
+// 	    }
+// 	}
+//     }
+
+//     private class overcorrectButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    if (d.size() == 0) {
+// 		return;
+// 	    }
+// 	    scoreQuiz = scoreQuiz + 1;
+// 	    current++;
+// 	    if (current == d.size()) {
+// 		current = 0;
+//             }
+	    
+// 	    Card h = (Card)d.get(current);
+// 	    if (h.isPic()) {
+// 		setPic(h);
+// 	    } else {
+// 		setPrint(h, 1);
+// 	    }
+// 	    cNum.setText(Integer.toString(current + 1));
+	    
+// 	    if (scoreQuiz > d.size()) {
+// 		scoreQuiz = d.size();
+// 	    }
+// 	    scoreNumQuiz.setText(Integer.toString(scoreQuiz));
+// 	    correctQuiz.setVisible(false);
+// 	}
+//     }
+
+//     private class frontButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    if (d.size() == 0) {
+// 		return;
+// 	    }
+// 	    Card h = (Card)d.get(current);
+// 	    if (h.isPic()) {
+// 		setPic(h);
+// 	    } else {
+// 		setPrint(h, 1);
+// 	    }
+
+// 	}
+//     }
+
+//     private class backButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    if (d.size() == 0) {
+// 		return;
+// 	    }
+// 	    Card h = (Card)d.get(current);
+// 	    setPrint(h, 2);
+// 	}
+//     }
+
+//     private class correctButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    score++;
+// 	    if (d.size() == 0) {
+// 		score = 0;
+// 		scoreNum.setText(Integer.toString(score));
+// 		return;
+// 	    }
+// 	    current++;
+// 	    if (current == d.size()) {
+// 		current = 0;
+//             }
+
+// 	    Card h = (Card)d.get(current);
+// 	    if (h.isPic()) {
+// 	    	setPic(h);
+// 	    } else {
+// 	    	setPrint(h,1);
+// 	    }
+// 	    cNum.setText(Integer.toString(current + 1));
+
+// 	    if (score > d.size()) {
+// 		score = d.size();
+// 	    }
+// 	    scoreNum.setText(Integer.toString(score));
+// 	}
+//     }
+
+//     private class incorrectButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    score--;
+// 	    if (d.size() == 0) {
+// 		score = 0;
+// 		scoreNum.setText(Integer.toString(score));
+// 		return;
+// 	    }
+// 	    current++;
+// 	    if (current == d.size()) {
+// 		current = 0;
+//             }
+
+// 	    Card h = (Card)d.get(current);
+// 	    if (h.isPic()) {
+// 	    	setPic(h);
+// 	    } else {
+// 	    	setPrint(h, 1);
+// 	    }
+// 	    cNum.setText(Integer.toString(current + 1));
+
+// 	    if (score < 0) {
+// 		score = 0;
+// 	    }
+// 	    scoreNum.setText(Integer.toString(score));
+// 	}
+//     }
+
+//     private class restartButtonListener implements ActionListener {
+// 	public void actionPerformed(ActionEvent e) {
+// 	    score = 0;
+// 	    scoreNum.setText(Integer.toString(score));
+// 	    scoreQuiz = 0;
+// 	    scoreNumQuiz.setText(Integer.toString(scoreQuiz));
+
+// 	    if (d.size() == 0) {
+// 		return;
+// 	    }
+
+// 	    Card h = (Card) d.get(0);
+// 	    if(h.isPic()) {
+// 	    	setPic(h);
+// 	    } else {
+// 	    	setPrint(h, 1);
+// 	    }
+
+// 	    current = 0;
+// 	    cNum.setText(Integer.toString(current + 1));
+// 	}
+//     }
+
+//     //Loads the Saved DeckList into the game
+//     private static DeckList LoadDecks(DeckList decks) {
+// 	try {
+// 	    FileInputStream fileIn = new FileInputStream("Deck.ser");
+// 	    ObjectInputStream in = new ObjectInputStream(fileIn);
+// 	    decks = (DeckList)in.readObject();
+// 	    in.close();
+// 	    fileIn.close();
+// 	} catch(ClassNotFoundException e) {
+// 	    e.printStackTrace();
+// 	} catch(FileNotFoundException e) {
+// 	    e.printStackTrace();
+// 	} catch(IOException e) {
+// 	    e.printStackTrace();
+// 	}
+// 	return decks;
+//     }
+
+//     //Saves new decks
+//     private void saveNewDeck(DeckList decks) {
+// 	try {
+// 	    FileOutputStream fileOut = new FileOutputStream("Deck.ser");
+// 	    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+// 	    out.writeObject(decks);
+// 	    out.close();
+// 	    fileOut.close();
+// 	} catch(FileNotFoundException e) {
+// 	    e.printStackTrace();
+// 	} catch(IOException e) {
+// 	    e.printStackTrace();
+// 	}
+//     }
+
 }
