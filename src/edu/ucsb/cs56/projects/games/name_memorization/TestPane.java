@@ -20,13 +20,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 /**
  * A class that creates the GUI that allows the user to edit cards
  */
-public class CardEditor extends BorderPane {
+public class TestPane extends BorderPane {
 	private TextArea front;
 	private TextArea back;
 	private Button upload;
@@ -50,7 +51,7 @@ public class CardEditor extends BorderPane {
 	 * Constructor for CardEditor
 	 * Creates the GUI in which the user can edit cards
 	 */
-	public CardEditor(Card c) {
+	public TestPane(/*Card c*/) {
 		//sets path variable to directory of the people pictures
 		path = System.getProperty("user.dir");
 		path = path + "/src/edu/ucsb/cs56/projects/games/name_memorization/people/";
@@ -58,12 +59,13 @@ public class CardEditor extends BorderPane {
 		isPicture = false;
 
 		topPanel = new HBox();
-		topPanel.setStyle("-fx-background-color: #993366;");
+		topPanel.setPadding(new Insets(10, 10, 10, 10));
+		setTop(topPanel);
+		topPanel.setStyle("-fx-background-color: #888888;");
 		topPanel.setAlignment(Pos.CENTER);
 		prompt1 = new Label("Edit Card");
 		prompt1.setFont(new Font("Lucida Grande", 18));
-		topPanel.getChildren().add(prompt1);
-		setTop(topPanel);
+		topPanel.getChildren().addAll(prompt1);
 
 		midPanel = new BorderPane();
 		midPanel.setStyle("-fx-background-color: #336699;");
@@ -71,16 +73,17 @@ public class CardEditor extends BorderPane {
 		FRONT = new Label("FRONT");
 		midPanel.getChildren().add(FRONT);
 
-		front = new TextArea("CARD SIDE 1"/*c.getSide1()*/);
+		front = new TextArea("CARD SIDE 1");//c.getSide1()
 		front.setWrapText(true);
-		front.setPrefColumnCount(250);
-		front.setPrefRowCount(350);
+		front.setPrefColumnCount(25);
+		front.setPrefRowCount(35);
 		midPanel.setLeft(front);
 		
-		back = new TextArea("CARD SIDE 2"/*c.getSide2()*/);
+		
+		back = new TextArea("CARD SIDE 2"); //c.getSide2()
 		back.setWrapText(true);
-		back.setPrefColumnCount(250);
-		back.setPrefRowCount(350);
+		back.setPrefColumnCount(25);
+		back.setPrefRowCount(35);
 		midPanel.setRight(back);
 
 		BACK = new Label("BACK");
@@ -89,6 +92,7 @@ public class CardEditor extends BorderPane {
 		setCenter(midPanel);
 		
 		botPanel = new HBox();
+		botPanel.setPadding(new Insets(10, 10, 10, 10));
 		//UploadButtonListener uploadListener = new UploadButtonListener();
 		upload = new Button("Upload a Picture");
 		//upload.setBounds(110,360 ,150,25);
@@ -96,6 +100,19 @@ public class CardEditor extends BorderPane {
 		botPanel.getChildren().add(upload);
 		setBottom(botPanel);
 
+		
+
+		
+	    EventHandler<ActionEvent> uploadHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+	    	public void handle(ActionEvent event) {
+	    		FileChooser fileChooser = new FileChooser();
+	    		fileChooser.setTitle("Open Resource File");
+	    		fileChooser.showOpenDialog(Main.mainStage);
+	    	}
+	    };
+
+	    upload.setOnAction(uploadHandler);
 	}
 
 	/*//method to resize the uploaded images to fit the screen.
