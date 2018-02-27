@@ -171,8 +171,10 @@ public class Main extends Application {
 
 		//decks is set in Main
 		this.decks = decks;
-		this.d = decks.get(0);
-		if (d.size() == 0) cardText.setText("Deck is Empty!");
+		if (decks.size() == 0) {
+			this.d = decks.get(0);
+			if (d.size() == 0) cardText.setText("Deck is Empty!");
+		}
 
 		//West Panel Components
 		BorderPane westBox = new BorderPane();

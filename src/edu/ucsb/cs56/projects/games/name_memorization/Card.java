@@ -111,7 +111,7 @@ public class Card extends BorderPane implements Serializable {
 
     /**
      * Gets the picture from the front side of the card
-     * @return frontPic a JLabel that is a picture
+     * @return a Label that is a picture
      */
     public Label getPic(){
         //try {//getPic is only called if isPic is true, so side1 would contain picture path
