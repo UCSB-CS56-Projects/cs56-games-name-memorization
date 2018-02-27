@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -56,7 +57,7 @@ public class Main extends Application {
 	private Button toFront;
 	private Button toBack;
 	private Button guess;
-	private TextField guessText;
+	private TextArea guessText;
 
 	//East Control Panel
 	private Label deckName;
@@ -150,9 +151,9 @@ public class Main extends Application {
 		southQuiz = new HBox();
 		southQuiz.setVisible(true);
 		guess = new Button("Guess!");
-		guessText = new TextField("Enter Guess Here", 30);
+		guessText = new TextArea("Enter Guess Here");
 		southQuiz.getChildren().add(guessText);
-		southQuiz.getChildren().add(Box.createRigidArea(new Dimension(10, 50)));
+		//southQuiz.getChildren().add(Box.createRigidArea(new Dimension(10, 50)));
 		southQuiz.getChildren().add(guess);
 		//southQuiz.setBackground(Color.lightGray);
 
