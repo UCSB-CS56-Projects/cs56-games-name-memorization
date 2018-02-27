@@ -124,6 +124,7 @@ public class CardEditor extends BorderPane {
 						Image image = new Image(selectedFile.toURI().toString());
 						ImageView iv = new ImageView(image);
 						midPanel.setCenter(iv);
+						//frontPic = iv;
 					} catch (IOException ex) {
 						System.out.println("Trouble reading from the file: " + ex.getMessage());
 					}

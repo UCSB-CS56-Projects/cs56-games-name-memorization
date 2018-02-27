@@ -145,33 +145,32 @@ public class Main extends Application {
 
 		southBox.getChildren().addAll(toFront, toBack);
 
-		/*
-	// South Quiz Mode
-	southQuiz = new JPanel();
-	southQuiz.setVisible(true);
-	guess = new JButton("Guess!");
-	guessText = new JTextField("Enter Guess Here", 30);
-	southQuiz.add(guessText);
-	southQuiz.add(Box.createRigidArea(new Dimension(10, 50)));
-	southQuiz.add(guess);
-	southQuiz.setBackground(Color.lightGray);
+		// South Quiz Mode
+		southQuiz = new HBox();
+		southQuiz.setVisible(true);
+		guess = new Button("Guess!");
+		guessText = new TextField("Enter Guess Here", 30);
+		southQuiz.getChildren().add(guessText);
+		southQuiz.getChildren().add(Box.createRigidArea(new Dimension(10, 50)));
+		southQuiz.getChildren().add(guess);
+		//southQuiz.setBackground(Color.lightGray);
 
 
-	//Initialize Card Viewer
-	currentCard = new JPanel();
-	currentCard.setVisible(true);
-	cardText = new JTextArea();
-	Font cardFont = new Font("Verdana",Font.BOLD,24);
-	cardText.setFont(cardFont);
-	cardText.setEditable(false);
-	currentCard.add(cardText);
-	currentCard.setBackground(Color.WHITE);
-	nameGame.add(currentCard, BorderLayout.CENTER);
+		//Initialize Card Viewer
+		currentCard = new HBox();
+		pane.setCenter(currentCard);
+		currentCard.setVisible(true);
+		cardText = new TextArea();
+		Font cardFont = new Font("Verdana", 24);
+		cardText.setFont(cardFont);
+		cardText.setEditable(false);
+		currentCard.getChildren().add(cardText);
+		//currentCard.setBackground(Color.WHITE);
 
-	//decks is set in Main
-	this.decks = decks;
-	this.d = decks.get(0);
-	if(d.size() == 0) cardText.setText("Deck is Empty!"); */
+		//decks is set in Main
+		this.decks = decks;
+		this.d = decks.get(0);
+		if (d.size() == 0) cardText.setText("Deck is Empty!");
 
 		//West Panel Components
 		BorderPane westBox = new BorderPane();
@@ -282,7 +281,7 @@ public class Main extends Application {
 
 	east.add(eastCenter,BorderLayout.CENTER);
 	east.add(top,BorderLayout.NORTH);
-	nameGame.add(east,BorderLayout.EAST);*/
+	pane.add(east,BorderLayout.EAST);*/
 
 		/*
 	//BUTTON LISTENERS -- Uncommented = implemented and functioning!!
@@ -458,7 +457,7 @@ public class Main extends Application {
     	CardEditor editor;
 
     	public void actionPerformed(ActionEvent event) {
-    		nameGame.setVisible(false);
+    		pane.setVisible(false);
 
     		//Creates a new card editor
     		Card c = new Card("Enter Text", "Enter Text", false);
@@ -496,14 +495,14 @@ public class Main extends Application {
     			deckSize.setText(Integer.toString(d.size()));
     			cNum.setText(Integer.toString(current + 1));
     			thisFrame.remove(editor);
-    			nameGame.setVisible(true);
+    			pane.setVisible(true);
     		}
     	}
 
     	private class cancelButtonListener implements ActionListener {
     		public void actionPerformed(ActionEvent e) {
     			thisFrame.remove(editor);
-    			nameGame.setVisible(true);
+    			pane.setVisible(true);
     		}
     	}
     }*/
@@ -519,7 +518,7 @@ public class Main extends Application {
 	// 		return;
 	// 	    }
 
-	// 	    nameGame.setVisible(false);
+	// 	    pane.setVisible(false);
 	// 	    editor = new CardEditor(d.get(current));
 	// 	    thisFrame.add(editor);
 
@@ -549,14 +548,14 @@ public class Main extends Application {
 	// 		    setPrint(h, 1);
 	// 		}
 	// 		thisFrame.remove(editor);
-	// 		nameGame.setVisible(true);
+	// 		pane.setVisible(true);
 	// 	    }
 	// 	}
 
 	// 	private class cancelButtonListener implements ActionListener {
 	// 	    public void actionPerformed(ActionEvent e) {
 	// 		thisFrame.remove(editor);
-	// 		nameGame.setVisible(true);
+	// 		pane.setVisible(true);
 	// 	    }
 	// 	}
 	//     }
@@ -616,7 +615,7 @@ public class Main extends Application {
 	// 	Menu menu;
 
 	// 	public void actionPerformed(ActionEvent e) {
-	// 	    nameGame.setVisible(false);
+	// 	    pane.setVisible(false);
 	// 	    menu = new Menu();
 	// 	    thisFrame.add(menu);
 
@@ -636,23 +635,23 @@ public class Main extends Application {
 
 	// 	private class startButtonListener implements ActionListener {
 	// 	    public void actionPerformed(ActionEvent e) {
-	// 		nameGame.remove(westQuiz);
-	// 		nameGame.remove(southQuiz);
-	// 		nameGame.add(west,BorderLayout.WEST);
-	// 		nameGame.add(south, BorderLayout.SOUTH);
+	// 		pane.remove(westQuiz);
+	// 		pane.remove(southQuiz);
+	// 		pane.add(west,BorderLayout.WEST);
+	// 		pane.add(south, BorderLayout.SOUTH);
 	// 		thisFrame.remove(menu);
-	//     		nameGame.setVisible(true);
+	//     		pane.setVisible(true);
 	// 	    }
 	// 	}
 
 	// 	private class quizButtonListener implements ActionListener {
 	// 	    public void actionPerformed(ActionEvent e) {
-	// 		nameGame.remove(west);
-	// 		nameGame.remove(south);
-	// 		nameGame.add(westQuiz,BorderLayout.WEST);
-	// 		nameGame.add(southQuiz, BorderLayout.SOUTH);
+	// 		pane.remove(west);
+	// 		pane.remove(south);
+	// 		pane.add(westQuiz,BorderLayout.WEST);
+	// 		pane.add(southQuiz, BorderLayout.SOUTH);
 	// 		thisFrame.remove(menu);
-	// 		nameGame.setVisible(true);
+	// 		pane.setVisible(true);
 	// 	    }
 	// 	}
 	//     }
@@ -666,7 +665,7 @@ public class Main extends Application {
 	// 	JButton cancel = new JButton("Cancel");
 
 	// 	public void actionPerformed(ActionEvent e) {
-	// 	    nameGame.setVisible(false);
+	// 	    pane.setVisible(false);
 	// 	    editor = new DeckEditor(decks);
 
 	// 	    thisFrame.add(editor);
@@ -703,14 +702,14 @@ public class Main extends Application {
 	// 		deckName.setText(d.getName());
 	// 		setCardNum();
 
-	// 		nameGame.setVisible(true);
+	// 		pane.setVisible(true);
 	// 	    }
 	// 	}
 
 	// 	private class cancelButtonListener implements ActionListener {
 	// 	    public void actionPerformed(ActionEvent e) {
 	// 		thisFrame.remove(editor);
-	// 		nameGame.setVisible(true);
+	// 		pane.setVisible(true);
 	// 	    }
 	// 	}
 

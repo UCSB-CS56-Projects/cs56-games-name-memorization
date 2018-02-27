@@ -23,49 +23,49 @@ import java.util.*;
    *@version  for CS56, W16
    */
 
-public class NameGame extends JFrame{
+public class NameGame extends JFrame {
 
     //Main JPanel
     private JPanel nameGame;
 
     //Top Control Panel
     private JPanel north;
-    private JButton add;
-    private JButton edit;
-    private JButton delete;
-    private JButton next;
-    private JButton previous;
-    private JButton selectDeck;
-    private JButton menu;
+    private Button add;
+    private Button edit;
+    private Button delete;
+    private Button next;
+    private Button previous;
+    private Button selectDeck;
+    private Button menu;
 
     //Bottom Control Panel
     private JPanel south;
     private JPanel southQuiz;
-    private JButton toFront;
-    private JButton toBack;
-    private JButton guess;
-    private JTextField guessText;
+    private Button toFront;
+    private Button toBack;
+    private Button guess;
+    private TextField guessText;
 
     //East Control Panel
-    private JLabel deckName;
-    private JButton restart;
+    private Label deckName;
+    private Button restart;
 
     //West Control Panel
-    JPanel west = new JPanel();
-    JPanel westQuiz = new JPanel();
-    private JLabel scoreLabel;
-    private JLabel scoreNum;
-    private JLabel scoreLabelQuiz;
-    private JLabel scoreNumQuiz;
+    Panel west = new Panel();
+    Panel westQuiz = new Panel();
+    private Label scoreLabel;
+    private Label scoreNum;
+    private Label scoreLabelQuiz;
+    private Label scoreNumQuiz;
     private int score;
     private int scoreQuiz;
 
-    private JLabel deckSize;
-    private JLabel sizeLabel;
+    private Label deckSize;
+    private Label sizeLabel;
 
-    private JButton correct;
-    private JButton incorrect;
-    private JButton correctQuiz;
+    private Button correct;
+    private Button incorrect;
+    private Button correctQuiz;
 
     private Image pic;
 
@@ -73,8 +73,8 @@ public class NameGame extends JFrame{
     private DeckList decks;
 
     //Current Card Viewer
-    private JPanel currentCard;
-    private JTextArea cardText;
+    private BorderPane currentCard;
+    private TextArea cardText;
     private int current;
     private Deck d;
 
@@ -83,12 +83,12 @@ public class NameGame extends JFrame{
 
     private JFrame thisFrame = this;
 
-    private JLabel picture;
+    private ImageView picture;
 
     //Label for Card Number:
-    private JLabel cardNum;
+    private Label cardNum;
     //UI Card Index
-    private JLabel cNum;
+    private Label cNum;
 
     private static JDialog myStart;
 
@@ -98,270 +98,267 @@ public class NameGame extends JFrame{
      */
     public NameGame(DeckList decks){
 
-	//Set Frame Layout
-	nameGame = new JPanel();
-	this.add(nameGame);
-	nameGame.setLayout(new BorderLayout());
-	score=0;
-	//Initialize North Control Panel
-	north = new JPanel();
-	north.setVisible(true);
-	add = new JButton("Add");
-	edit = new JButton("Edit");
-	delete = new JButton("Delete");
-	previous = new JButton("Previous");
-	next = new JButton("Next");
-	selectDeck = new JButton("Select Deck");
-	menu = new JButton("Main Menu");
-	north.add(add);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(edit);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(delete);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(previous);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(next);
-	north.add(Box.createRigidArea(new Dimension(20, 20)));
-	north.add(selectDeck);
-	north.add(Box.createRigidArea(new Dimension(20,20)));
-	north.add(menu);
-	north.setBackground(Color.lightGray);
-	nameGame.add(north,BorderLayout.NORTH);
+		//Set Frame Layout
+		nameGame = new BorderPane();
+		this.add(nameGame);
+		score = 0;
+		//Initialize North Control Panel
+		north = new JPanel();
+		north.setVisible(true);
+		add = new JButton("Add");
+		edit = new JButton("Edit");
+		delete = new JButton("Delete");
+		previous = new JButton("Previous");
+		next = new JButton("Next");
+		selectDeck = new JButton("Select Deck");
+		menu = new JButton("Main Menu");
+		north.add(add);
+		north.add(Box.createRigidArea(new Dimension(20, 20)));
+		north.add(edit);
+		north.add(Box.createRigidArea(new Dimension(20, 20)));
+		north.add(delete);
+		north.add(Box.createRigidArea(new Dimension(20, 20)));
+		north.add(previous);
+		north.add(Box.createRigidArea(new Dimension(20, 20)));
+		north.add(next);
+		north.add(Box.createRigidArea(new Dimension(20, 20)));
+		north.add(selectDeck);
+		north.add(Box.createRigidArea(new Dimension(20,20)));
+		north.add(menu);
+		north.setBackground(Color.lightGray);
+		nameGame.add(north,BorderLayout.NORTH);
 
-	//Initialize South Control Panel
-	south = new JPanel();
-	south.setVisible(true);
-	toFront = new JButton("Show Front");
-	toBack = new JButton("Show Back");
-	south.add(toFront);
-	south.add(Box.createRigidArea(new Dimension(50, 50)));
-	south.add(toBack);
-	south.setBackground(Color.lightGray);
-	nameGame.add(south, BorderLayout.SOUTH);
+		//Initialize South Control Panel
+		south = new JPanel();
+		south.setVisible(true);
+		toFront = new JButton("Show Front");
+		toBack = new JButton("Show Back");
+		south.add(toFront);
+		south.add(Box.createRigidArea(new Dimension(50, 50)));
+		south.add(toBack);
+		south.setBackground(Color.lightGray);
+		nameGame.add(south, BorderLayout.SOUTH);
 
-  // South Quiz Mode
-  southQuiz = new JPanel();
-  southQuiz.setVisible(true);
-  guess = new JButton("Guess!");
-  guessText = new JTextField("Enter Guess Here", 30);
-  southQuiz.add(guessText);
-  southQuiz.add(Box.createRigidArea(new Dimension(10, 50)));
-  southQuiz.add(guess);
-  southQuiz.setBackground(Color.lightGray);
-
-
-	//Initialize Card Viewer
-	currentCard = new JPanel();
-	currentCard.setVisible(true);
-	cardText = new JTextArea();
-	Font cardFont = new Font("Verdana",Font.BOLD,24);
-	cardText.setFont(cardFont);
-	cardText.setEditable(false);
-	currentCard.add(cardText);
-	currentCard.setBackground(Color.WHITE);
-	nameGame.add(currentCard, BorderLayout.CENTER);
-
-	//decks is set in Main
-	this.decks = decks;
-	this.d = decks.get(0);
-	if(d.size() == 0) cardText.setText("Deck is Empty!");
-
-	//West Panel Components
-
-	JPanel westCenter = new JPanel();
-	westCenter.setBackground(Color.BLUE);
-	west.setLayout(new BorderLayout());
-	west.setBackground(Color.BLUE);
-
-	scoreLabel= new JLabel("Score:");
-	scoreLabel.setForeground(Color.WHITE);
-	scoreLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-
-	scoreNum = new JLabel(Integer.toString(score));
-	scoreNum.setForeground(Color.WHITE);
-	scoreNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-
-	JPanel westSouth = new JPanel();
-	westSouth.setBackground(Color.BLUE);
-	westSouth.setLayout(new BoxLayout(westSouth,BoxLayout.Y_AXIS));
-	correct = new JButton("      Correct!      ");
-	incorrect = new JButton("     Incorrect     ");
-	westSouth.add(correct);
-	westSouth.add(Box.createRigidArea(new Dimension(0, 50)));
-	westSouth.add(incorrect);
-	westSouth.add(Box.createRigidArea(new Dimension(0,200)));
-
-	westCenter.add(scoreLabel);
-	westCenter.add(scoreNum);
-
-	west.add(westCenter,BorderLayout.CENTER);
-	west.add(westSouth,BorderLayout.SOUTH);
-
-	deckName = new JLabel(d.getName());
-	deckName.setForeground(Color.WHITE);
-	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	west.add(deckName,BorderLayout.NORTH);
-
-	nameGame.add(west,BorderLayout.WEST);
-
-  //West panel Quiz
-
-  JPanel westCenterQuiz = new JPanel();
-	westCenterQuiz.setBackground(Color.BLUE);
-	westQuiz.setLayout(new BorderLayout());
-	westQuiz.setBackground(Color.BLUE);
-
-	scoreLabelQuiz= new JLabel("Score:");
-	scoreLabelQuiz.setForeground(Color.WHITE);
-	scoreLabelQuiz.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-
-	scoreNumQuiz = new JLabel(Integer.toString(scoreQuiz));
-	scoreNumQuiz.setForeground(Color.WHITE);
-	scoreNumQuiz.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-
-	JPanel westSouthQuiz = new JPanel();
-	westSouthQuiz.setBackground(Color.BLUE);
-	westSouthQuiz.setLayout(new BoxLayout(westSouthQuiz,BoxLayout.Y_AXIS));
-	correctQuiz = new JButton("Override Correct");
-  correctQuiz.setVisible(false);
-
-  JLabel space = new JLabel();
-  space= new JLabel("AAAAAAAAAAAA "); //set width of left panel
-	space.setForeground(Color.BLUE);
-	space.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-  westSouthQuiz.add(space);
-  westSouthQuiz.add(correctQuiz);
-
-	westCenterQuiz.add(scoreLabelQuiz);
-	westCenterQuiz.add(scoreNumQuiz);
-
-	westQuiz.add(westCenterQuiz,BorderLayout.CENTER);
-	westQuiz.add(westSouthQuiz,BorderLayout.SOUTH);
-
-	deckName = new JLabel(d.getName());
-	deckName.setForeground(Color.WHITE);
-	deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	westQuiz.add(deckName,BorderLayout.NORTH);
-
-	//East Panel
-
-	JPanel east = new JPanel();
-	east.setLayout(new BorderLayout());
-	east.setBackground(Color.BLUE);
-
-	sizeLabel = new JLabel("Deck Size :");
-	sizeLabel.setForeground(Color.WHITE);
-	sizeLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	deckSize = new JLabel( Integer.toString(d.size()));
-	deckSize.setForeground(Color.WHITE);
-	deckSize.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-
-	cardNum = new JLabel("Card Number:");
-	cardNum.setForeground(Color.WHITE);
-	cardNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-	cNum = new JLabel(Integer.toString(current));
-	cNum.setForeground(Color.WHITE);
-	cNum.setFont(new Font("Lucida Grande",Font.PLAIN, 18));
+		// South Quiz Mode
+		southQuiz = new JPanel();
+		southQuiz.setVisible(true);
+		guess = new JButton("Guess!");
+		guessText = new TextField("Enter Guess Here", 30);
+		southQuiz.add(guessText);
+		southQuiz.add(Box.createRigidArea(new Dimension(10, 50)));
+		southQuiz.add(guess);
+		southQuiz.setBackground(Color.lightGray);
 
 
-       	restart = new JButton(" Restart ");
-	east.add(restart, BorderLayout.SOUTH);
+		//Initialize Card Viewer
+		currentCard = new BorderPane();
+		currentCard.setVisible(true);
+		cardText = new TextArea();
+		Font cardFont = new Font("Verdana",Font.BOLD,24);
+		cardText.setFont(cardFont);
+		cardText.setEditable(false);
+		currentCard.setCenter(cardText);
+		currentCard.setBackground(Color.WHITE);
+		nameGame.setCenter(currentCard);
+
+		//decks is set in Main
+		this.decks = decks;
+		this.d = decks.get(0);
+		if (d.size() == 0) cardText.setText("Deck is Empty!");
+
+		//West Panel Components
+
+		JPanel westCenter = new JPanel();
+		westCenter.setBackground(Color.BLUE);
+		west.setLayout(new BorderLayout());
+		west.setBackground(Color.BLUE);
+
+		scoreLabel= new JLabel("Score:");
+		scoreLabel.setForeground(Color.WHITE);
+		scoreLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+		scoreNum = new JLabel(Integer.toString(score));
+		scoreNum.setForeground(Color.WHITE);
+		scoreNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+		JPanel westSouth = new JPanel();
+		westSouth.setBackground(Color.BLUE);
+		westSouth.setLayout(new BoxLayout(westSouth,BoxLayout.Y_AXIS));
+		correct = new JButton("      Correct!      ");
+		incorrect = new JButton("     Incorrect     ");
+		westSouth.add(correct);
+		westSouth.add(Box.createRigidArea(new Dimension(0, 50)));
+		westSouth.add(incorrect);
+		westSouth.add(Box.createRigidArea(new Dimension(0,200)));
+
+		westCenter.add(scoreLabel);
+		westCenter.add(scoreNum);
+
+		west.add(westCenter,BorderLayout.CENTER);
+		west.add(westSouth,BorderLayout.SOUTH);
+
+		deckName = new JLabel(d.getName());
+		deckName.setForeground(Color.WHITE);
+		deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		west.add(deckName,BorderLayout.NORTH);
+
+		nameGame.setLeft(west);
+
+		//West panel Quiz
+
+		JPanel westCenterQuiz = new JPanel();
+		westCenterQuiz.setBackground(Color.BLUE);
+		westQuiz.setLayout(new BorderLayout());
+		westQuiz.setBackground(Color.BLUE);
+
+		scoreLabelQuiz= new JLabel("Score:");
+		scoreLabelQuiz.setForeground(Color.WHITE);
+		scoreLabelQuiz.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+		scoreNumQuiz = new JLabel(Integer.toString(scoreQuiz));
+		scoreNumQuiz.setForeground(Color.WHITE);
+		scoreNumQuiz.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+		JPanel westSouthQuiz = new JPanel();
+		westSouthQuiz.setBackground(Color.BLUE);
+		westSouthQuiz.setLayout(new BoxLayout(westSouthQuiz,BoxLayout.Y_AXIS));
+		correctQuiz = new JButton("Override Correct");
+		correctQuiz.setVisible(false);
+
+		JLabel space = new JLabel();
+		space= new JLabel("AAAAAAAAAAAA "); //set width of left panel
+		space.setForeground(Color.BLUE);
+		space.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		westSouthQuiz.add(space);
+		westSouthQuiz.add(correctQuiz);
+
+		westCenterQuiz.add(scoreLabelQuiz);
+		westCenterQuiz.add(scoreNumQuiz);
+
+		westQuiz.add(westCenterQuiz,BorderLayout.CENTER);
+		westQuiz.add(westSouthQuiz,BorderLayout.SOUTH);
+
+		deckName = new JLabel(d.getName());
+		deckName.setForeground(Color.WHITE);
+		deckName.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		westQuiz.add(deckName,BorderLayout.NORTH);
+
+		//East Panel
+
+		JPanel east = new JPanel();
+		east.setLayout(new BorderLayout());
+		east.setBackground(Color.BLUE);
+
+		sizeLabel = new JLabel("Deck Size :");
+		sizeLabel.setForeground(Color.WHITE);
+		sizeLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		deckSize = new JLabel( Integer.toString(d.size()));
+		deckSize.setForeground(Color.WHITE);
+		deckSize.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+
+		cardNum = new JLabel("Card Number:");
+		cardNum.setForeground(Color.WHITE);
+		cardNum.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		cNum = new JLabel(Integer.toString(current));
+		cNum.setForeground(Color.WHITE);
+		cNum.setFont(new Font("Lucida Grande",Font.PLAIN, 18));
 
 
-	JPanel eastCenter = new JPanel();
-
-	eastCenter.setBackground(Color.BLUE);
-	eastCenter.add(cardNum);
-	eastCenter.add(cNum);
+		restart = new JButton(" Restart ");
+		east.add(restart, BorderLayout.SOUTH);
 
 
-	JPanel top = new JPanel();
-	top.setBackground(Color.BLUE);
-	top.add(sizeLabel, BorderLayout.NORTH);
-	top.add(deckSize, BorderLayout.NORTH);
+		JPanel eastCenter = new JPanel();
 
-	east.add(eastCenter,BorderLayout.CENTER);
-	east.add(top,BorderLayout.NORTH);
-	nameGame.add(east,BorderLayout.EAST);
+		eastCenter.setBackground(Color.BLUE);
+		eastCenter.add(cardNum);
+		eastCenter.add(cNum);
 
-	//BUTTON LISTENERS -- Uncommented = implemented and functioning!!
-	//Currently you can add as many cards as you want,
-	//Go to the next or previous card in the deck,
-	//And see both sides of the current card
 
-	//Initialize Add Button Listener
-	addButtonListener addListener = new addButtonListener();
-	add.addActionListener(addListener);
+		JPanel top = new JPanel();
+		top.setBackground(Color.BLUE);
+		top.add(sizeLabel, BorderLayout.NORTH);
+		top.add(deckSize, BorderLayout.NORTH);
 
-	//Initialize Edit Button Listener
-	editButtonListener editListener = new editButtonListener();
-	edit.addActionListener(editListener);
+		east.add(eastCenter,BorderLayout.CENTER);
+		east.add(top,BorderLayout.NORTH);
+		nameGame.setRight(east);
 
-	//Initialize Delete Button Listener
-	deleteButtonListener deleteListener = new deleteButtonListener();
-	delete.addActionListener(deleteListener);
+		//BUTTON LISTENERS -- Uncommented = implemented and functioning!!
+		//Currently you can add as many cards as you want,
+		//Go to the next or previous card in the deck,
+		//And see both sides of the current card
 
-	//Initialize Previous Button Listener
-	previousButtonListener previousListener = new previousButtonListener();
-	previous.addActionListener(previousListener);
+		//Initialize Add Button Listener
+		addButtonListener addListener = new addButtonListener();
+		add.addActionListener(addListener);
 
-	//Initialize picture JLabel that is used in next listener
-	picture = new JLabel();
-	//Initialize Next Button Listener
-	nextButtonListener nextListener = new nextButtonListener();
-	next.addActionListener(nextListener);
+		//Initialize Edit Button Listener
+		editButtonListener editListener = new editButtonListener();
+		edit.addActionListener(editListener);
 
-	//Initialize SelectDeck Button Listener
-	selectDeckButtonListener selectDeckListener = new selectDeckButtonListener();
-	selectDeck.addActionListener(selectDeckListener);
+		//Initialize Delete Button Listener
+		deleteButtonListener deleteListener = new deleteButtonListener();
+		delete.addActionListener(deleteListener);
 
-	menuButtonListener menuListener = new menuButtonListener();
-	menu.addActionListener(menuListener);
+		//Initialize Previous Button Listener
+		previousButtonListener previousListener = new previousButtonListener();
+		previous.addActionListener(previousListener);
 
-  //Initialize Override correct Button Listener
-	overcorrectButtonListener overcorrectListener = new overcorrectButtonListener();
-	correctQuiz.addActionListener(overcorrectListener);
+		//Initialize picture JLabel that is used in next listener
+		picture = new JLabel();
+		//Initialize Next Button Listener
+		nextButtonListener nextListener = new nextButtonListener();
+		next.addActionListener(nextListener);
 
-  //Initialize Guess Button Listener
-	guessButtonListener guessListener = new guessButtonListener();
-	guess.addActionListener(guessListener);
+		//Initialize SelectDeck Button Listener
+		selectDeckButtonListener selectDeckListener = new selectDeckButtonListener();
+		selectDeck.addActionListener(selectDeckListener);
 
-  //Initialize Front Button Listener
-	frontButtonListener frontListener = new frontButtonListener();
-	toFront.addActionListener(frontListener);
+		menuButtonListener menuListener = new menuButtonListener();
+		menu.addActionListener(menuListener);
 
-	//Initialize Back Button Listener
-	backButtonListener backListener = new backButtonListener();
-	toBack.addActionListener(backListener);
+		//Initialize Override correct Button Listener
+		overcorrectButtonListener overcorrectListener = new overcorrectButtonListener();
+		correctQuiz.addActionListener(overcorrectListener);
 
-	correctButtonListener correctListener = new correctButtonListener();
-	correct.addActionListener(correctListener);
+		//Initialize Guess Button Listener
+		guessButtonListener guessListener = new guessButtonListener();
+		guess.addActionListener(guessListener);
 
-	incorrectButtonListener incorrectListener = new incorrectButtonListener();
-	incorrect.addActionListener(incorrectListener);
+		//Initialize Front Button Listener
+		frontButtonListener frontListener = new frontButtonListener();
+		toFront.addActionListener(frontListener);
 
-	restartButtonListener restartListener = new restartButtonListener();
-	restart.addActionListener(restartListener);
+		//Initialize Back Button Listener
+		backButtonListener backListener = new backButtonListener();
+		toBack.addActionListener(backListener);
 
-	this.pack();
+		correctButtonListener correctListener = new correctButtonListener();
+		correct.addActionListener(correctListener);
 
-  myStart = new JDialog(thisFrame , "Welcome", true);
-  myStart.setLayout( new FlowLayout() );
-  JButton b = new JButton ("OK");
-  b.addActionListener ( new ActionListener()
-    {
-         public void actionPerformed( ActionEvent e )
-         {
-             NameGame.myStart.setVisible(false);
-         }
-     });
-     myStart.add( new JLabel ("Welcome to the Name Memorization Game."));
-     myStart.add( new JLabel ("For instructions and mode changing click Main Menu in the game."));
-     myStart.add(b);
-     myStart.add(b);
-     myStart.setSize(500,130);
-     myStart.setVisible(true);
+		incorrectButtonListener incorrectListener = new incorrectButtonListener();
+		incorrect.addActionListener(incorrectListener);
+
+		restartButtonListener restartListener = new restartButtonListener();
+		restart.addActionListener(restartListener);
+
+		this.pack();
+
+		myStart = new JDialog(thisFrame , "Welcome", true);
+		myStart.setLayout( new FlowLayout() );
+		JButton b = new JButton ("OK");
+		b.addActionListener ( new ActionListener() {
+			public void actionPerformed( ActionEvent e ) {
+				NameGame.myStart.setVisible(false);
+			}
+		});
+		myStart.add( new Label ("Welcome to the Name Memorization Game."));
+		myStart.add( new Label ("For instructions and mode changing click Main Menu in the game."));
+		myStart.add(b);
+		myStart.add(b);
+		//myStart.setSize(500, 130);
+		myStart.setVisible(true);
 
     }
 
@@ -372,13 +369,17 @@ public class NameGame extends JFrame{
      * @param c A card
      */
     public void setPic(Card c){
-    	cardText.setVisible(false);
+    	/*cardText.setVisible(false);
     	currentCard.remove(picture);
-		picture=c.getPic();
+		picture = c.getPic();
 		picture.setVisible(true);
 		currentCard.add(picture, BorderLayout.CENTER);
 		thisFrame.getContentPane().validate();
-		thisFrame.getContentPane().repaint();
+		thisFrame.getContentPane().repaint();*/
+		cardText.setVisible(false);
+		picture = c.getPic();
+		picture.setVisible(true);
+		currentCard.setCenter(picture);
     }
 
     /**
@@ -391,9 +392,9 @@ public class NameGame extends JFrame{
     	picture.setVisible(false);
 		cardText.setVisible(true);
 		currentCard.remove(picture);
-		if(side==1){
+		if (side == 1) {
 			cardText.setText(c.getSide1());
-		}else if(side==2){
+		} else if (side == 2) {
 			cardText.setText(c.getSide2());
 		}
 
@@ -405,7 +406,7 @@ public class NameGame extends JFrame{
      * @param d A deck
      */
     public void setDeck(Deck d) {
-	this.d = d;
+		this.d = d;
     }
 
     /**
@@ -414,7 +415,7 @@ public class NameGame extends JFrame{
      * @return d A deck
      */
     public Deck getDeck() {
-	return this.d;
+		return this.d;
     }
 
 
@@ -423,7 +424,7 @@ public class NameGame extends JFrame{
      * @param decks A DeckList
      */
     public void setDeckList(DeckList decks){
-	this.decks = decks;
+		this.decks = decks;
     }
 
     /**
@@ -431,7 +432,7 @@ public class NameGame extends JFrame{
      * @return decks a DeckList
      */
     public DeckList getDeckList(){
-	return decks;
+		return decks;
     }
 
     /**
@@ -440,19 +441,19 @@ public class NameGame extends JFrame{
      * @param decksize The new size of the deck
      */
     public void updateSize(int deckSize) {
-
-	this.deckSize.setText(Integer.toString(deckSize));
+		this.deckSize.setText(Integer.toString(deckSize));
     }
 
     /**
      * Sets the index of the current card
      */
     public void setCardNum() {
-	if (d.size() < 1) {
-	    this.cNum.setText("0");
-	} else
-	    this.cNum.setText("1");
-    }
+		if (d.size() < 1) {
+			this.cNum.setText("0");
+		} else {
+				this.cNum.setText("1");
+		}
+	}
 
 
     /**
@@ -488,31 +489,29 @@ public class NameGame extends JFrame{
 		// Only adds a card once confirm has been pressed
 	private class confirmButtonListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
-		String side1 = editor.getFrontText();
-		String side2 = editor.getBackText();
+			String side1 = editor.getFrontText();
+			String side2 = editor.getBackText();
 
-		d.addCard(side1,side2,editor.isPic());
-		current = d.size() - 1;
-		Card h = (Card) d.get(current);
-		if(h.isPic()){
-		    setPic(h);
+			d.addCard(side1,side2,editor.isPic());
+			current = d.size() - 1;
+			Card h = (Card) d.get(current);
+			if(h.isPic()){
+				setPic(h);
+			} else{
+				setPrint(h,1);
+			}
+			next.setEnabled(true);
+			previous.setEnabled(true);
+			deckSize.setText(Integer.toString(d.size()));
+			cNum.setText(Integer.toString(current+1));
+			thisFrame.remove(editor);
+			nameGame.setVisible(true);
 		}
-		else{
-		    setPrint(h,1);
-		}
-		next.setEnabled(true);
-		previous.setEnabled(true);
-		deckSize.setText(Integer.toString(d.size()));
-		cNum.setText(Integer.toString(current+1));
-		thisFrame.remove(editor);
-		nameGame.setVisible(true);
-
-		    }
-		}
+	}
 	private class cancelButtonListener implements ActionListener {
 	    public void actionPerformed(ActionEvent e) {
-		thisFrame.remove(editor);
-		nameGame.setVisible(true);
+			thisFrame.remove(editor);
+			nameGame.setVisible(true);
 	    }
 	}
 
