@@ -86,7 +86,7 @@ public class Main extends Application {
 	private DeckList decks;
 
 	//Current Card Viewer
-	//private JPanel currentCard;
+	private HBox currentCard;
 	private TextArea cardText;
 	private int current;
 	private Deck d;

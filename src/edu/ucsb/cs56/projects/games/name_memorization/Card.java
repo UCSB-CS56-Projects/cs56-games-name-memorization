@@ -121,7 +121,8 @@ public class Card extends BorderPane implements Serializable {
 
 			Image image = new Image(new File(side1).toURI().toString());
 			ImageView iv = new ImageView(image);
-			return iv;
+			Label imageLabel = new Label("Image").setGraphic(iv)
+			return imageLabel;
         } catch(IOException ex) {
             System.out.println("Trouble reading from the file: " + ex.getMessage());
         }
