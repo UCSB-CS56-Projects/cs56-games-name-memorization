@@ -114,7 +114,7 @@ public class Card extends BorderPane implements Serializable {
      * @return frontPic a JLabel that is a picture
      */
     public Label getPic(){
-        try {//getPic is only called if isPic is true, so side1 would contain picture path
+        //try {//getPic is only called if isPic is true, so side1 would contain picture path
             /*BufferedImage unsized = ImageIO.read(new File(side1));
             BufferedImage resized = resizeImage(unsized,275,250, unsized.getType());
             frontPic.setIcon(new ImageIcon(resized));*/
@@ -124,10 +124,10 @@ public class Card extends BorderPane implements Serializable {
 			Label imageLabel = new Label("Image");
 			imageLabel.setGraphic(iv);
 			return imageLabel;
-        } catch(IOException ex) {
+        /*} catch (IOException ex) {
             System.out.println("Trouble reading from the file: " + ex.getMessage());
         }
-        return frontPic;
+        return frontPic;*/
     }
 
     /**
