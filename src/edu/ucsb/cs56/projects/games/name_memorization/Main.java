@@ -171,7 +171,7 @@ public class Main extends Application {
 
 		//decks is set in Main
 		this.decks = decks;
-		if (decks.size() == 0) {
+		if (decks != null && decks.size() == 0) {
 			this.d = decks.get(0);
 			if (d.size() == 0) cardText.setText("Deck is Empty!");
 		}
