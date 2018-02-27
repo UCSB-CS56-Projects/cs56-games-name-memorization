@@ -121,15 +121,13 @@ public class TestPane extends BorderPane {
 						BufferedImage unsized = ImageIO.read(new File(path));
 						BufferedImage resized = resizeImage(unsized,275,250, unsized.getType());
 						frontPic.setIcon(new ImageIcon(resized));
-						thisPanel.validate();
-						thisPanel.repaint();
 					} catch (IOException ex) {
 						System.out.println("Trouble reading from the file: " + ex.getMessage());
 					}
 					front.setText(path); // because namegame screen takes the input from front Text area and sets it
 					// area and sets it Text area and sets it front text
 					isPicture = true;
-					thisPanel.add(frontPic);
+					midPanel.setCenter(frontPic);
 				}
 	    	}
 	    };
