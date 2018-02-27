@@ -116,18 +116,18 @@ public class TestPane extends BorderPane {
 					path = path + name; // path should now contain full location of chosen pic
 
 					front.setVisible(false);
-					frontPic = new Label();
 					try {
 						BufferedImage unsized = ImageIO.read(new File(path));
 						BufferedImage resized = resizeImage(unsized,275,250, unsized.getType());
-						frontPic.setIcon(new ImageIcon(resized));
+						Image image = new Image(selectedFile.toURI().toString());
+						ImageView iv = new ImageView(image);
+						midPanel.setCenter(iv);
 					} catch (IOException ex) {
 						System.out.println("Trouble reading from the file: " + ex.getMessage());
 					}
 					front.setText(path); // because namegame screen takes the input from front Text area and sets it
 					// area and sets it Text area and sets it front text
 					isPicture = true;
-					midPanel.setCenter(frontPic);
 				}
 	    	}
 	    };
