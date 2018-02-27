@@ -14,7 +14,7 @@ public class NameGameTest {
     private DeckEditor de1;
     private Deck d1;
     private Deck d2;
-    private NameGame ng1;
+    private Main ng1;
 
     @Before public void setUp() {
         c1 = new Card("side1", "side2", false);
@@ -28,7 +28,7 @@ public class NameGameTest {
         dl2.add(d1);
         dl2.add(d2);
         de1 = new DeckEditor(dl1);
-        ng1 = new NameGame(dl1);
+        ng1 = new Main(dl1);
     }
 
     @Test
