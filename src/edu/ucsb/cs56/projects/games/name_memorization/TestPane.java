@@ -115,7 +115,7 @@ public class TestPane extends BorderPane {
 	    upload.setOnAction(uploadHandler);
 	}
 
-	/*//method to resize the uploaded images to fit the screen.
+	//method to resize the uploaded images to fit the screen.
 	private BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type){  
 		BufferedImage resizedImage = new BufferedImage(width, height, type);  
 		Graphics2D g = resizedImage.createGraphics();  
@@ -125,36 +125,35 @@ public class TestPane extends BorderPane {
 		return resizedImage;  
 	}  
 
-	*//**
+	/**
 	 * Gets the text on the front of the card
 	 *
 	 * @return frontText the text on the front
-	 *//*
+	 */
 	public String getFrontText() {
 		frontText = front.getText();
 		return frontText; 
 	}
 
-	*//**
+	/**
 	 * Gets the text on the back of the card
 	 *
 	 * @return backText the text on the back
-	 *//*
+	 */
 	public String getBackText() { 
 		backText = back.getText();
 		return backText; 
 	}
-
-	*//**
+	/**
 	 * Gets the picture on the front card
 	 *
 	 * @return frontPic the picture on the front of the card
-	 *//*
-	public JLabel getPic(){
+	 */
+	public Label getPic(){
 		return frontPic;
 	}
 
-
+/*
 	private class uploadButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
@@ -191,12 +190,12 @@ public class TestPane extends BorderPane {
 	 * Tells us if the Card has a picture
 	 *
 	 * @return isPicture A boolean that is true if the card has a picture, false otherwise
-	 *//*
+	 */
 	public boolean isPic(){
 		return isPicture;
 	}
 
-	public JPanel getBotPanel(){
-		return this.botPanel;
-	}*/
+	public HBox getBotPanel(){
+		return botPanel;
+	}
 }
