@@ -52,6 +52,7 @@ public class Main extends Application {
 	private Button menu;
 
 	//Bottom Control Panel
+	private HBox southQuiz = new HBox();
 	private Button toFront;
 	private Button toBack;
 	private Button guess;
