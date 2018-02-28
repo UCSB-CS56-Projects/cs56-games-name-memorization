@@ -53,7 +53,7 @@ public class TestPane extends BorderPane {
 	 * Constructor for CardEditor
 	 * Creates the GUI in which the user can edit cards
 	 */
-	public TestPane(/*Card c*/) {
+	public TestPane(Card c) {
 		//sets path variable to directory of the people pictures
 		path = System.getProperty("user.dir");
 		path = path + "/src/edu/ucsb/cs56/projects/games/name_memorization/people/";

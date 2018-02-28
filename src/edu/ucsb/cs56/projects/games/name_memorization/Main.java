@@ -37,7 +37,6 @@ import javafx.geometry.Insets;
  *@author Domenic DiPeppe
  *@version  for CS56, W16
  */
-
 public class Main extends Application {
 
 	//Main pane
@@ -161,19 +160,20 @@ public class Main extends Application {
 		//Initialize Card Viewer
 		currentCard = new HBox();
 		pane.setCenter(currentCard);
-		currentCard.setVisible(true);
 		cardText = new TextArea();
 		Font cardFont = new Font("Verdana", 24);
 		cardText.setFont(cardFont);
 		cardText.setEditable(false);
 		currentCard.getChildren().add(cardText);
+		//cardText.setText();
 		//currentCard.setBackground(Color.WHITE);
-
 		//decks is set in Main
+		//decks = new DeckList();
 		this.decks = decks;
 		if (decks != null && decks.size() == 0) {
 			this.d = decks.get(0);
-			if (d.size() == 0) cardText.setText("Deck is Empty!");
+			if (d.size() == 0) 
+				{cardText.setText("Deck is Empty!");}
 		}
 
 		//West Panel Components
@@ -256,24 +256,108 @@ public class Main extends Application {
 		eastBox.getChildren().addAll(sizeLabel, deckSize, cardNum, cNum, restart);
 
 		
-		
+		//ADD BUTTON AND ITS ELEMENTS
 		
 		EventHandler<ActionEvent> addHandler = new EventHandler<ActionEvent>() {
 	    	@Override
+	    	//add button
 	    	public void handle(ActionEvent event) {
-	    		TestPane test = new TestPane();
+	    		Card c = new Card("Enter Text", "Enter Text", false);
+	    		TestPane test = new TestPane(c);
 	    		Stage stage = new Stage();
 	    		stage.setScene(new Scene(test));
 	    		stage.show();
 	    		primaryStage.hide();
 	    		//Confirm Button
 	    		Button confirm = new Button("Confirm");
-	    		test.botPanel.getChildren().add(confirm);
-	    	}
-	    };
+	    		Button cancel = new Button("Cancel");
+	    		test.botPanel.getChildren().addAll(confirm,cancel);
+	    		//confirm button
+	    		EventHandler<ActionEvent> confirmHandler = new EventHandler<ActionEvent>() {
+	    	    	@Override
+	    	    	public void handle(ActionEvent event) {
+	    	    		String side1 = test.getFrontText();
+	    				String side2 = test.getBackText();
 
-	    add.setOnAction(addHandler);
-		
+	    				d.addCard(side1,side2,test.isPic());
+	    				current = d.size() - 1;
+	    				Card h = (Card) d.get(current);
+	    				/*if(h.isPic()){
+	    					setPic(h);
+	    				} else{
+	    					setPrint(h,1);
+	    				}
+	    				next.setEnabled(true);
+	    				previous.setEnabled(true);*/
+	    				deckSize.setText(Integer.toString(d.size()));
+	    				cNum.setText(Integer.toString(current+1));
+	    	    		primaryStage.show();
+	    	    		stage.hide();
+	    	    	}  	
+	    	};
+	    	//
+	    		EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
+	    			@Override
+	    			public void handle(ActionEvent event) {
+	    				primaryStage.show();
+	    				stage.hide();
+    	}  	
+	    	};
+	    	confirm.setOnAction(confirmHandler);
+	    	cancel.setOnAction(cancelHandler);
+	    	}
+	    	};
+	    //EDIT BUTTON AND EVERYTHING INSIDE	
+		EventHandler<ActionEvent> editHandler = new EventHandler<ActionEvent>() {
+			@Override
+			// edit button
+			public void handle(ActionEvent event) {
+				//if deck.size == 0, send an error 
+				Card c = new Card("Enter Text", "Enter Text", false);
+				TestPane test = new TestPane(c);
+				Stage stage = new Stage();
+				stage.setScene(new Scene(test));
+				stage.show();
+				primaryStage.hide();
+				// Confirm Button
+				Button confirm = new Button("Confirm");
+				Button cancel = new Button("Cancel");
+				test.botPanel.getChildren().addAll(confirm, cancel);
+				// confirm button
+				EventHandler<ActionEvent> confirmHandler = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						String side1 = test.getFrontText();
+						String side2 = test.getBackText();
+
+						d.addCard(side1, side2, test.isPic());
+						current = d.size() - 1;
+						Card h = (Card) d.get(current);
+						/*
+						 * if(h.isPic()){ setPic(h); } else{ setPrint(h,1); }
+						 * next.setEnabled(true); previous.setEnabled(true);
+						 */
+						deckSize.setText(Integer.toString(d.size()));
+						cNum.setText(Integer.toString(current + 1));
+						primaryStage.show();
+						stage.hide();
+					}
+				};
+				//
+				EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						primaryStage.show();
+						stage.hide();
+					}
+				};
+				confirm.setOnAction(confirmHandler);
+				cancel.setOnAction(cancelHandler);
+			}
+		};
+
+		add.setOnAction(addHandler);
+		edit.setOnAction(editHandler);
 		
 		
 		/*JPanel eastCenter = new JPanel();
