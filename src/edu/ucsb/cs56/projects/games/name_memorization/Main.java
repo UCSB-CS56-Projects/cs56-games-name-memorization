@@ -266,6 +266,9 @@ public class Main extends Application {
 	    		stage.setScene(new Scene(test));
 	    		stage.show();
 	    		primaryStage.hide();
+	    		//Confirm Button
+	    		Button confirm = new Button("Confirm");
+	    		test.botPanel.getChildren().add(confirm);
 	    	}
 	    };
 

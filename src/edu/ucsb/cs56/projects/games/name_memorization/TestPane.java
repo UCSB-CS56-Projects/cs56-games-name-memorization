@@ -36,7 +36,7 @@ public class TestPane extends BorderPane {
 	private Button exit;
 	private HBox topPanel;
 	private BorderPane midPanel;
-	private HBox botPanel;
+	public HBox botPanel;
 
 	private Label prompt1;
 	private Label FRONT;
@@ -93,7 +93,7 @@ public class TestPane extends BorderPane {
 
 		setCenter(midPanel);
 		
-		botPanel = new HBox();
+		botPanel = new HBox(10);
 		botPanel.setPadding(new Insets(10, 10, 10, 10));
 		//UploadButtonListener uploadListener = new UploadButtonListener();
 		upload = new Button("Upload a Picture");
