@@ -355,9 +355,36 @@ public class Main extends Application {
 				cancel.setOnAction(cancelHandler);
 			}
 		};
-
+		//MAIN MENU BUTTON AND EVERYTHING INSIDE
+		
+		EventHandler<ActionEvent> mainMenuHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+	    	//add button
+	    	public void handle(ActionEvent event) {
+	    		Card c = new Card("Enter Text", "Enter Text", false);
+	    		Menu test = new Menu();
+	    		Stage stage = new Stage();
+	    		stage.setScene(new Scene(test));
+	    		stage.show();
+	    		primaryStage.hide();
+	    		//Confirm Button
+	    		Button cancel = new Button("Normal Mode");
+	    		Button quiz = new Button("Quiz Mode");
+	    		test.botPanel.getChildren().addAll(cancel, quiz);
+	    	//
+	    		EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
+	    			@Override
+	    			public void handle(ActionEvent event) {
+	    				primaryStage.show();
+	    				stage.hide();
+    	}  	
+	    	};
+	    	cancel.setOnAction(cancelHandler);
+	    	}
+	    	};
 		add.setOnAction(addHandler);
 		edit.setOnAction(editHandler);
+		menu.setOnAction(mainMenuHandler);
 		
 		
 		/*JPanel eastCenter = new JPanel();
