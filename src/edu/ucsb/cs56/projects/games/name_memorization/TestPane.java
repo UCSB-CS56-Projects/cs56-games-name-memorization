@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -108,14 +110,34 @@ public class TestPane extends BorderPane {
 	    	public void handle(ActionEvent event) {
 	    		FileChooser fileChooser = new FileChooser();
 	    		fileChooser.setTitle("Open Resource File");
-	    		fileChooser.showOpenDialog(Main.mainStage);
+	    		File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
+
+				if (selectedFile != null) {
+
+					String name = selectedFile.getName();
+					path = path + name; // path should now contain full location of chosen pic
+
+					front.setVisible(false);
+					try {
+						BufferedImage unsized = ImageIO.read(new File(path));
+						BufferedImage resized = resizeImage(unsized,275,250, unsized.getType());
+						Image image = new Image(selectedFile.toURI().toString());
+						ImageView iv = new ImageView(image);
+						midPanel.setCenter(iv);
+					} catch (IOException ex) {
+						System.out.println("Trouble reading from the file: " + ex.getMessage());
+					}
+					front.setText(path); // because namegame screen takes the input from front Text area and sets it
+					// area and sets it Text area and sets it front text
+					isPicture = true;
+				}
 	    	}
 	    };
 
 	    upload.setOnAction(uploadHandler);
 	}
 
-	/*//method to resize the uploaded images to fit the screen.
+	//method to resize the uploaded images to fit the screen.
 	private BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type){  
 		BufferedImage resizedImage = new BufferedImage(width, height, type);  
 		Graphics2D g = resizedImage.createGraphics();  
@@ -125,36 +147,35 @@ public class TestPane extends BorderPane {
 		return resizedImage;  
 	}  
 
-	*//**
+	/**
 	 * Gets the text on the front of the card
 	 *
 	 * @return frontText the text on the front
-	 *//*
+	 */
 	public String getFrontText() {
 		frontText = front.getText();
 		return frontText; 
 	}
 
-	*//**
+	/**
 	 * Gets the text on the back of the card
 	 *
 	 * @return backText the text on the back
-	 *//*
+	 */
 	public String getBackText() { 
 		backText = back.getText();
 		return backText; 
 	}
-
-	*//**
+	/**
 	 * Gets the picture on the front card
 	 *
 	 * @return frontPic the picture on the front of the card
-	 *//*
-	public JLabel getPic(){
+	 */
+	public Label getPic(){
 		return frontPic;
 	}
 
-
+/*
 	private class uploadButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
@@ -191,12 +212,12 @@ public class TestPane extends BorderPane {
 	 * Tells us if the Card has a picture
 	 *
 	 * @return isPicture A boolean that is true if the card has a picture, false otherwise
-	 *//*
+	 */
 	public boolean isPic(){
 		return isPicture;
 	}
 
-	public JPanel getBotPanel(){
-		return this.botPanel;
-	}*/
+	public HBox getBotPanel(){
+		return botPanel;
+	}
 }

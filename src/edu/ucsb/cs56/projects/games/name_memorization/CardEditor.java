@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -20,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
@@ -40,11 +43,11 @@ public class CardEditor extends BorderPane {
 	private Label BACK;
 	private Deck deck;
 	private String frontText;
-	private String backText; 
+	private String backText;
 	private String path; //path to people folder
 	private Label frontPic;
 
-	private boolean isPicture; 
+	private boolean isPicture;
 
 	/**
 	 * Constructor for CardEditor
@@ -58,12 +61,13 @@ public class CardEditor extends BorderPane {
 		isPicture = false;
 
 		topPanel = new HBox();
-		topPanel.setStyle("-fx-background-color: #993366;");
+		topPanel.setPadding(new Insets(10, 10, 10, 10));
+		setTop(topPanel);
+		topPanel.setStyle("-fx-background-color: #888888;");
 		topPanel.setAlignment(Pos.CENTER);
 		prompt1 = new Label("Edit Card");
 		prompt1.setFont(new Font("Lucida Grande", 18));
-		topPanel.getChildren().add(prompt1);
-		setTop(topPanel);
+		topPanel.getChildren().addAll(prompt1);
 
 		midPanel = new BorderPane();
 		midPanel.setStyle("-fx-background-color: #336699;");
@@ -71,24 +75,26 @@ public class CardEditor extends BorderPane {
 		FRONT = new Label("FRONT");
 		midPanel.getChildren().add(FRONT);
 
-		front = new TextArea("CARD SIDE 1"/*c.getSide1()*/);
+		front = new TextArea("CARD SIDE 1");//c.getSide1()
 		front.setWrapText(true);
-		front.setPrefColumnCount(250);
-		front.setPrefRowCount(350);
+		front.setPrefColumnCount(25);
+		front.setPrefRowCount(35);
 		midPanel.setLeft(front);
-		
-		back = new TextArea("CARD SIDE 2"/*c.getSide2()*/);
+
+
+		back = new TextArea("CARD SIDE 2"); //c.getSide2()
 		back.setWrapText(true);
-		back.setPrefColumnCount(250);
-		back.setPrefRowCount(350);
+		back.setPrefColumnCount(25);
+		back.setPrefRowCount(35);
 		midPanel.setRight(back);
 
 		BACK = new Label("BACK");
 		midPanel.getChildren().add(BACK);
 
 		setCenter(midPanel);
-		
+
 		botPanel = new HBox();
+		botPanel.setPadding(new Insets(10, 10, 10, 10));
 		//UploadButtonListener uploadListener = new UploadButtonListener();
 		upload = new Button("Upload a Picture");
 		//upload.setBounds(110,360 ,150,25);
@@ -96,90 +102,89 @@ public class CardEditor extends BorderPane {
 		botPanel.getChildren().add(upload);
 		setBottom(botPanel);
 
+
+
+
+		EventHandler<ActionEvent> uploadHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Open Resource File");
+				File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
+
+				if (selectedFile != null) {
+
+					String name = selectedFile.getName();
+					path = path + name; // path should now contain full location of chosen pic
+
+					front.setVisible(false);
+					try {
+						BufferedImage unsized = ImageIO.read(new File(path));
+						BufferedImage resized = resizeImage(unsized,275,250, unsized.getType());
+						Image image = new Image(selectedFile.toURI().toString());
+						ImageView iv = new ImageView(image);
+						midPanel.setCenter(iv);
+						//frontPic = iv;
+					} catch (IOException ex) {
+						System.out.println("Trouble reading from the file: " + ex.getMessage());
+					}
+					front.setText(path); // because namegame screen takes the input from front Text area and sets it
+					// area and sets it Text area and sets it front text
+					isPicture = true;
+				}
+			}
+		};
+
+		upload.setOnAction(uploadHandler);
 	}
 
-	/*//method to resize the uploaded images to fit the screen.
-	private BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type){  
-		BufferedImage resizedImage = new BufferedImage(width, height, type);  
-		Graphics2D g = resizedImage.createGraphics();  
-		g.drawImage(originalImage, 0, 0, width, height, null);  
-		g.dispose();  
+	//method to resize the uploaded images to fit the screen.
+	private BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type){
+		BufferedImage resizedImage = new BufferedImage(width, height, type);
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(originalImage, 0, 0, width, height, null);
+		g.dispose();
 
-		return resizedImage;  
-	}  
+		return resizedImage;
+	}
 
-	*//**
+	/**
 	 * Gets the text on the front of the card
 	 *
 	 * @return frontText the text on the front
-	 *//*
+	 */
 	public String getFrontText() {
 		frontText = front.getText();
-		return frontText; 
+		return frontText;
 	}
 
-	*//**
+	/**
 	 * Gets the text on the back of the card
 	 *
 	 * @return backText the text on the back
-	 *//*
-	public String getBackText() { 
+	 */
+	public String getBackText() {
 		backText = back.getText();
-		return backText; 
+		return backText;
 	}
-
-	*//**
+	/**
 	 * Gets the picture on the front card
 	 *
 	 * @return frontPic the picture on the front of the card
-	 *//*
-	public JLabel getPic(){
+	 */
+	public Label getPic(){
 		return frontPic;
 	}
-
-
-	private class uploadButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-
-			JFileChooser chooser = new JFileChooser(new File(path));
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Images", "png");
-			chooser.setFileFilter(filter);
-			int returnVal = chooser.showOpenDialog(thisPanel);
-			if(returnVal == JFileChooser.APPROVE_OPTION) {
-
-				String name = chooser.getSelectedFile().getName();
-				path = path + name; // path should now contain full location of chosen pic
-
-				front.setVisible(false);
-				frontPic=new JLabel();
-				frontPic.setBounds(25,100, 275,250);
-				try {
-					BufferedImage unsized = ImageIO.read(new File(path));
-					BufferedImage resized = resizeImage(unsized,275,250,unsized.getType());
-					frontPic.setIcon(new ImageIcon(resized));
-					thisPanel.validate();
-					thisPanel.repaint();
-				}catch(IOException ex){
-					System.out.println("Trouble reading from the file: " + ex.getMessage());
-				}
-				front.setText(path); // because namegame screen takes the input from front Text area and sets it
-				// area and sets it Text area and sets it front text
-				isPicture = true;
-				thisPanel.add(frontPic);
-			}
-		}
-	}
-
-	*//**
+	/**
 	 * Tells us if the Card has a picture
 	 *
 	 * @return isPicture A boolean that is true if the card has a picture, false otherwise
-	 *//*
+	 */
 	public boolean isPic(){
 		return isPicture;
 	}
 
-	public JPanel getBotPanel(){
-		return this.botPanel;
-	}*/
+	public HBox getBotPanel(){
+		return botPanel;
+	}
 }
