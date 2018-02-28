@@ -2,11 +2,32 @@ package edu.ucsb.cs56.projects.games.name_memorization;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
 import java.awt.Dimension;
 import java.io.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+import javafx.scene.control.ListView;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.awt.Dimension;
 
 /**
  * An editor that allows the user to select, add, and delete decks
@@ -17,10 +38,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class DeckEditor extends BorderPane /*implements ActionListener, ListSelectionListener*/ {
 
-    private HBox topPanel;
+    private BorderPane topPanel;
     private HBox botPanel;
-    private JPanel dataPanel;
-    private JPanel infoPanel;
+    public HBox dataPanel;
+    private HBox infoPanel;
 
     private ListView deckList;
     private Vector deckNames;
@@ -45,27 +66,27 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
      * Constructor for Objects of type Editor
      * @param decks A DeckList
      */
-    public DeckEditor(DeckList decks){
+    public DeckEditor(/*DeckList decks*/){
 
 	this.decks = decks;
-	setPrefSize(800, 600)
+	setPrefSize(800, 600);
 
-	topPanel = new HBox();
-	setTop(topPanel);
-	topPanel.setAlignment(Pos.CENTER); 
+	topPanel = new BorderPane();
+	setCenter(topPanel);
+	//topPanel.setAlignment(Pos.CENTER); 
 	deckNames = new Vector();
 	for(int i=0;i<decks.size();i++)
 	    deckNames.addElement(decks.get(i).getName());
 
-	deckList = new ListView(deckNames);
+	//deckList = new ListView(deckNames);
 	//deckList.addListSelectionListener(this);
 
-	deckScroller = new ScrollPane();
+	/*deckScroller = new ScrollPane();
 	deckScroller.getViewport().add(deckList);
-	topPanel.getChildren().add(deckScroller)
+	topPanel.setTop(add(deckScroller));
   path=System.getProperty("user.dir");
   path=path + "/src/edu/ucsb/cs56/projects/games/name_memorization/saves/";
-
+     */
 	CreateDeckEntryPanel();
     }
 
@@ -73,68 +94,60 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
      * Creates the GUI for JButtons and JTextField
      */
     public void CreateDeckEntryPanel(){
-        dataPanel = new JPanel();
-		dataPanel.setBackground(Color.BLUE);
-		this.add(dataPanel, BorderLayout.SOUTH);
+        dataPanel = new HBox();
+		dataPanel.setStyle("-fx-background-color: #336699;");
+		setBottom(dataPanel);
 
-		JPanel embossDeck = new JPanel();
-		embossDeck.setBackground(Color.BLACK);
-		embossDeck.setPreferredSize(new Dimension(100, 100));
-		topPanel.add(embossDeck, BorderLayout.SOUTH);
+		HBox embossDeck = new HBox();
+		embossDeck.setStyle("-fx-background-color: #112233;");
+		embossDeck.setPrefWidth(100);
+		embossDeck.setPrefHeight(100);
+		topPanel.setBottom(embossDeck);
 
 		deckText = new TextField("Enter Deck Name: ");
-		deckText.setPreferredSize(new Dimension(780,90));
-		embossDeck.add(deckText, BorderLayout.CENTER);
+		deckText.setPrefColumnCount(10);
+		embossDeck.setAlignment(Pos.CENTER);
+		embossDeck.getChildren().add(deckText);
 
 		addDeck = new Button("Add");
-		dataPanel.add(addDeck);
-		addDeck.addActionListener(this);
-
-		dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
-
+		//dataPanel.add(addDeck);
+		//addDeck.addActionListener(this);
 		removeDeck = new Button("Remove");
-		dataPanel.add(removeDeck);
-		removeDeck.addActionListener(this);
-
-		dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
-
+		//dataPanel.add(removeDeck);
+		//removeDeck.addActionListener(this);
 		copyDeck = new Button("Copy");
-		dataPanel.add(copyDeck);
-		copyDeck.addActionListener(this);
-
-		dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
-
+		//dataPanel.add(copyDeck);
+		//copyDeck.addActionListener(this);
 		saveDeck = new Button("Save");
-		dataPanel.add(saveDeck);
-		saveDeck.addActionListener(this);
-
-		dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
-
+		//dataPanel.add(saveDeck);
+		////saveDeck.addActionListener(this);
 		loadDeck = new Button("Load");
-		dataPanel.add(loadDeck);
-		loadDeck.addActionListener(this);
+		//dataPanel.add(loadDeck);
+		//loadDeck.addActionListener(this);
+		dataPanel.setAlignment(Pos.CENTER);
+		dataPanel.getChildren().addAll(addDeck, removeDeck, copyDeck, saveDeck, loadDeck);
 
-		dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
+		
 
 
 
-		infoPanel = new JPanel();
-		infoPanel.setBackground(Color.BLUE);
+		infoPanel = new HBox();
+		infoPanel.setStyle("-fx-background-color: #336699;");
 
-		topPanel.add(infoPanel, BorderLayout.NORTH);
+		topPanel.setTop(infoPanel);
+		
+		currentName = new Label("Current Deck: ");
+		currentName.setTextFill(Color.web("#FFFFFF"));
+		infoPanel.getChildren().add(currentName);
 
-		currentName = new JLabel("Current Deck: ");
-		currentName.setForeground(Color.WHITE);
-		infoPanel.add(currentName);
-
-		deckSize = new JLabel("Size: ");
-		deckSize.setForeground(Color.WHITE);
-		infoPanel.add(deckSize);
+		deckSize = new Label("Size: ");
+		deckSize.setTextFill(Color.web("#FFFFFF"));
+		infoPanel.getChildren().add(deckSize);
 
     }
 
     //Handles list selection changes
-    public void valueChanged(ListSelectionEvent event){
+    /*public void valueChanged(ListSelectionEvent event){
 
 	if(event.getSource() == deckList && !event.getValueIsAdjusting()){
 	    String deckName = (String)deckList.getSelectedValue();
@@ -144,10 +157,10 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		deckSize.setText("Size: " + decks.get(deckList.getSelectedIndex()).size());
 	    }
 	}
-    }
+    }*/
 
     //Checks button presses
-    public void actionPerformed(ActionEvent event){
+   /* public void actionPerformed(ActionEvent event){
 
 	if(event.getSource() == addDeck){
 	    String deckName = deckText.getText();
@@ -256,13 +269,13 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
       }
     }
   }
-}
+}*/
 
-    public JList getDeckList(){
+    public ListView getDeckList(){
 	return this.deckList;
     }
 
-    public JPanel getDataPanel(){
+    public HBox getDataPanel(){
 	return this.dataPanel;
     }
 }

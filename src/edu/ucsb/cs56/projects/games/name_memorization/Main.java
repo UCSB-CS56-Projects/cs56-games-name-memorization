@@ -378,7 +378,7 @@ public class Main extends Application {
 	    				stage.hide();
     	}  	
 	    		};
-	    		EventHandler<ActionEvent> quizlHandler = new EventHandler<ActionEvent>() {
+	    		EventHandler<ActionEvent> quizHandler = new EventHandler<ActionEvent>() {
 		    		@Override
 		   			public void handle(ActionEvent event) {
 		   				primaryStage.show();
@@ -396,15 +396,15 @@ public class Main extends Application {
 			@Override
 			// Select button
 			public void handle(ActionEvent event) {
-				SelectDeck test = new SelectDeck();
+				DeckEditor test = new DeckEditor();
 				Stage stage = new Stage();
 				stage.setScene(new Scene(test));
 				stage.show();
 				primaryStage.hide();
 				// Confirm Button
-				Button select = new Button("Select")
+				Button select = new Button("Select");
 				Button cancel = new Button("Cancel");
-				test.botPanel.getChildren().addAll(select, cancel);
+				test.dataPanel.getChildren().addAll(select, cancel);
 				//
 				EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
 					@Override
