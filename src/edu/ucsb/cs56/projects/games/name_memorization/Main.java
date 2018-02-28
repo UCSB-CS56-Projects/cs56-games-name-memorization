@@ -103,7 +103,7 @@ public class Main extends Application {
 	public static Stage mainStage;
 
 	public static void main(String[] args) {
-		launch(args);
+		Application.launch(args);
 	}
 
 	@Override 
@@ -359,15 +359,14 @@ public class Main extends Application {
 		
 		EventHandler<ActionEvent> mainMenuHandler = new EventHandler<ActionEvent>() {
 	    	@Override
-	    	//add button
+	    	//menu button
 	    	public void handle(ActionEvent event) {
-	    		Card c = new Card("Enter Text", "Enter Text", false);
 	    		Menu test = new Menu();
 	    		Stage stage = new Stage();
 	    		stage.setScene(new Scene(test));
 	    		stage.show();
 	    		primaryStage.hide();
-	    		//Confirm Button
+	    		//cancel Button
 	    		Button cancel = new Button("Normal Mode");
 	    		Button quiz = new Button("Quiz Mode");
 	    		test.botPanel.getChildren().addAll(cancel, quiz);
@@ -378,14 +377,57 @@ public class Main extends Application {
 	    				primaryStage.show();
 	    				stage.hide();
     	}  	
+	    		};
+	    		EventHandler<ActionEvent> quizlHandler = new EventHandler<ActionEvent>() {
+		    		@Override
+		   			public void handle(ActionEvent event) {
+		   				primaryStage.show();
+		   				stage.hide();
+	    	} 
 	    	};
 	    	cancel.setOnAction(cancelHandler);
+	    	quiz.setOnAction(quizHandler);
 	    	}
 	    	};
+	    	
+	    	
+	   //SELECT DECK BUTTON AND EVERYTHING INSIDE
+		EventHandler<ActionEvent> selectDeckHandler = new EventHandler<ActionEvent>() {
+			@Override
+			// Select button
+			public void handle(ActionEvent event) {
+				SelectDeck test = new SelectDeck();
+				Stage stage = new Stage();
+				stage.setScene(new Scene(test));
+				stage.show();
+				primaryStage.hide();
+				// Confirm Button
+				Button select = new Button("Select")
+				Button cancel = new Button("Cancel");
+				test.botPanel.getChildren().addAll(select, cancel);
+				//
+				EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						primaryStage.show();
+						stage.hide();
+					}
+				};
+				EventHandler<ActionEvent> selectHandler = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						primaryStage.show();
+						stage.hide();
+					}
+				};
+				cancel.setOnAction(cancelHandler);
+				select.setOnAction(selectHandler);
+			}
+		};    	
 		add.setOnAction(addHandler);
 		edit.setOnAction(editHandler);
 		menu.setOnAction(mainMenuHandler);
-		
+		selectDeck.setOnAction(selectDeckHandler);
 		
 		/*JPanel eastCenter = new JPanel();
 	eastCenter.setBackground(Color.BLUE);

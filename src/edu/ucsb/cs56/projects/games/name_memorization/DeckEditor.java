@@ -15,27 +15,26 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @version for CS56 W16
  */
 
-public class DeckEditor extends JPanel implements ActionListener, ListSelectionListener {
+public class DeckEditor extends BorderPane /*implements ActionListener, ListSelectionListener*/ {
 
-    private JPanel topPanel;
-    private JPanel botPanel;
+    private HBox topPanel;
+    private HBox botPanel;
     private JPanel dataPanel;
     private JPanel infoPanel;
-    private JPanel thisPanel = this;
 
-    private JList deckList;
+    private ListView deckList;
     private Vector deckNames;
-    private JButton addDeck;
-    private JButton removeDeck;
-    private JButton copyDeck;
-    private JButton selectDeck;
-    private JButton saveDeck;
-    private JButton loadDeck;
-    private JScrollPane deckScroller;
-    private JTextField deckText;
+    private Button addDeck;
+    private Button removeDeck;
+    private Button copyDeck;
+    private Button selectDeck;
+    private Button saveDeck;
+    private Button loadDeck;
+    private ScrollPane deckScroller;
+    private TextField deckText;
 
-    private JLabel deckSize;
-    private JLabel currentName;
+    private Label deckSize;
+    private Label currentName;
 
     private DeckList decks;
     private Deck deck;
@@ -49,23 +48,21 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
     public DeckEditor(DeckList decks){
 
 	this.decks = decks;
-	this.setLayout(new BorderLayout());
+	setPrefSize(800, 600)
 
-	topPanel = new JPanel();
-	topPanel.setLayout(new BorderLayout());
-	this.add(topPanel, BorderLayout.CENTER);
-
+	topPanel = new HBox();
+	setTop(topPanel);
+	topPanel.setAlignment(Pos.CENTER); 
 	deckNames = new Vector();
 	for(int i=0;i<decks.size();i++)
 	    deckNames.addElement(decks.get(i).getName());
 
-	deckList = new JList(deckNames);
-	deckList.addListSelectionListener(this);
+	deckList = new ListView(deckNames);
+	//deckList.addListSelectionListener(this);
 
-	deckScroller = new JScrollPane();
+	deckScroller = new ScrollPane();
 	deckScroller.getViewport().add(deckList);
-	topPanel.add(deckScroller, BorderLayout.CENTER);
-
+	topPanel.getChildren().add(deckScroller)
   path=System.getProperty("user.dir");
   path=path + "/src/edu/ucsb/cs56/projects/games/name_memorization/saves/";
 
@@ -85,35 +82,35 @@ public class DeckEditor extends JPanel implements ActionListener, ListSelectionL
 		embossDeck.setPreferredSize(new Dimension(100, 100));
 		topPanel.add(embossDeck, BorderLayout.SOUTH);
 
-		deckText = new JTextField("Enter Deck Name: ");
+		deckText = new TextField("Enter Deck Name: ");
 		deckText.setPreferredSize(new Dimension(780,90));
 		embossDeck.add(deckText, BorderLayout.CENTER);
 
-		addDeck = new JButton("Add");
+		addDeck = new Button("Add");
 		dataPanel.add(addDeck);
 		addDeck.addActionListener(this);
 
 		dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
 
-		removeDeck = new JButton("Remove");
+		removeDeck = new Button("Remove");
 		dataPanel.add(removeDeck);
 		removeDeck.addActionListener(this);
 
 		dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
 
-		copyDeck = new JButton("Copy");
+		copyDeck = new Button("Copy");
 		dataPanel.add(copyDeck);
 		copyDeck.addActionListener(this);
 
 		dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
 
-		saveDeck = new JButton("Save");
+		saveDeck = new Button("Save");
 		dataPanel.add(saveDeck);
 		saveDeck.addActionListener(this);
 
 		dataPanel.add(Box.createRigidArea(new Dimension(20,0)));
 
-		loadDeck = new JButton("Load");
+		loadDeck = new Button("Load");
 		dataPanel.add(loadDeck);
 		loadDeck.addActionListener(this);
 
