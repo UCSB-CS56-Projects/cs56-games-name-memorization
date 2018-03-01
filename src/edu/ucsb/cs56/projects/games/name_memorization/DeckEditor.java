@@ -164,15 +164,13 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 			    }
 			}
 		};    	
-		addDeck.setOnAction(addHandler);
 		
 		
-		
-		
-		
-		
-		
+
 		CreateDeckEntryPanel();
+		
+		
+		addDeck.setOnAction(addHandler);
     }
 
     /**

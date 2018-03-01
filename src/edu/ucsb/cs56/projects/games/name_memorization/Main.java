@@ -63,7 +63,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		mainStage = primaryStage;
 		primaryStage.setTitle("JavaFX attempt");
-		NameGame1 test = new NameGame1(decks);
+		NameGame test = new NameGame(decks);
 		primaryStage.setScene(new Scene(test, 800, 600));
 		primaryStage.show();
 	}

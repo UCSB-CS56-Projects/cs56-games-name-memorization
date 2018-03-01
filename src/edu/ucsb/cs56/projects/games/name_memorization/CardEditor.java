@@ -36,18 +36,18 @@ public class CardEditor extends BorderPane {
 	private Button exit;
 	private HBox topPanel;
 	private BorderPane midPanel;
-	private HBox botPanel;
+	public HBox botPanel;
 
 	private Label prompt1;
 	private Label FRONT;
 	private Label BACK;
 	private Deck deck;
 	private String frontText;
-	private String backText;
+	private String backText; 
 	private String path; //path to people folder
 	private Label frontPic;
 
-	private boolean isPicture;
+	private boolean isPicture; 
 
 	/**
 	 * Constructor for CardEditor
@@ -75,14 +75,14 @@ public class CardEditor extends BorderPane {
 		FRONT = new Label("FRONT");
 		midPanel.getChildren().add(FRONT);
 
-		front = new TextArea("CARD SIDE 1");//c.getSide1()
+		front = new TextArea(c.getSide1());
 		front.setWrapText(true);
 		front.setPrefColumnCount(25);
 		front.setPrefRowCount(35);
 		midPanel.setLeft(front);
-
-
-		back = new TextArea("CARD SIDE 2"); //c.getSide2()
+		
+		
+		back = new TextArea(c.getSide2());
 		back.setWrapText(true);
 		back.setPrefColumnCount(25);
 		back.setPrefRowCount(35);
@@ -92,8 +92,8 @@ public class CardEditor extends BorderPane {
 		midPanel.getChildren().add(BACK);
 
 		setCenter(midPanel);
-
-		botPanel = new HBox();
+		
+		botPanel = new HBox(10);
 		botPanel.setPadding(new Insets(10, 10, 10, 10));
 		//UploadButtonListener uploadListener = new UploadButtonListener();
 		upload = new Button("Upload a Picture");
@@ -102,15 +102,15 @@ public class CardEditor extends BorderPane {
 		botPanel.getChildren().add(upload);
 		setBottom(botPanel);
 
+		
 
-
-
-		EventHandler<ActionEvent> uploadHandler = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				FileChooser fileChooser = new FileChooser();
-				fileChooser.setTitle("Open Resource File");
-				File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
+		
+	    EventHandler<ActionEvent> uploadHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+	    	public void handle(ActionEvent event) {
+	    		FileChooser fileChooser = new FileChooser();
+	    		fileChooser.setTitle("Open Resource File");
+	    		File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
 
 				if (selectedFile != null) {
 
@@ -124,7 +124,6 @@ public class CardEditor extends BorderPane {
 						Image image = new Image(selectedFile.toURI().toString());
 						ImageView iv = new ImageView(image);
 						midPanel.setCenter(iv);
-						//frontPic = iv;
 					} catch (IOException ex) {
 						System.out.println("Trouble reading from the file: " + ex.getMessage());
 					}
@@ -132,21 +131,21 @@ public class CardEditor extends BorderPane {
 					// area and sets it Text area and sets it front text
 					isPicture = true;
 				}
-			}
-		};
+	    	}
+	    };
 
-		upload.setOnAction(uploadHandler);
+	    upload.setOnAction(uploadHandler);
 	}
 
 	//method to resize the uploaded images to fit the screen.
-	private BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type){
-		BufferedImage resizedImage = new BufferedImage(width, height, type);
-		Graphics2D g = resizedImage.createGraphics();
-		g.drawImage(originalImage, 0, 0, width, height, null);
-		g.dispose();
+	private BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type){  
+		BufferedImage resizedImage = new BufferedImage(width, height, type);  
+		Graphics2D g = resizedImage.createGraphics();  
+		g.drawImage(originalImage, 0, 0, width, height, null);  
+		g.dispose();  
 
-		return resizedImage;
-	}
+		return resizedImage;  
+	}  
 
 	/**
 	 * Gets the text on the front of the card
@@ -155,7 +154,7 @@ public class CardEditor extends BorderPane {
 	 */
 	public String getFrontText() {
 		frontText = front.getText();
-		return frontText;
+		return frontText; 
 	}
 
 	/**
@@ -163,9 +162,9 @@ public class CardEditor extends BorderPane {
 	 *
 	 * @return backText the text on the back
 	 */
-	public String getBackText() {
+	public String getBackText() { 
 		backText = back.getText();
-		return backText;
+		return backText; 
 	}
 	/**
 	 * Gets the picture on the front card
@@ -175,7 +174,41 @@ public class CardEditor extends BorderPane {
 	public Label getPic(){
 		return frontPic;
 	}
-	/**
+
+/*
+	private class uploadButtonListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+
+			JFileChooser chooser = new JFileChooser(new File(path));
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Images", "png");
+			chooser.setFileFilter(filter);
+			int returnVal = chooser.showOpenDialog(thisPanel);
+			if(returnVal == JFileChooser.APPROVE_OPTION) {
+
+				String name = chooser.getSelectedFile().getName();
+				path = path + name; // path should now contain full location of chosen pic
+
+				front.setVisible(false);
+				frontPic=new JLabel();
+				frontPic.setBounds(25,100, 275,250);
+				try {
+					BufferedImage unsized = ImageIO.read(new File(path));
+					BufferedImage resized = resizeImage(unsized,275,250,unsized.getType());
+					frontPic.setIcon(new ImageIcon(resized));
+					thisPanel.validate();
+					thisPanel.repaint();
+				}catch(IOException ex){
+					System.out.println("Trouble reading from the file: " + ex.getMessage());
+				}
+				front.setText(path); // because namegame screen takes the input from front Text area and sets it
+				// area and sets it Text area and sets it front text
+				isPicture = true;
+				thisPanel.add(frontPic);
+			}
+		}
+	}
+
+	*//**
 	 * Tells us if the Card has a picture
 	 *
 	 * @return isPicture A boolean that is true if the card has a picture, false otherwise
