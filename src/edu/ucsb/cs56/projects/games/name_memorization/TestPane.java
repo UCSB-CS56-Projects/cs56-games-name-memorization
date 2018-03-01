@@ -75,14 +75,14 @@ public class TestPane extends BorderPane {
 		FRONT = new Label("FRONT");
 		midPanel.getChildren().add(FRONT);
 
-		front = new TextArea("CARD SIDE 1");//c.getSide1()
+		front = new TextArea(c.getSide1());
 		front.setWrapText(true);
 		front.setPrefColumnCount(25);
 		front.setPrefRowCount(35);
 		midPanel.setLeft(front);
 		
 		
-		back = new TextArea("CARD SIDE 2"); //c.getSide2()
+		back = new TextArea(c.getSide2());
 		back.setWrapText(true);
 		back.setPrefColumnCount(25);
 		back.setPrefRowCount(35);

@@ -85,7 +85,7 @@ public class Card extends BorderPane implements Serializable {
      * @param side1 the text that appears on the front
      */
     public void setSide1(String side1) {
-	this.side1 = side1;
+    	this.side1 = side1;
     }
 
     /**
@@ -93,7 +93,7 @@ public class Card extends BorderPane implements Serializable {
      * @param side2 the text that appears on the back
      */
     public void setSide2(String side2) {
-	this.side2 = side2;
+    	this.side2 = side2;
     }
 
     /**

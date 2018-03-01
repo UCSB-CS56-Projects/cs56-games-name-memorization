@@ -1,10 +1,13 @@
 package edu.ucsb.cs56.projects.games.name_memorization;
 import java.util.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.awt.Dimension;
 import java.io.*;
+import java.lang.Integer;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -24,8 +27,8 @@ import javafx.scene.control.TextField;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 import javafx.scene.control.ListView;
-import java.awt.*;
-import java.awt.event.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import java.io.*;
 import java.awt.Dimension;
 
@@ -38,20 +41,19 @@ import java.awt.Dimension;
 
 public class DeckEditor extends BorderPane /*implements ActionListener, ListSelectionListener*/ {
 
-    private BorderPane topPanel;
-    private HBox botPanel;
-    public HBox dataPanel;
+    private BorderPane mainPanel;
+    public HBox botPanel;
     private HBox infoPanel;
 
     private ListView deckList;
-    private Vector deckNames;
+    private ObservableList<String> deckNames;
     private Button addDeck;
     private Button removeDeck;
     private Button copyDeck;
     private Button selectDeck;
     private Button saveDeck;
     private Button loadDeck;
-    private ScrollPane deckScroller;
+    //private ScrollPane deckScroller;
     private TextField deckText;
 
     private Label deckSize;
@@ -61,48 +63,131 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
     private Deck deck;
 
     private String path;
+    
+
+	private ListView<String> myListView;
 
     /**
      * Constructor for Objects of type Editor
      * @param decks A DeckList
      */
-    public DeckEditor(/*DeckList decks*/){
+    public DeckEditor(DeckList decks){
 
-	this.decks = decks;
-	setPrefSize(800, 600);
+		this.decks = decks;
+		setPrefSize(800, 600);
+	
+		mainPanel = new BorderPane();
+		setCenter(mainPanel);
+		//mainPanel.setAlignment(Pos.CENTER); 
+		List<String> list = new ArrayList<String>();
+		deckNames = FXCollections.observableList(list);
+		for (int i = 0; i < decks.size(); i++)
+		    deckNames.add(decks.get(i).getName());
+	
+		deckList = new ListView(deckNames);
+		
+		
+		
 
-	topPanel = new BorderPane();
-	setCenter(topPanel);
-	//topPanel.setAlignment(Pos.CENTER); 
-	deckNames = new Vector();
-	for(int i=0;i<decks.size();i++)
-	    deckNames.addElement(decks.get(i).getName());
+		deckList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		    @Override
+		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		    	if (deckList.getSelectionModel().getSelectedIndices().size() > 0) {
+            		//Integer test = (Integer)(deckList.getSelectionModel().getSelectedIndices().get(0));
+	            	String deckName = (String)(decks.get((int)(deckList.getSelectionModel().getSelectedIndices().get(0))).getName());
+	        	    if (deckName != null) {
+	        			deckText.setText(deckName);
+	        			currentName.setText("Current Deck: " + decks.get((int)(deckList.getSelectionModel().getSelectedIndices().get(0))).getName() + "            ");
+	        			deckSize.setText("Size: " + decks.get((int)(deckList.getSelectionModel().getSelectedIndices().get(0))).size());
+	        	    }
+            	}
+		    }
+		});
+		
+		
+		
+		
+		/*deckList.addListener(new ListChangeListener() {
+            @Override
+            public void onChanged(ListChangeListener.Change change) {
+            	if (deckList.getSelectionModel().getSelectedIndices().size() > 0) {
+            		//Integer test = (Integer)(deckList.getSelectionModel().getSelectedIndices().get(0));
+	            	String deckName = (String)(decks.get((int)(deckList.getSelectionModel().getSelectedIndices().get(0))).getName());
+	        	    if (deckName != null) {
+	        			deckText.setText(deckName);
+	        			currentName.setText("Current Deck: " + decks.get((int)(deckList.getSelectionModel().getSelectedIndices().get(0))).getName() + "            ");
+	        			deckSize.setText("Size: " + decks.get((int)(deckList.getSelectionModel().getSelectedIndices().get(0))).size());
+	        	    }
+            	}
+            }
+        });*/
+	
+		/*deckScroller = new ScrollPane();
+		deckScroller.getViewport().add(deckList);
+		mainPanel.setTop(add(deckScroller));
+		  path=System.getProperty("user.dir");
+		  path=path + "/src/edu/ucsb/cs56/projects/games/name_memorization/saves/";
+	     */
+		
+		
+		
+		
+		
+		EventHandler<ActionEvent> addHandler = new EventHandler<ActionEvent>() {
+			@Override
+			// Select button
+			public void handle(ActionEvent event) {
+				String deckName = deckText.getText();
+			    deckText.setText("");
+			    boolean invalid = false;
 
-	//deckList = new ListView(deckNames);
-	//deckList.addListSelectionListener(this);
-
-	/*deckScroller = new ScrollPane();
-	deckScroller.getViewport().add(deckList);
-	topPanel.setTop(add(deckScroller));
-  path=System.getProperty("user.dir");
-  path=path + "/src/edu/ucsb/cs56/projects/games/name_memorization/saves/";
-     */
-	CreateDeckEntryPanel();
+			    if (deckName != null){
+					//Prevents the user from inputting a deck name that is a space or one that already exists
+					for (int i = 0; i < deckNames.size(); i++) {
+					    if (deckName.equals(deckNames.get(i))) {
+							invalid = true;
+							//JOptionPane.showMessageDialog(null, "Deck Name Already Exists", "Error", JOptionPane.ERROR_MESSAGE);
+							return;
+					    }
+					}
+	
+					if (deckName.trim().length() == 0) {
+					    invalid = true;
+					    //JOptionPane.showMessageDialog(null, "Deck Name Must Contain A Charater","Error", JOptionPane.ERROR_MESSAGE);
+					    return;
+					} else if (!invalid) {
+					    decks.add(new Deck(deckName));
+					    deckNames.add(deckName);
+					    deckList.setItems(deckNames);
+					    //deckList.setSelectedIndex(decks.size() - 1);
+					}
+			    }
+			}
+		};    	
+		addDeck.setOnAction(addHandler);
+		
+		
+		
+		
+		
+		
+		
+		CreateDeckEntryPanel();
     }
 
     /**
      * Creates the GUI for JButtons and JTextField
      */
     public void CreateDeckEntryPanel(){
-        dataPanel = new HBox();
-		dataPanel.setStyle("-fx-background-color: #336699;");
-		setBottom(dataPanel);
+        botPanel = new HBox(10);
+		botPanel.setStyle("-fx-background-color: #336699;");
+		setBottom(botPanel);
 
 		HBox embossDeck = new HBox();
 		embossDeck.setStyle("-fx-background-color: #112233;");
 		embossDeck.setPrefWidth(100);
 		embossDeck.setPrefHeight(100);
-		topPanel.setBottom(embossDeck);
+		mainPanel.setBottom(embossDeck);
 
 		deckText = new TextField("Enter Deck Name: ");
 		deckText.setPrefColumnCount(10);
@@ -110,22 +195,17 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		embossDeck.getChildren().add(deckText);
 
 		addDeck = new Button("Add");
-		//dataPanel.add(addDeck);
 		//addDeck.addActionListener(this);
 		removeDeck = new Button("Remove");
-		//dataPanel.add(removeDeck);
 		//removeDeck.addActionListener(this);
 		copyDeck = new Button("Copy");
-		//dataPanel.add(copyDeck);
 		//copyDeck.addActionListener(this);
 		saveDeck = new Button("Save");
-		//dataPanel.add(saveDeck);
 		////saveDeck.addActionListener(this);
 		loadDeck = new Button("Load");
-		//dataPanel.add(loadDeck);
 		//loadDeck.addActionListener(this);
-		dataPanel.setAlignment(Pos.CENTER);
-		dataPanel.getChildren().addAll(addDeck, removeDeck, copyDeck, saveDeck, loadDeck);
+		botPanel.setAlignment(Pos.CENTER);
+		botPanel.getChildren().addAll(addDeck, removeDeck, copyDeck, saveDeck, loadDeck);
 
 		
 
@@ -134,7 +214,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		infoPanel = new HBox();
 		infoPanel.setStyle("-fx-background-color: #336699;");
 
-		topPanel.setTop(infoPanel);
+		mainPanel.setTop(infoPanel);
 		
 		currentName = new Label("Current Deck: ");
 		currentName.setTextFill(Color.web("#FFFFFF"));
@@ -145,19 +225,6 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		infoPanel.getChildren().add(deckSize);
 
     }
-
-    //Handles list selection changes
-    /*public void valueChanged(ListSelectionEvent event){
-
-	if(event.getSource() == deckList && !event.getValueIsAdjusting()){
-	    String deckName = (String)deckList.getSelectedValue();
-	    if(deckName != null){
-		deckText.setText(deckName);
-		currentName.setText("Current Deck: " + decks.get(deckList.getSelectedIndex()).getName() + "            ");
-		deckSize.setText("Size: " + decks.get(deckList.getSelectedIndex()).size());
-	    }
-	}
-    }*/
 
     //Checks button presses
    /* public void actionPerformed(ActionEvent event){
@@ -275,7 +342,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 	return this.deckList;
     }
 
-    public HBox getDataPanel(){
-	return this.dataPanel;
+    public HBox getbotPanel(){
+	return this.botPanel;
     }
 }

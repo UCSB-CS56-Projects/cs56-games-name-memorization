@@ -38,7 +38,6 @@ import javafx.geometry.Insets;
  *@version  for CS56, W16
  */
 public class NameGame1 extends BorderPane {
-	public static DeckList decks;
 	//Main 
 	//private BorderPane pane;
 
@@ -148,18 +147,14 @@ public class NameGame1 extends BorderPane {
 		cardText = new TextArea();
 		Font cardFont = new Font("Verdana", 24);
 		cardText.setFont(cardFont);
+		cardText.setStyle("-fx-text-alignment: center;");
 		cardText.setEditable(false);
 		currentCard.getChildren().add(cardText);
-		//cardText.setText();
-		//currentCard.setBackground(Color.WHITE);
-		//decks is set in Main
-		//decks = new DeckList();
-		this.decks = decks;
-		//if (decks != null && decks.size() == 0) {
+		this.decks = decks;		
 			this.d = decks.get(0);
 			if (d.size() == 0) 
 				{cardText.setText("Deck is Empty!");}
-		//}
+	
 
 		//West Panel Components
 		BorderPane westBox = new BorderPane();
@@ -227,13 +222,13 @@ public class NameGame1 extends BorderPane {
 		sizeLabel = new Label("Deck Size:");
 		sizeLabel.setFont(new Font("Lucida Grande", 18));
 
-		deckSize = new Label("deckSize" /*Integer.toString(d.size())*/);
+		deckSize = new Label(Integer.toString(d.size()));
 		deckSize.setFont(new Font("Lucida Grande", 18));
 
 		cardNum = new Label("Card Number:");
 		cardNum.setFont(new Font("Lucida Grande", 18));
 
-		cNum = new Label("cNum" /*Integer.toString(current)*/);
+		cNum = new Label(Integer.toString(current));
 		cNum.setFont(new Font("Lucida Grande", 18));
 
 		restart = new Button("Restart");
@@ -252,8 +247,7 @@ public class NameGame1 extends BorderPane {
 	    		Stage stage = new Stage();
 	    		stage.setScene(new Scene(test));
 	    		stage.show();
-	    		primaryStage.hide();
-	    		//Confirm Button
+	    		Main.mainStage.hide();
 	    		Button confirm = new Button("Confirm");
 	    		Button cancel = new Button("Cancel");
 	    		test.botPanel.getChildren().addAll(confirm,cancel);
@@ -274,36 +268,93 @@ public class NameGame1 extends BorderPane {
 	    				}
 	    				next.setEnabled(true);
 	    				previous.setEnabled(true);*/
+	    				cardText.setText(side1);
 	    				deckSize.setText(Integer.toString(d.size()));
 	    				cNum.setText(Integer.toString(current+1));
-	    	    		primaryStage.show();
+	    	    		Main.mainStage.show();
 	    	    		stage.hide();
 	    	    	}  	
-	    	};
-	    	//
-	    		EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
-	    			@Override
-	    			public void handle(ActionEvent event) {
-	    				primaryStage.show();
-	    				stage.hide();
-    	}  	
-	    	};
-	    	confirm.setOnAction(confirmHandler);
-	    	cancel.setOnAction(cancelHandler);
+		    	};
+		    	//Cancel button
+				EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						Main.mainStage.show();
+						stage.hide();
+					}  	
+		    	};
+		    	confirm.setOnAction(confirmHandler);
+		    	cancel.setOnAction(cancelHandler);
 	    	}
-	    	};
+    	};
+    	
+	    EventHandler<ActionEvent> frontHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+		    public void handle(ActionEvent event) {
+	    		if(d.size() == 0) {
+	    			return;
+				}
+				Card h = (Card) d.get(current);
+				cardText.setText(h.getSide1());
+	    	}
+		};
+	    	
+	    EventHandler<ActionEvent> backHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+		    public void handle(ActionEvent event) {
+	    		if(d.size() == 0) {
+	    			return;
+    			}
+    			Card h = (Card) d.get(current);
+    			cardText.setText(h.getSide2());
+	    	}
+    	};
+
+	    EventHandler<ActionEvent> nextHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+		    public void handle(ActionEvent event) {
+	    		if (d.size()-1 > current) {
+	    			current++;
+					Card h = (Card) d.get(current);
+					cardText.setText(h.getSide1());
+	    		}
+	    	}
+    	};
+
+	    EventHandler<ActionEvent> previousHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+		    public void handle(ActionEvent event) {
+	    		if (current > 0) {
+	    			current--;
+					Card h = (Card) d.get(current);
+					cardText.setText(h.getSide1());
+	    		}
+	    	}
+    	};
+
+	    EventHandler<ActionEvent> restartHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+		    public void handle(ActionEvent event) {
+	    		d.clear();
+	    		current = 0;
+				cardText.setText("Deck is empty!");
+				deckSize.setText("0");
+				cNum.setText("N/A");
+	    	}
+    	};
+	    	
 	    //EDIT BUTTON AND EVERYTHING INSIDE	
 		EventHandler<ActionEvent> editHandler = new EventHandler<ActionEvent>() {
 			@Override
 			// edit button
 			public void handle(ActionEvent event) {
 				//if deck.size == 0, send an error 
-				Card c = new Card("Enter Text", "Enter Text", false);
+				Card c = d.get(current);
 				TestPane test = new TestPane(c);
 				Stage stage = new Stage();
 				stage.setScene(new Scene(test));
 				stage.show();
-				primaryStage.hide();
+				Main.mainStage.hide();
 				// Confirm Button
 				Button confirm = new Button("Confirm");
 				Button cancel = new Button("Cancel");
@@ -315,16 +366,15 @@ public class NameGame1 extends BorderPane {
 						String side1 = test.getFrontText();
 						String side2 = test.getBackText();
 
-						d.addCard(side1, side2, test.isPic());
+						d.editCard(c, side1, side2);
 						current = d.size() - 1;
 						Card h = (Card) d.get(current);
+						cardText.setText(h.getSide1());
 						/*
 						 * if(h.isPic()){ setPic(h); } else{ setPrint(h,1); }
 						 * next.setEnabled(true); previous.setEnabled(true);
 						 */
-						deckSize.setText(Integer.toString(d.size()));
-						cNum.setText(Integer.toString(current + 1));
-						primaryStage.show();
+						Main.mainStage.show();
 						stage.hide();
 					}
 				};
@@ -332,7 +382,7 @@ public class NameGame1 extends BorderPane {
 				EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						primaryStage.show();
+						Main.mainStage.show();
 						stage.hide();
 					}
 				};
@@ -350,30 +400,29 @@ public class NameGame1 extends BorderPane {
 	    		Stage stage = new Stage();
 	    		stage.setScene(new Scene(test));
 	    		stage.show();
-	    		primaryStage.hide();
+	    		Main.mainStage.hide();
 	    		//cancel Button
 	    		Button cancel = new Button("Normal Mode");
 	    		Button quiz = new Button("Quiz Mode");
 	    		test.botPanel.getChildren().addAll(cancel, quiz);
-	    	//
 	    		EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
 	    			@Override
 	    			public void handle(ActionEvent event) {
-	    				primaryStage.show();
+	    				Main.mainStage.show();
 	    				stage.hide();
-    	}  	
+	    			}  	
 	    		};
 	    		EventHandler<ActionEvent> quizHandler = new EventHandler<ActionEvent>() {
 		    		@Override
 		   			public void handle(ActionEvent event) {
-		   				primaryStage.show();
+		   				Main.mainStage.show();
 		   				stage.hide();
-	    	} 
-	    	};
-	    	cancel.setOnAction(cancelHandler);
-	    	quiz.setOnAction(quizHandler);
+		    		} 
+	    		};
+		    	cancel.setOnAction(cancelHandler);
+		    	quiz.setOnAction(quizHandler);
 	    	}
-	    	};
+    	};
 	    	
 	    	
 	   //SELECT DECK BUTTON AND EVERYTHING INSIDE
@@ -381,11 +430,11 @@ public class NameGame1 extends BorderPane {
 			@Override
 			// Select button
 			public void handle(ActionEvent event) {
-				DeckEditor test = new DeckEditor();
+				DeckEditor test = new DeckEditor(decks);
 				Stage stage = new Stage();
 				stage.setScene(new Scene(test));
 				stage.show();
-				primaryStage.hide();
+				Main.mainStage.hide();
 				// Confirm Button
 				Button select = new Button("Select");
 				Button cancel = new Button("Cancel");
@@ -394,14 +443,14 @@ public class NameGame1 extends BorderPane {
 				EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						primaryStage.show();
+						Main.mainStage.show();
 						stage.hide();
 					}
 				};
 				EventHandler<ActionEvent> selectHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						primaryStage.show();
+						Main.mainStage.show();
 						stage.hide();
 					}
 				};
@@ -413,6 +462,11 @@ public class NameGame1 extends BorderPane {
 		edit.setOnAction(editHandler);
 		menu.setOnAction(mainMenuHandler);
 		selectDeck.setOnAction(selectDeckHandler);
+		toFront.setOnAction(frontHandler);
+		toBack.setOnAction(backHandler);
+		next.setOnAction(nextHandler);
+		previous.setOnAction(previousHandler);
+		restart.setOnAction(restartHandler);
 		
 		/*JPanel eastCenter = new JPanel();
 	eastCenter.setBackground(Color.BLUE);
@@ -495,7 +549,7 @@ public class NameGame1 extends BorderPane {
 
 	myStart.showAndWait();*/
 
-		//primaryStage.show();
+		//Main.mainStage.show();
 
 	}
 

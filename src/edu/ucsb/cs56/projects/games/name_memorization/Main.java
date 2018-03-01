@@ -40,7 +40,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		Deck d;
 		decks = new DeckList();
-		try {
+		/*try {
 			FileInputStream fileStream = new FileInputStream("Deck.ser");
 			ObjectInputStream os = new ObjectInputStream(fileStream);
 
@@ -49,7 +49,7 @@ public class Main extends Application {
 			os.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
+		}*/
 
 		if (decks.size() != 0) {
 			d = decks.get(0);
@@ -64,7 +64,7 @@ public class Main extends Application {
 		mainStage = primaryStage;
 		primaryStage.setTitle("JavaFX attempt");
 		NameGame1 test = new NameGame1(decks);
-		primaryStage.setScene(new Scene(test));
+		primaryStage.setScene(new Scene(test, 800, 600));
 		primaryStage.show();
 	}
 }

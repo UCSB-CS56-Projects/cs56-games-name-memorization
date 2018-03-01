@@ -25,7 +25,7 @@ public class DeckList extends ArrayList<Deck> implements Serializable {
      * @param i the index of the deck
      */
     public void setCurrentDeck(int i){
-	this.currentDeck = this.get(i);
+    	this.currentDeck = this.get(i);
     }
     
 }
