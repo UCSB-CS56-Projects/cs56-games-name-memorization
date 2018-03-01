@@ -1,27 +1,47 @@
 package edu.ucsb.cs56.projects.games.name_memorization;
 
 import java.io.*;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.Component;
 import java.io.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 
 /**
  * A class that represents a card with two sides
  */
-public class Card extends JPanel implements Serializable {
+public class Card extends BorderPane implements Serializable {
 
 
-    private JTextArea cardText;
+    private TextArea cardText;
     private String side1;
     private String side2;
     private boolean isPic;
-    private JLabel frontPic;
-    private static final int xdim = 500;
-    private static final int ydim = 250;
+    private Label frontPic;
+    private static final int xdim = 25;
+    private static final int ydim = 35;
 
 
     /**
@@ -47,16 +67,17 @@ public class Card extends JPanel implements Serializable {
      */
 
     public Card(String side1, String side2, boolean isPicture) {
-	this.isPic = isPicture;
-	this.side1 = side1;
-	this.side2 = side2;
-	cardText = new JTextArea(side1);
-	cardText.setPreferredSize(new Dimension(xdim,ydim));
-    cardText.setEditable(false);
-    cardText.setLineWrap(true);
-    frontPic = new JLabel();
+        this.isPic = isPicture;
+        this.side1 = side1;
+        this.side2 = side2;
+        cardText = new TextArea(side1);
+        cardText.setPrefColumnCount(xdim);
+        cardText.setPrefRowCount(ydim);
+        cardText.setEditable(false);
+        cardText.setWrapText(true);
+        frontPic = new Label();
 
-	this.add(cardText);
+        setCenter(cardText);
     }
 
     /**
@@ -64,7 +85,7 @@ public class Card extends JPanel implements Serializable {
      * @param side1 the text that appears on the front
      */
     public void setSide1(String side1) {
-	this.side1 = side1;
+    	this.side1 = side1;
     }
 
     /**
@@ -72,7 +93,7 @@ public class Card extends JPanel implements Serializable {
      * @param side2 the text that appears on the back
      */
     public void setSide2(String side2) {
-	this.side2 = side2;
+    	this.side2 = side2;
     }
 
     /**
@@ -90,17 +111,23 @@ public class Card extends JPanel implements Serializable {
 
     /**
      * Gets the picture from the front side of the card
-     * @return frontPic a JLabel that is a picture
+     * @return a Label that is a picture
      */
-    public JLabel getPic(){
-        try{//getPic is only called if isPic is true, so side1 would contain picture path
-            BufferedImage unsized = ImageIO.read(new File(side1));
-            BufferedImage resized = resizeImage(unsized,275,250,unsized.getType());
-            frontPic.setIcon(new ImageIcon(resized));
-        }catch(IOException ex){
+    public Label getPic(){
+        //try {//getPic is only called if isPic is true, so side1 would contain picture path
+            /*BufferedImage unsized = ImageIO.read(new File(side1));
+            BufferedImage resized = resizeImage(unsized,275,250, unsized.getType());
+            frontPic.setIcon(new ImageIcon(resized));*/
+
+			Image image = new Image(new File(side1).toURI().toString());
+			ImageView iv = new ImageView(image);
+			Label imageLabel = new Label("Image");
+			imageLabel.setGraphic(iv);
+			return imageLabel;
+        /*} catch (IOException ex) {
             System.out.println("Trouble reading from the file: " + ex.getMessage());
         }
-        return frontPic;
+        return frontPic;*/
     }
 
     /**
