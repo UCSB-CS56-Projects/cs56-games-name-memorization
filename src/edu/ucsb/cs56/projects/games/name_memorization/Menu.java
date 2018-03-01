@@ -37,58 +37,58 @@ public class Menu extends BorderPane{
      * Creates the GUI
      */
     public Menu() {
-		String mainInstruction = "Welcome to the name memorization game!";
-		instructions[0] = "Press Normal Mode or Quiz mode to start the game.";
-		instructions[1] = "Use the Add button to add cards to the current deck.";
-		instructions[2] = "Use the Edit button to edit the current card.";
-		instructions[3] = "Use the Select Deck button to select, save, or load decks.";
-		instructions[4] = "Use the Main Menu button to return to this page.";
-		instructions[5] = "Use the Delete button to delete the current card.";
-		instructions[6] = "Use the Show Front/Back buttons to flip the flash card.";
-		instructions[7] = "Use the Correct/Incorrect buttons to keep score.";
-		instructions[8] = "Use the Previous/Next buttons to move back and forth within the current deck.";
-		instructions[9] = "Use the Reset button to set the score back to 0.";
-	    
-		setPrefSize(800,600);
-		setPadding(new Insets(10, 10, 10, 10));
-		setStyle("-fx-background-color: #D3D3D3;");
-		
-		midPanel = new VBox(20);
-		midPanel.setPadding(new Insets(10, 10, 10, 10));
-		midPanel.setStyle("-fx-background-color: #D3D3D3;");
-		midPanel.setAlignment(Pos.CENTER);
-		
-		botPanel = new HBox(10);
-		botPanel.setPadding(new Insets(10, 10, 10, 10));
-		botPanel.setStyle("-fx-background-color: #D3D3D3;");
-		botPanel.setAlignment(Pos.CENTER);
+      String mainInstruction = "Welcome to the name memorization game!";
+      instructions[0] = "Press Normal Mode or Quiz mode to start the game.";
+      instructions[1] = "Use the Add button to add cards to the current deck.";
+      instructions[2] = "Use the Edit button to edit the current card.";
+      instructions[3] = "Use the Select Deck button to select, save, or load decks.";
+      instructions[4] = "Use the Main Menu button to return to this page.";
+      instructions[5] = "Use the Delete button to delete the current card.";
+      instructions[6] = "Use the Show Front/Back buttons to flip the flash card.";
+      instructions[7] = "Use the Correct/Incorrect buttons to keep score.";
+      instructions[8] = "Use the Previous/Next buttons to move back and forth within the current deck.";
+      instructions[9] = "Use the Reset button to set the score back to 0.";
 
-		mainInstr = new Label(mainInstruction);
+      setPrefSize(800,600);
+      setPadding(new Insets(10, 10, 10, 10));
+      setStyle("-fx-background-color: #D3D3D3;");
 
-		for (int i = 0; i < 10; i++) {
-			instr[i] = new Label(instructions[i]);
-		}
+      midPanel = new VBox(20);
+      midPanel.setPadding(new Insets(10, 10, 10, 10));
+      midPanel.setStyle("-fx-background-color: #D3D3D3;");
+      midPanel.setAlignment(Pos.CENTER);
 
-		mainInstr.setTextFill(Color.web("#FFFFFF"));
-		for (int i = 0; i < 10; i++) {
-			instr[i].setTextFill(Color.web("#000000"));
-		}
+      botPanel = new HBox(10);
+      botPanel.setPadding(new Insets(10, 10, 10, 10));
+      botPanel.setStyle("-fx-background-color: #D3D3D3;");
+      botPanel.setAlignment(Pos.CENTER);
 
-		mainInstr.setFont(new Font("Lucida Grande", 32));
-		for (int i = 0; i < 10; i++) {
-			instr[i].setFont(new Font("Lucida Grande", 18));
-		}
+      mainInstr = new Label(mainInstruction);
 
-		setAlignment(mainInstr, Pos.CENTER);
-		setTop(mainInstr);
-		for (int i = 0; i < 10; i++) {
-			midPanel.getChildren().add(instr[i]);
-		}
-		setCenter(midPanel);
-		setBottom(botPanel);
+      for (int i = 0; i < 10; i++) {
+        instr[i] = new Label(instructions[i]);
+      }
+
+      mainInstr.setTextFill(Color.web("#FFFFFF"));
+      for (int i = 0; i < 10; i++) {
+        instr[i].setTextFill(Color.web("#000000"));
+      }
+
+      mainInstr.setFont(new Font("Lucida Grande", 32));
+      for (int i = 0; i < 10; i++) {
+        instr[i].setFont(new Font("Lucida Grande", 18));
+      }
+
+      setAlignment(mainInstr, Pos.CENTER);
+      setTop(mainInstr);
+      for (int i = 0; i < 10; i++) {
+        midPanel.getChildren().add(instr[i]);
+      }
+      setCenter(midPanel);
+      setBottom(botPanel);
     }
 
-    public HBox getBotPanel(){
-	return this.botPanel;
+    public HBox getBotPanel() {
+	    return this.botPanel;
     }
 }
