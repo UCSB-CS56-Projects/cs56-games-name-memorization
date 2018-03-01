@@ -1,5 +1,4 @@
 package edu.ucsb.cs56.projects.games.name_memorization;
-import javax.swing.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -80,10 +79,6 @@ public class Menu extends BorderPane{
 			instr[i].setFont(new Font("Lucida Grande", 18));
 		}
 
-		/*mainInstr.setHorizontalAlignment(SwingConstants.CENTER);
-		for (int i = 0; i < 10; i++) {
-			instr[i].setHorizontalAlignment(SwingConstants.CENTER);
-		}*/
 		setAlignment(mainInstr, Pos.CENTER);
 		setTop(mainInstr);
 		for (int i = 0; i < 10; i++) {
