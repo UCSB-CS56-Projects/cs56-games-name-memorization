@@ -87,7 +87,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		    deckNames.add(decks.get(i).getName());
 	
 		deckList = new ListView(deckNames);
-		
+		mainPanel.setCenter(deckList);
 		
 		
 
