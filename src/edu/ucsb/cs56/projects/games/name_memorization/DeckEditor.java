@@ -170,7 +170,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 				int selection = deckList.getSelectionModel().getSelectedIndex();
 				if (selection >= 0) {
 					decks.remove(selection);
-					deckNames.removeAt(selection);
+					deckNames.remove(selection);
 					//deckList.getSelectionModel().setListData(deckNames);
 
 					if (selection >= deckNames.size())

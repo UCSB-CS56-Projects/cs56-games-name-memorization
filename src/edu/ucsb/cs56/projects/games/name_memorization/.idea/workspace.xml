@@ -41,8 +41,8 @@
       <file leaf-file-name="DeckEditor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DeckEditor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3504">
-              <caret line="172" column="38" lean-forward="false" selection-start-line="172" selection-start-column="38" selection-end-line="172" selection-end-column="38" />
+            <state relative-caret-position="281">
+              <caret line="171" column="44" lean-forward="true" selection-start-line="171" selection-start-column="44" selection-end-line="171" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -95,6 +95,7 @@
       <find>testpane</find>
       <find>deckText</find>
       <find>deckList</find>
+      <find>deckNames</find>
     </findStrings>
     <replaceStrings>
       <replace>pane</replace>
@@ -509,8 +510,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DeckEditor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3504">
-          <caret line="172" column="38" lean-forward="false" selection-start-line="172" selection-start-column="38" selection-end-line="172" selection-end-column="38" />
+        <state relative-caret-position="281">
+          <caret line="171" column="44" lean-forward="true" selection-start-line="171" selection-start-column="44" selection-end-line="171" selection-end-column="44" />
           <folding />
         </state>
       </provider>
