@@ -75,12 +75,9 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 
 		this.decks = decks;
 		setPrefSize(800, 600);
-
-		this.decks.add(new Deck("deckaroo"));
 	
 		mainPanel = new BorderPane();
 		setCenter(mainPanel);
-		//mainPanel.setAlignment(Pos.CENTER); 
 		List<String> list = new ArrayList<String>();
 		deckNames = FXCollections.observableList(list);
 		for (int i = 0; i < decks.size(); i++)
@@ -95,7 +92,6 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		    @Override
 		    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 		    	if (deckList.getSelectionModel().getSelectedIndices().size() > 0) {
-            		//Integer test = (Integer)(deckList.getSelectionModel().getSelectedIndices().get(0));
 	            	String deckName = (String)(decks.get((int)(deckList.getSelectionModel().getSelectedIndices().get(0))).getName());
 	        	    if (deckName != null) {
 	        			deckText.setText(deckName);
@@ -165,7 +161,27 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 					}
 			    }
 			}
-		};    	
+		};
+
+		EventHandler<ActionEvent> removeHandler = new EventHandler<ActionEvent>() {
+			@Override
+			// Select button
+			public void handle(ActionEvent event) {
+				int selection = deckList.getSelectedIndex();
+				if (selection >= 0) {
+					decks.remove(selection);
+					deckNames.removeElementAt(selection);
+					deckList.setListData(deckNames);
+
+					if (selection >= deckNames.size())
+						selection = deckNames.size() - 1;
+
+					deckList.setSelectedIndex(selection);
+					//deckScroller.revalidate();
+					//deckScroller.repaint();
+				}
+			}
+		};
 		
 		
 
@@ -173,6 +189,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		
 		
 		addDeck.setOnAction(addHandler);
+		removeDeck.setOnAction(removeHandler);
     }
 
     /**
@@ -195,21 +212,12 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		embossDeck.getChildren().add(deckText);
 
 		addDeck = new Button("Add");
-		//addDeck.addActionListener(this);
 		removeDeck = new Button("Remove");
-		//removeDeck.addActionListener(this);
 		copyDeck = new Button("Copy");
-		//copyDeck.addActionListener(this);
 		saveDeck = new Button("Save");
-		////saveDeck.addActionListener(this);
 		loadDeck = new Button("Load");
-		//loadDeck.addActionListener(this);
 		botPanel.setAlignment(Pos.CENTER);
 		botPanel.getChildren().addAll(addDeck, removeDeck, copyDeck, saveDeck, loadDeck);
-
-		
-
-
 
 		infoPanel = new HBox();
 		infoPanel.setStyle("-fx-background-color: #336699;");
