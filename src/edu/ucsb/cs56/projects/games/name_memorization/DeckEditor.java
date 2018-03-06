@@ -75,6 +75,8 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 
 		this.decks = decks;
 		setPrefSize(800, 600);
+
+		this.decks.add(new Deck("deckaroo"));
 	
 		mainPanel = new BorderPane();
 		setCenter(mainPanel);
