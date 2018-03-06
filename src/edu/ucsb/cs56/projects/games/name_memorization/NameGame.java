@@ -246,7 +246,7 @@ public class NameGame extends BorderPane {
 	    	//add button
 	    	public void handle(ActionEvent event) {
 	    		Card c = new Card("Enter Text", "Enter Text", false);
-	    		TestPane test = new TestPane(c);
+	    		CardEditor test = new CardEditor(c);
 	    		Stage stage = new Stage();
 	    		stage.setScene(new Scene(test));
 	    		stage.show();
@@ -353,7 +353,7 @@ public class NameGame extends BorderPane {
 			public void handle(ActionEvent event) {
 				//if deck.size == 0, send an error 
 				Card c = d.get(current);
-				TestPane test = new TestPane(c);
+				CardEditor test = new CardEditor(c);
 				Stage stage = new Stage();
 				stage.setScene(new Scene(test));
 				stage.show();
