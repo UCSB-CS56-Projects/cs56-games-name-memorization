@@ -605,77 +605,76 @@ public class NameGame extends BorderPane {
 	// 	thisFrame.getContentPane().repaint();
 	//     }
 
-	//     /**
-	//      * This method will be called with next/previous if card is text
-	//      *
-	//      * @param c A card
-	//      * @param side the side of the card
-	//      */
-	//     public void setPrint(Card c, int side) {
-	//     	picture.setVisible(false);
-	// 	cardText.setVisible(true);
-	// 	currentCard.remove(picture);
-	// 	if(side == 1) {
-	// 	    cardText.setText(c.getSide1());
-	// 	} else if(side == 2) {
-	// 	    cardText.setText(c.getSide2());
-	// 	}
-
-	//     }
-
-	//     /**
-	//      * Sets the current deck
-	//      *
-	//      * @param d A deck
-	//      */
-	//     public void setDeck(Deck d) {
-	// 	this.d = d;
-	//     }
-
-	//     /**
-	//      * Returns a deck
-	//      *
-	//      * @return d A deck
-	//      */
-	//     public Deck getDeck() {
-	// 	return this.d;
-	//     }
-
-	//     /**
-	//      * Sets the current DeckList
-	//      * @param decks A DeckList
-	//      */
-	//     public void setDeckList(DeckList decks) {
-	// 	this.decks = decks;
-	//     }
-
-	//     /**
-	//      * Returns the current deckList
-	//      * @return decks a DeckList
-	//      */
-	//     public DeckList getDeckList() {
-	// 	return decks;
-	//     }
-
-	//     /**
-	//      * Updates the size of the deck to be the value specified
-	//      *
-	//      * @param decksize The new size of the deck
-	//      */
-	//     public void updateSize(int deckSize) {
-	// 	this.deckSize.setText(Integer.toString(deckSize));
-	//     }
-
-		/**
-		* Sets the index of the current card
-		*/
-		public void setCardNum() {
-			if (d.size() < 1) {
-				this.cNum.setText("0");
-			} else {
-				this.cNum.setText("1");
-			}
+	/**
+	* This method will be called with next/previous if card is text
+	*
+	* @param c A card
+	* @param side the side of the card
+	*/
+	public void setPrint(Card c, int side) {
+		picture.setVisible(false);
+		cardText.setVisible(true);
+		currentCard.remove(picture);
+		if(side == 1) {
+			cardText.setText(c.getSide1());
+		} else if(side == 2) {
+			cardText.setText(c.getSide2());
 		}
+	}
+
+	/**
+	* Sets the current deck
+	*
+	* @param d A deck
+	*/
+	public void setDeck(Deck d) {
+		this.d = d;
+	}
+
+	/**
+	* Returns a deck
+	*
+	* @return d A deck
+	*/
+	public Deck getDeck() {
+		return this.d;
+	}
+
+	/**
+	* Sets the current DeckList
+	* @param decks A DeckList
+	*/
+	public void setDeckList(DeckList decks) {
+		this.decks = decks;
+	}
+
+	/**
+	* Returns the current deckList
+	* @return decks a DeckList
+	*/
+	public DeckList getDeckList() {
+		return decks;
+	}
+
+	/**
+	* Updates the size of the deck to be the value specified
+	*
+	* @param decksize The new size of the deck
+	*/
+	public void updateSize(int deckSize) {
+		this.deckSize.setText(Integer.toString(deckSize));
+	}
+
+	/**
+	* Sets the index of the current card
+	*/
+	public void setCardNum() {
+		if (d.size() < 1) {
+			this.cNum.setText("0");
+		} else {
+			this.cNum.setText("1");
+		}
+	}
 
 
 	/**
@@ -1170,19 +1169,19 @@ public class NameGame extends BorderPane {
 	// 	return decks;
 	//     }
 
-	//     //Saves new decks
-	//     private void saveNewDeck(DeckList decks) {
-	// 	try {
-	// 	    FileOutputStream fileOut = new FileOutputStream("Deck.ser");
-	// 	    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	// 	    out.writeObject(decks);
-	// 	    out.close();
-	// 	    fileOut.close();
-	// 	} catch(FileNotFoundException e) {
-	// 	    e.printStackTrace();
-	// 	} catch(IOException e) {
-	// 	    e.printStackTrace();
-	// 	}
-	//     }
+	//Saves new decks
+	private void saveNewDeck(DeckList decks) {
+		try {
+			FileOutputStream fileOut = new FileOutputStream("Deck.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(decks);
+			out.close();
+			fileOut.close();
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
