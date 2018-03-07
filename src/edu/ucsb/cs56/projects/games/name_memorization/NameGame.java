@@ -64,10 +64,8 @@ public class NameGame extends BorderPane {
 	//West Control Panel
 	private BorderPane westQuiz = new BorderPane();
 	private Label scoreLabel;
-	private Label scoreNum;
 	private Label scoreLabelQuiz;
-	private Label scoreNumQuiz;
-	private int score = 0;
+	private int score;
 	private int scoreQuiz;
 
 	private Label deckSize;
@@ -142,7 +140,41 @@ public class NameGame extends BorderPane {
 		southQuiz.getChildren().add(guess);
 		southQuiz.setAlignment(Pos.CENTER);
 		//southQuiz.setBackground(Color.lightGray);
+		
+		EventHandler<ActionEvent> guessHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (d.size() == 0) {
+					scoreQuiz = 0;
+					scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
+					return;
+				}
+				Card h = (Card) d.get(current);
+				if (h.getSide2().equals(guessText.getText())) {
+					scoreQuiz = scoreQuiz + 1;
+					current++;
+					if (current == d.size()) {
+						current = 0;
+					}
+					h = (Card) d.get(current);
+					/*if (h.isPic()) {
+						setPic(h);
+					} else {*/
+						cardText.setText(h.getSide1());
+					//}
+					cNum.setText(Integer.toString(current + 1));
 
+					if (scoreQuiz > d.size()) {
+						scoreQuiz = d.size();
+					}
+					scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
+				} else {
+					correctQuiz.setVisible(true);
+					cardText.setText(h.getSide2());
+				}
+			}
+		};
+		guess.setOnAction(guessHandler);
 
 		//Initialize Card Viewer
 		currentCard = new HBox();
@@ -208,7 +240,37 @@ public class NameGame extends BorderPane {
 
 		correctQuiz = new Button("Override Correct");
 		correctQuiz.setVisible(false);
+		
+		EventHandler<ActionEvent> correctQuizHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+		 	    if (d.size() == 0) {
+		 	    	return;
+		 	    }
+		 	    scoreQuiz = scoreQuiz + 1;
+		 	    current++;
+		 	    if (current == d.size()) {
+		 		current = 0;
+		             }
 
+		 	    Card h = (Card)d.get(current);
+		 	    /*if (h.isPic()) {
+		 		setPic(h);
+		 	    } else {*/
+		 	    cardText.setText(h.getSide1());
+		 	    //}
+		 	    cNum.setText(Integer.toString(current + 1));
+
+		 	    if (scoreQuiz > d.size()) {
+		 		scoreQuiz = d.size();
+		 	    }
+		 	    scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
+		 	    correctQuiz.setVisible(false);
+		 	}
+			
+		};
+		correctQuiz.setOnAction(correctQuizHandler);
+	
 		westSouthQuiz.getChildren().addAll(correctQuiz);
 
 		deckName = new Label("DECK NAME"); //d.getName()
@@ -338,12 +400,25 @@ public class NameGame extends BorderPane {
 	    EventHandler<ActionEvent> restartHandler = new EventHandler<ActionEvent>() {
 	    	@Override
 		    public void handle(ActionEvent event) {
-	    		d.clear();
-	    		current = 0;
-				cardText.setText("Deck is empty!");
-				deckSize.setText("0");
-				cNum.setText("N/A");
-	    	}
+	    		score = 0;
+		 	    scoreLabel.setText("Score: " + Integer.toString(score));
+		 	    scoreQuiz = 0;
+		 	    scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
+
+		 	    if (d.size() == 0) {
+		 	    	return;
+		 	    }
+
+		 	    Card h = (Card) d.get(0);
+		 	    /*if(h.isPic()) {
+		 	    	setPic(h);
+		 	    } else {*/
+		 	   cardText.setText(h.getSide1());
+	    	//}
+
+		 	    current = 0;
+		 	    cNum.setText(Integer.toString(current + 1));
+		 	}
     	};
 	    	
 	    //EDIT BUTTON AND EVERYTHING INSIDE	
@@ -668,7 +743,35 @@ public class NameGame extends BorderPane {
     		Card c = new Card("Enter Text", "Enter Text", false);
     		editor = new CardEditor(c);
     		thisFrame.add(editor);
+// 	    if (d.size() == 0) {
+	// 		scoreQuiz = 0;
+	//     		scoreNumQuiz.setText(Integer.toString(scoreQuiz));
+	// 		return;
+	// 	    }
+	// 	    Card h = (Card)d.get(current);
+	// 	    if (h.getSide2().equals(guessText.getText())) {
+	// 		scoreQuiz = scoreQuiz + 1;
+	// 		current++;
+	// 		if(current == d.size()) {
+	//   		    current = 0;
+	// 		}
+	// 		h = (Card) d.get(current);
+	// 		if(h.isPic()){
+	// 		    setPic(h);
+	// 		} else {
+	// 		    setPrint(h, 1);
+	// 		}
+	// 		cNum.setText(Integer.toString(current + 1));
 
+	// 		if (scoreQuiz > d.size()) {
+	// 		    scoreQuiz = d.size();
+	// 		}
+	// 		scoreNumQuiz.setText(Integer.toString(scoreQuiz));
+	// 	    } else {
+	// 		correctQuiz.setVisible(true);
+	// 		setPrint(h, 2);
+	// 	    }
+	// 	}
     		Button confirm = new Button("Confirm");
     		editor.getBotPanel().add(confirm);
     		editor.getBotPanel().add(Box.createRigidArea(new Dimension(40, 0)));
