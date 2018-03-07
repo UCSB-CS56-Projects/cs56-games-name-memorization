@@ -171,12 +171,26 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 				if (selection >= 0) {
 					decks.remove(selection);
 					deckNames.remove(selection);
-					//deckList.getSelectionModel().setListData(deckNames);
 
 					if (selection >= deckNames.size())
 						selection = deckNames.size() - 1;
 
-					//deckList.getSelectionModel().setSelectedIndex(selection);
+					//deckScroller.revalidate();
+					//deckScroller.repaint();
+				}
+			}
+		};
+
+		EventHandler<ActionEvent> copyHandler = new EventHandler<ActionEvent>() {
+			@Override
+			// Select button
+			public void handle(ActionEvent event) {
+				int selection = deckList.getSelectionModel().getSelectedIndex();
+				if (selection >= 0) {
+					String deckName = decks.get(selection).getName();
+					decks.add(decks.get(selection));
+					deckNames.add(deckName);
+
 					//deckScroller.revalidate();
 					//deckScroller.repaint();
 				}
@@ -190,6 +204,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		
 		addDeck.setOnAction(addHandler);
 		removeDeck.setOnAction(removeHandler);
+		copyDeck.setOnAction(copyHandler);
     }
 
     /**
@@ -236,58 +251,6 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 
     //Checks button presses
    /* public void actionPerformed(ActionEvent event){
-
-	if(event.getSource() == addDeck){
-	    String deckName = deckText.getText();
-	    deckText.setText("");
-	    boolean invalid = false;
-
-	    if(deckName != null){
-		//Prevents the user from inputting a deck name that is a space or one that already exists
-
-		for(int i=0;i<deckNames.size();i++){
-		    if(deckName.equals(deckNames.get(i))){
-			invalid = true;
-			JOptionPane.showMessageDialog(null, "Deck Name Already Exists","Error", JOptionPane.ERROR_MESSAGE);
-			return;
-		    }
-		}
-
-		if (deckName.trim().length() == 0){
-		    invalid = true;
-		    JOptionPane.showMessageDialog(null, "Deck Name Must Contain A Charater","Error", JOptionPane.ERROR_MESSAGE);
-		    return;
-		}
-
-		else if(!invalid){
-		    this.decks.add(new Deck(deckName));
-		    deckNames.addElement(deckName);
-		    deckList.setListData(deckNames);
-		    deckList.setSelectedIndex(decks.size()-1);
-		    deckScroller.revalidate();
-		    deckScroller.repaint();
-
-		}
-
-	    }
-	}
-
-	if(event.getSource() == removeDeck){
-
-	    int selection = deckList.getSelectedIndex();
-	    if(selection >=0){
-
-		decks.remove(selection);
-		deckNames.removeElementAt(selection);
-		deckList.setListData(deckNames);
-		if(selection >= deckNames.size())
-		    selection = deckNames.size() - 1;
-		deckList.setSelectedIndex(selection);
-		deckScroller.revalidate();
-		deckScroller.repaint();
-	    }
-	}
-
 
 	if(event.getSource() == copyDeck){
 	    int selection = deckList.getSelectedIndex();
