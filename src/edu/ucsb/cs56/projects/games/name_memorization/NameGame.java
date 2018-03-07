@@ -168,7 +168,7 @@ public class NameGame extends BorderPane {
 		westNorth.setPadding(new Insets(10, 10, 10, 10));
 		westNorth.setAlignment(Pos.CENTER);
 
-		deckName = new Label("DECK NAME" /*d.getName()*/);
+		deckName = new Label(d.getName());
 		deckName.setFont(new Font("Lucida Grande", 18));
 
 		scoreLabel = new Label("Score: " + Integer.toString(score));
@@ -435,15 +435,15 @@ public class NameGame extends BorderPane {
 			@Override
 			// Select button
 			public void handle(ActionEvent event) {
-				DeckEditor test = new DeckEditor(decks);
+				DeckEditor deckEditor = new DeckEditor(decks);
 				Stage stage = new Stage();
-				stage.setScene(new Scene(test));
+				stage.setScene(new Scene(deckEditor));
 				stage.show();
 				Main.mainStage.hide();
 				// Confirm Button
 				Button select = new Button("Select");
 				Button cancel = new Button("Cancel");
-				test.botPanel.getChildren().addAll(select, cancel);
+				deckEditor.botPanel.getChildren().addAll(select, cancel);
 				//
 				EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
 					@Override
@@ -455,6 +455,30 @@ public class NameGame extends BorderPane {
 				EventHandler<ActionEvent> selectHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
+
+						int selection = deckEditor.getDeckList().getSelectionModel().getSelectedIndex();
+
+						////////SETCION HERE VVVVV
+
+						if (selection >= 0) {
+							setDeck(decks.get(selection));
+
+							if (d.size() == 0) {
+								cardText.setText("Deck is Empty!");
+								saveNewDeck(decks);
+							} else {
+								setPrint(d.get(0), 1);
+							}
+						}
+
+						deckSize.setText(Integer.toString(d.size()));
+						deckName.setText(d.getName());
+						setCardNum();
+
+
+
+						///SECTION HERE ^^^^^^^^^^
+
 						Main.mainStage.show();
 						stage.hide();
 					}
@@ -640,16 +664,16 @@ public class NameGame extends BorderPane {
 	// 	this.deckSize.setText(Integer.toString(deckSize));
 	//     }
 
-	//     /**
-	//      * Sets the index of the current card
-	//      */
-	//     public void setCardNum() {
-	// 	if (d.size() < 1) {
-	// 	    this.cNum.setText("0");
-	// 	} else {
-	// 	    this.cNum.setText("1");
-	// 	}
-	//     }
+		/**
+		* Sets the index of the current card
+		*/
+		public void setCardNum() {
+			if (d.size() < 1) {
+				this.cNum.setText("0");
+			} else {
+				this.cNum.setText("1");
+			}
+		}
 
 
 	/**
