@@ -59,6 +59,7 @@ public class NameGame extends BorderPane {
 
 	//East Control Panel
 	private Label deckName;
+	private Label deckNameQuiz;
 	private Button restart;
 
 	//West Control Panel
@@ -273,9 +274,9 @@ public class NameGame extends BorderPane {
 	
 		westSouthQuiz.getChildren().addAll(correctQuiz);
 
-		deckName = new Label("DECK NAME"); //d.getName()
-		deckName.setFont(new Font("Lucida Grande", 18));
-		westQuiz.setTop(deckName);
+		deckNameQuiz = new Label(d.getName()); //d.getName()
+		deckNameQuiz.setFont(new Font("Lucida Grande", 18));
+		westQuiz.setTop(deckNameQuiz);
 
 		//East Panel
 		VBox eastBox = new VBox(10);
@@ -545,6 +546,7 @@ public class NameGame extends BorderPane {
 						}
 						deckSize.setText(Integer.toString(d.size()));
 						deckName.setText(d.getName());
+						deckNameQuiz.setText(d.getName());
 						setCardNum();
 
 						Main.mainStage.show();
