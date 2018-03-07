@@ -457,14 +457,10 @@ public class NameGame extends BorderPane {
 				EventHandler<ActionEvent> selectHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-
 						int selection = deckEditor.getDeckList().getSelectionModel().getSelectedIndex();
-
-						////////SETCION HERE VVVVV
 
 						if (selection >= 0) {
 							setDeck(decks.get(selection));
-
 							if (d.size() == 0) {
 								cardText.setText("Deck is Empty!");
 								saveNewDeck(decks);
@@ -472,14 +468,9 @@ public class NameGame extends BorderPane {
 								setPrint(d.get(0), 1);
 							}
 						}
-
 						deckSize.setText(Integer.toString(d.size()));
 						deckName.setText(d.getName());
 						setCardNum();
-
-
-
-						///SECTION HERE ^^^^^^^^^^
 
 						Main.mainStage.show();
 						stage.hide();
@@ -500,85 +491,85 @@ public class NameGame extends BorderPane {
 		restart.setOnAction(restartHandler);
 		
 		/*JPanel eastCenter = new JPanel();
-	eastCenter.setBackground(Color.BLUE);
-	eastCenter.add(cardNum);
-	eastCenter.add(cNum);
+		eastCenter.setBackground(Color.BLUE);
+		eastCenter.add(cardNum);
+		eastCenter.add(cNum);
 
-	JPanel top = new JPanel();
-	top.setBackground(Color.BLUE);
-	top.add(sizeLabel, BorderLayout.NORTH);
-	top.add(deckSize, BorderLayout.NORTH);
+		JPanel top = new JPanel();
+		top.setBackground(Color.BLUE);
+		top.add(sizeLabel, BorderLayout.NORTH);
+		top.add(deckSize, BorderLayout.NORTH);
 
-	east.add(eastCenter,BorderLayout.CENTER);
-	east.add(top,BorderLayout.NORTH);
-	pane.add(east,BorderLayout.EAST);*/
+		east.add(eastCenter,BorderLayout.CENTER);
+		east.add(top,BorderLayout.NORTH);
+		pane.add(east,BorderLayout.EAST);*/
 
-		/*
-	//BUTTON LISTENERS -- Uncommented = implemented and functioning!!
-	//Currently you can add as many cards as you want,
-	//Go to the next or previous card in the deck,
-	//And see both sides of the current card
+			/*
+		//BUTTON LISTENERS -- Uncommented = implemented and functioning!!
+		//Currently you can add as many cards as you want,
+		//Go to the next or previous card in the deck,
+		//And see both sides of the current card
 
-	//Initialize Add Button Listener
-	addButtonListener addListener = new addButtonListener();
-	add.addActionListener(addListener);
+		//Initialize Add Button Listener
+		addButtonListener addListener = new addButtonListener();
+		add.addActionListener(addListener);
 
-	//Initialize Edit Button Listener
-	editButtonListener editListener = new editButtonListener();
-	edit.addActionListener(editListener);
+		//Initialize Edit Button Listener
+		editButtonListener editListener = new editButtonListener();
+		edit.addActionListener(editListener);
 
-	//Initialize Delete Button Listener
-	deleteButtonListener deleteListener = new deleteButtonListener();
-	delete.addActionListener(deleteListener);
+		//Initialize Delete Button Listener
+		deleteButtonListener deleteListener = new deleteButtonListener();
+		delete.addActionListener(deleteListener);
 
-	//Initialize Previous Button Listener
-	previousButtonListener previousListener = new previousButtonListener();
-	previous.addActionListener(previousListener);
+		//Initialize Previous Button Listener
+		previousButtonListener previousListener = new previousButtonListener();
+		previous.addActionListener(previousListener);
 
-	//Initialize Next Button Listener
-	nextButtonListener nextListener = new nextButtonListener();
-	next.addActionListener(nextListener);
+		//Initialize Next Button Listener
+		nextButtonListener nextListener = new nextButtonListener();
+		next.addActionListener(nextListener);
 
-	//Initialize SelectDeck Button Listener
-	selectDeckButtonListener selectDeckListener = new selectDeckButtonListener();
-	selectDeck.addActionListener(selectDeckListener);
+		//Initialize SelectDeck Button Listener
+		selectDeckButtonListener selectDeckListener = new selectDeckButtonListener();
+		selectDeck.addActionListener(selectDeckListener);
 
-	menuButtonListener menuListener = new menuButtonListener();
-	menu.addActionListener(menuListener);
+		menuButtonListener menuListener = new menuButtonListener();
+		menu.addActionListener(menuListener);
 
-	//Initialize Override correct Button Listener
-	overcorrectButtonListener overcorrectListener = new overcorrectButtonListener();
-	correctQuiz.addActionListener(overcorrectListener);
+		//Initialize Override correct Button Listener
+		overcorrectButtonListener overcorrectListener = new overcorrectButtonListener();
+		correctQuiz.addActionListener(overcorrectListener);
 
-	//Initialize Guess Button Listener
-	guessButtonListener guessListener = new guessButtonListener();
-	guess.addActionListener(guessListener);
+		//Initialize Guess Button Listener
+		guessButtonListener guessListener = new guessButtonListener();
+		guess.addActionListener(guessListener);
 
-	//Initialize Front Button Listener
-	frontButtonListener frontListener = new frontButtonListener();
-	toFront.addActionListener(frontListener);
+		//Initialize Front Button Listener
+		frontButtonListener frontListener = new frontButtonListener();
+		toFront.addActionListener(frontListener);
 
-	//Initialize Back Button Listener
-	backButtonListener backListener = new backButtonListener();
-	toBack.addActionListener(backListener);
+		//Initialize Back Button Listener
+		backButtonListener backListener = new backButtonListener();
+		toBack.addActionListener(backListener);
 
-	correctButtonListener correctListener = new correctButtonListener();
-	correct.addActionListener(correctListener);
+		correctButtonListener correctListener = new correctButtonListener();
+		correct.addActionListener(correctListener);
 
-	incorrectButtonListener incorrectListener = new incorrectButtonListener();
-	incorrect.addActionListener(incorrectListener);
+		incorrectButtonListener incorrectListener = new incorrectButtonListener();
+		incorrect.addActionListener(incorrectListener);
 
-	restartButtonListener restartListener = new restartButtonListener();
-	restart.addActionListener(restartListener);
+		restartButtonListener restartListener = new restartButtonListener();
+		restart.addActionListener(restartListener);
 
-	this.pack();
+		this.pack();
 
-	myStart = new Alert(AlertType.CONFIRMATION);
-	myStart.setTitle("Welcome");
-	myStart.setHeaderText("Welcome to the Name Memorization Game.");
-	myStart.setContentText("For instructions and mode changing click Main Menu in the game.");
+		myStart = new Alert(AlertType.CONFIRMATION);
+		myStart.setTitle("Welcome");
+		myStart.setHeaderText("Welcome to the Name Memorization Game.");
+		myStart.setContentText("For instructions and mode changing click Main Menu in the game.");
 
-	myStart.showAndWait();*/
+		myStart.showAndWait();*/
 
 		//Main.mainStage.show();
 
