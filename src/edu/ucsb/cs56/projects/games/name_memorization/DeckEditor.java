@@ -204,7 +204,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		
 		addDeck.setOnAction(addHandler);
 		removeDeck.setOnAction(removeHandler);
-		copyDeck.setOnAction(copyHandler);
+		//copyDeck.setOnAction(copyHandler);
     }
 
     /**
