@@ -181,7 +181,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 			}
 		};
 
-		EventHandler<ActionEvent> copyHandler = new EventHandler<ActionEvent>() {
+		/*EventHandler<ActionEvent> copyHandler = new EventHandler<ActionEvent>() {
 			@Override
 			// Select button
 			public void handle(ActionEvent event) {
@@ -195,7 +195,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 					//deckScroller.repaint();
 				}
 			}
-		};
+		};*/
 		
 		
 
@@ -251,20 +251,6 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 
     //Checks button presses
    /* public void actionPerformed(ActionEvent event){
-
-	if(event.getSource() == copyDeck){
-	    int selection = deckList.getSelectedIndex();
-	    String deckName = this.decks.get(selection).getName();
-	    if(selection >= 0){
-	        this.decks.add(this.decks.get(selection));
-		deckNames.add(deckName);
-		deckList.setListData(deckNames);
-		deckList.setSelectedIndex(decks.size()-1);
-		deckScroller.revalidate();
-		deckScroller.repaint();
-	    }
-
-	}
 
   if(event.getSource() == saveDeck){
 	    int selection = deckList.getSelectedIndex();
