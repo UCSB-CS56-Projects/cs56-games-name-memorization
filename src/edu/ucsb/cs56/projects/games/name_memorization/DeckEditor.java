@@ -181,7 +181,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 			}
 		};
 
-		/*EventHandler<ActionEvent> copyHandler = new EventHandler<ActionEvent>() {
+		EventHandler<ActionEvent> copyHandler = new EventHandler<ActionEvent>() {
 			@Override
 			// Select button
 			public void handle(ActionEvent event) {
@@ -195,7 +195,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 					//deckScroller.repaint();
 				}
 			}
-		};*/
+		};
 		
 		
 
@@ -204,7 +204,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		
 		addDeck.setOnAction(addHandler);
 		removeDeck.setOnAction(removeHandler);
-		//copyDeck.setOnAction(copyHandler);
+		copyDeck.setOnAction(copyHandler);
     }
 
     /**
