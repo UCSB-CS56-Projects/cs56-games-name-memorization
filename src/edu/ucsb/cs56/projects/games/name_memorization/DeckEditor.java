@@ -22,6 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.geometry.Pos;
@@ -203,11 +205,11 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 			public void handle(ActionEvent event) {
 				int selection = deckList.getSelectionModel().getSelectedIndex();
 				if (selection >= 0){
-					String deckName = this.decks.get(selection).getName();
+					String deckName = decks.get(selection).getName();
 					try {
 						FileOutputStream filestream = new FileOutputStream(path + deckName + ".ser");
 						ObjectOutputStream os = new ObjectOutputStream(filestream);
-						os.writeObject(this.decks.get(selection));
+						os.writeObject(decks.get(selection));
 						os.close();
 					} catch(Exception ex) {
 						ex.printStackTrace();
@@ -220,10 +222,11 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 			@Override
 			// Load button
 			public void handle(ActionEvent event) {
-				FileChooser chooser = new FileChooser(new File(path));
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("SER files", "ser");
-				chooser.setFileFilter(filter);
-				File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
+				FileChooser chooser = new FileChooser();
+				chooser.setInitialDirectory(new File(path));
+				ExtensionFilter filter = new ExtensionFilter("SER files", "ser");
+				chooser.setSelectedExtensionFilter(filter);
+				File selectedFile = chooser.showOpenDialog(Main.mainStage);
 
 				try {
 					String fileName = selectedFile.getName();
@@ -233,7 +236,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 					Deck deckSave = (Deck) one;
 					os.close();
 
-					this.decks.add(deckSave);
+					decks.add(deckSave);
 					deckNames.add(deckSave.getName());
 					//deckScroller.revalidate();
 					//deckScroller.repaint();

@@ -36,13 +36,14 @@
       <file leaf-file-name="DeckEditor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DeckEditor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="772">
-              <caret line="236" column="54" lean-forward="false" selection-start-line="236" selection-start-column="54" selection-end-line="236" selection-end-column="54" />
+            <state relative-caret-position="532">
+              <caret line="224" column="56" lean-forward="false" selection-start-line="224" selection-start-column="56" selection-end-line="224" selection-end-column="56" />
               <folding>
-                <element signature="e#10865#10866#0" expanded="true" />
-                <element signature="e#10894#10895#0" expanded="true" />
-                <element signature="e#10926#10927#0" expanded="true" />
-                <element signature="e#10955#10956#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#10960#10961#0" expanded="true" />
+                <element signature="e#10989#10990#0" expanded="true" />
+                <element signature="e#11021#11022#0" expanded="true" />
+                <element signature="e#11050#11051#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -71,8 +72,8 @@
       <file leaf-file-name="CardEditor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CardEditor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="324">
-              <caret line="112" column="79" lean-forward="true" selection-start-line="110" selection-start-column="16" selection-end-line="112" selection-end-column="79" />
+            <state relative-caret-position="575">
+              <caret line="23" column="30" lean-forward="true" selection-start-line="23" selection-start-column="30" selection-end-line="24" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -110,8 +111,8 @@
       <find>picture</find>
       <find>save</find>
       <find>Filechoo</find>
-      <find>filechoo</find>
       <find>filechoose</find>
+      <find>filechoo</find>
     </findStrings>
     <replaceStrings>
       <replace>pane</replace>
@@ -482,10 +483,11 @@
         <state relative-caret-position="3500">
           <caret line="171" column="44" lean-forward="true" selection-start-line="171" selection-start-column="44" selection-end-line="171" selection-end-column="44" />
           <folding>
-            <element signature="e#10865#10866#0" expanded="true" />
-            <element signature="e#10894#10895#0" expanded="true" />
-            <element signature="e#10926#10927#0" expanded="true" />
-            <element signature="e#10955#10956#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#10960#10961#0" expanded="true" />
+            <element signature="e#10989#10990#0" expanded="true" />
+            <element signature="e#11021#11022#0" expanded="true" />
+            <element signature="e#11050#11051#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -570,21 +572,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CardEditor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="112" column="79" lean-forward="true" selection-start-line="110" selection-start-column="16" selection-end-line="112" selection-end-column="79" />
+        <state relative-caret-position="575">
+          <caret line="23" column="30" lean-forward="true" selection-start-line="23" selection-start-column="30" selection-end-line="24" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DeckEditor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="772">
-          <caret line="236" column="54" lean-forward="false" selection-start-line="236" selection-start-column="54" selection-end-line="236" selection-end-column="54" />
+        <state relative-caret-position="532">
+          <caret line="224" column="56" lean-forward="false" selection-start-line="224" selection-start-column="56" selection-end-line="224" selection-end-column="56" />
           <folding>
-            <element signature="e#10865#10866#0" expanded="true" />
-            <element signature="e#10894#10895#0" expanded="true" />
-            <element signature="e#10926#10927#0" expanded="true" />
-            <element signature="e#10955#10956#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#10960#10961#0" expanded="true" />
+            <element signature="e#10989#10990#0" expanded="true" />
+            <element signature="e#11021#11022#0" expanded="true" />
+            <element signature="e#11050#11051#0" expanded="true" />
           </folding>
         </state>
       </provider>
