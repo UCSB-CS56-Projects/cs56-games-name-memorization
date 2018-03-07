@@ -727,7 +727,7 @@ public class NameGame extends BorderPane {
 	/**
 	* Updates the size of the deck to be the value specified
 	*
-	* @param decksize The new size of the deck
+	* @param deckSize The new size of the deck
 	*/
 	public void updateSize(int deckSize) {
 		this.deckSize.setText(Integer.toString(deckSize));
