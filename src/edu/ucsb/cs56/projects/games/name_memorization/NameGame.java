@@ -411,6 +411,8 @@ public class NameGame extends BorderPane {
 	    		EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
 	    			@Override
 	    			public void handle(ActionEvent event) {
+	    				setLeft(westBox);
+	    				setBottom(southBox);
 	    				Main.mainStage.show();
 	    				stage.hide();
 	    			}  	
