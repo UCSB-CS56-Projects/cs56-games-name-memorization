@@ -15,19 +15,19 @@
       <file leaf-file-name="NameGame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/NameGame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="616" column="36" lean-forward="true" selection-start-line="616" selection-start-column="36" selection-end-line="616" selection-end-column="36" />
+            <state relative-caret-position="124">
+              <caret line="593" column="25" lean-forward="true" selection-start-line="593" selection-start-column="25" selection-end-line="593" selection-end-column="25" />
               <folding>
-                <element signature="e#18188#18189#0" expanded="true" />
-                <element signature="e#18205#18206#0" expanded="true" />
-                <element signature="e#18281#18282#0" expanded="true" />
-                <element signature="e#18301#18302#0" expanded="true" />
-                <element signature="e#18410#18411#0" expanded="true" />
-                <element signature="e#18435#18436#0" expanded="true" />
-                <element signature="e#18538#18539#0" expanded="true" />
-                <element signature="e#18557#18558#0" expanded="true" />
-                <element signature="e#18712#18713#0" expanded="true" />
-                <element signature="e#18768#18769#0" expanded="true" />
+                <element signature="e#18190#18191#0" expanded="true" />
+                <element signature="e#18207#18208#0" expanded="true" />
+                <element signature="e#18283#18284#0" expanded="true" />
+                <element signature="e#18303#18304#0" expanded="true" />
+                <element signature="e#18412#18413#0" expanded="true" />
+                <element signature="e#18437#18438#0" expanded="true" />
+                <element signature="e#18540#18541#0" expanded="true" />
+                <element signature="e#18559#18560#0" expanded="true" />
+                <element signature="e#18714#18715#0" expanded="true" />
+                <element signature="e#18770#18771#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -101,6 +101,7 @@
       <find>select</find>
       <find>setCardNum</find>
       <find>getDeckList</find>
+      <find>picture</find>
     </findStrings>
     <replaceStrings>
       <replace>pane</replace>
@@ -422,16 +423,16 @@
         <state relative-caret-position="8175">
           <caret line="355" column="52" lean-forward="false" selection-start-line="355" selection-start-column="52" selection-end-line="355" selection-end-column="52" />
           <folding>
-            <element signature="e#18188#18189#0" expanded="true" />
-            <element signature="e#18205#18206#0" expanded="true" />
-            <element signature="e#18281#18282#0" expanded="true" />
-            <element signature="e#18301#18302#0" expanded="true" />
-            <element signature="e#18410#18411#0" expanded="true" />
-            <element signature="e#18435#18436#0" expanded="true" />
-            <element signature="e#18538#18539#0" expanded="true" />
-            <element signature="e#18557#18558#0" expanded="true" />
-            <element signature="e#18712#18713#0" expanded="true" />
-            <element signature="e#18768#18769#0" expanded="true" />
+            <element signature="e#18190#18191#0" expanded="true" />
+            <element signature="e#18207#18208#0" expanded="true" />
+            <element signature="e#18283#18284#0" expanded="true" />
+            <element signature="e#18303#18304#0" expanded="true" />
+            <element signature="e#18412#18413#0" expanded="true" />
+            <element signature="e#18437#18438#0" expanded="true" />
+            <element signature="e#18540#18541#0" expanded="true" />
+            <element signature="e#18559#18560#0" expanded="true" />
+            <element signature="e#18714#18715#0" expanded="true" />
+            <element signature="e#18770#18771#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -441,11 +442,11 @@
         <state relative-caret-position="1875">
           <caret line="75" column="21" lean-forward="true" selection-start-line="75" selection-start-column="21" selection-end-line="75" selection-end-column="21" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6464#6465#0" expanded="true" />
-            <element signature="e#6487#6488#0" expanded="true" />
-            <element signature="e#6516#6517#0" expanded="true" />
-            <element signature="e#6538#6539#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#6464#6465#0" expanded="false" />
+            <element signature="e#6487#6488#0" expanded="false" />
+            <element signature="e#6516#6517#0" expanded="false" />
+            <element signature="e#6538#6539#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -543,11 +544,11 @@
         <state relative-caret-position="25">
           <caret line="75" column="21" lean-forward="false" selection-start-line="75" selection-start-column="21" selection-end-line="75" selection-end-column="21" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6464#6465#0" expanded="true" />
-            <element signature="e#6487#6488#0" expanded="true" />
-            <element signature="e#6516#6517#0" expanded="true" />
-            <element signature="e#6538#6539#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#6464#6465#0" expanded="false" />
+            <element signature="e#6487#6488#0" expanded="false" />
+            <element signature="e#6516#6517#0" expanded="false" />
+            <element signature="e#6538#6539#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -567,19 +568,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/NameGame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="616" column="36" lean-forward="true" selection-start-line="616" selection-start-column="36" selection-end-line="616" selection-end-column="36" />
+        <state relative-caret-position="124">
+          <caret line="593" column="25" lean-forward="true" selection-start-line="593" selection-start-column="25" selection-end-line="593" selection-end-column="25" />
           <folding>
-            <element signature="e#18188#18189#0" expanded="true" />
-            <element signature="e#18205#18206#0" expanded="true" />
-            <element signature="e#18281#18282#0" expanded="true" />
-            <element signature="e#18301#18302#0" expanded="true" />
-            <element signature="e#18410#18411#0" expanded="true" />
-            <element signature="e#18435#18436#0" expanded="true" />
-            <element signature="e#18538#18539#0" expanded="true" />
-            <element signature="e#18557#18558#0" expanded="true" />
-            <element signature="e#18712#18713#0" expanded="true" />
-            <element signature="e#18768#18769#0" expanded="true" />
+            <element signature="e#18190#18191#0" expanded="true" />
+            <element signature="e#18207#18208#0" expanded="true" />
+            <element signature="e#18283#18284#0" expanded="true" />
+            <element signature="e#18303#18304#0" expanded="true" />
+            <element signature="e#18412#18413#0" expanded="true" />
+            <element signature="e#18437#18438#0" expanded="true" />
+            <element signature="e#18540#18541#0" expanded="true" />
+            <element signature="e#18559#18560#0" expanded="true" />
+            <element signature="e#18714#18715#0" expanded="true" />
+            <element signature="e#18770#18771#0" expanded="true" />
           </folding>
         </state>
       </provider>

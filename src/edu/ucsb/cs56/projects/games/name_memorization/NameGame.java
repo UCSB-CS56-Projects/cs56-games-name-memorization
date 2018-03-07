@@ -614,7 +614,7 @@ public class NameGame extends BorderPane {
 	public void setPrint(Card c, int side) {
 		picture.setVisible(false);
 		cardText.setVisible(true);
-		currentCard.remove(picture);
+		//currentCard.remove(picture);
 		if(side == 1) {
 			cardText.setText(c.getSide1());
 		} else if(side == 2) {
