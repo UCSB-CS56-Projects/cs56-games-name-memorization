@@ -196,6 +196,52 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 				}
 			}
 		};
+
+		EventHandler<ActionEvent> saveHandler = new EventHandler<ActionEvent>() {
+			@Override
+			// Save button
+			public void handle(ActionEvent event) {
+				int selection = deckList.getSelectionModel().getSelectedIndex();
+				if (selection >= 0){
+					String deckName = this.decks.get(selection).getName();
+					try {
+						FileOutputStream filestream = new FileOutputStream(path + deckName + ".ser");
+						ObjectOutputStream os = new ObjectOutputStream(filestream);
+						os.writeObject(this.decks.get(selection));
+						os.close();
+					} catch(Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			}
+		};
+
+		EventHandler<ActionEvent> loadHandler = new EventHandler<ActionEvent>() {
+			@Override
+			// Load button
+			public void handle(ActionEvent event) {
+				FileChooser chooser = new FileChooser(new File(path));
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("SER files", "ser");
+				chooser.setFileFilter(filter);
+				File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
+
+				try {
+					String fileName = selectedFile.getName();
+					FileInputStream filestream = new FileInputStream(path + fileName);
+					ObjectInputStream os = new ObjectInputStream(filestream);
+					Object one = os.readObject();
+					Deck deckSave = (Deck) one;
+					os.close();
+
+					this.decks.add(deckSave);
+					deckNames.add(deckSave.getName());
+					//deckScroller.revalidate();
+					//deckScroller.repaint();
+				} catch(Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		};
 		
 		
 
@@ -205,6 +251,8 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 		addDeck.setOnAction(addHandler);
 		removeDeck.setOnAction(removeHandler);
 		copyDeck.setOnAction(copyHandler);
+		saveDeck.setOnAction(saveHandler);
+		loadDeck.setOnAction(loadHandler);
     }
 
     /**
@@ -252,48 +300,48 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
     //Checks button presses
    /* public void actionPerformed(ActionEvent event){
 
-  if(event.getSource() == saveDeck){
-	    int selection = deckList.getSelectedIndex();
-	    String deckName = this.decks.get(selection).getName();
-	    if(selection >= 0){
-        try {
-          FileOutputStream filestream = new FileOutputStream(path + deckName + ".ser");
-          ObjectOutputStream os = new ObjectOutputStream(filestream);
-          os.writeObject(this.decks.get(selection));
-          os.close();
-        } catch(Exception ex) {
-          ex.printStackTrace();
-        }
-	    }
+	  if(event.getSource() == saveDeck){
+			int selection = deckList.getSelectedIndex();
+			String deckName = this.decks.get(selection).getName();
+			if(selection >= 0){
+			try {
+			  FileOutputStream filestream = new FileOutputStream(path + deckName + ".ser");
+			  ObjectOutputStream os = new ObjectOutputStream(filestream);
+			  os.writeObject(this.decks.get(selection));
+			  os.close();
+			} catch(Exception ex) {
+			  ex.printStackTrace();
+			}
+			}
 
-	}
+		}
 
-  if(event.getSource() == loadDeck){
-    JFileChooser chooser = new JFileChooser(new File(path));
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("SER files", "ser");
-		chooser.setFileFilter(filter);
-		int returnVal = chooser.showOpenDialog(thisPanel);
-    if(returnVal == JFileChooser.APPROVE_OPTION) {
-      try {
-        String fileName = chooser.getSelectedFile().getName();
-        FileInputStream filestream = new FileInputStream(path + fileName);
-        ObjectInputStream os = new ObjectInputStream(filestream);
-        Object one = os.readObject();
-        Deck deckSave = (Deck) one;
-        os.close();
+	  if(event.getSource() == loadDeck){
+		JFileChooser chooser = new JFileChooser(new File(path));
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("SER files", "ser");
+			chooser.setFileFilter(filter);
+			int returnVal = chooser.showOpenDialog(thisPanel);
+		if(returnVal == JFileChooser.APPROVE_OPTION) {
+		  try {
+			String fileName = chooser.getSelectedFile().getName();
+			FileInputStream filestream = new FileInputStream(path + fileName);
+			ObjectInputStream os = new ObjectInputStream(filestream);
+			Object one = os.readObject();
+			Deck deckSave = (Deck) one;
+			os.close();
 
-        this.decks.add(deckSave);
-        deckNames.add(deckSave.getName());
-    		deckList.setListData(deckNames);
-    		deckList.setSelectedIndex(decks.size()-1);
-    		deckScroller.revalidate();
-    		deckScroller.repaint();
-      } catch(Exception ex) {
-        ex.printStackTrace();
-      }
-    }
-  }
-}*/
+			this.decks.add(deckSave);
+			deckNames.add(deckSave.getName());
+				deckList.setListData(deckNames);
+				deckList.setSelectedIndex(decks.size()-1);
+				deckScroller.revalidate();
+				deckScroller.repaint();
+		  } catch(Exception ex) {
+			ex.printStackTrace();
+		  }
+		}
+	  }
+	}*/
 
     public ListView getDeckList(){
 	return this.deckList;

@@ -200,7 +200,7 @@ public class NameGame extends BorderPane {
 		westNorth.setPadding(new Insets(10, 10, 10, 10));
 		westNorth.setAlignment(Pos.CENTER);
 
-		deckName = new Label("DECK NAME" /*d.getName()*/);
+		deckName = new Label(d.getName());
 		deckName.setFont(new Font("Lucida Grande", 18));
 
 		scoreLabel = new Label("Score: " + Integer.toString(score));
@@ -512,15 +512,15 @@ public class NameGame extends BorderPane {
 			@Override
 			// Select button
 			public void handle(ActionEvent event) {
-				DeckEditor test = new DeckEditor(decks);
+				DeckEditor deckEditor = new DeckEditor(decks);
 				Stage stage = new Stage();
-				stage.setScene(new Scene(test));
+				stage.setScene(new Scene(deckEditor));
 				stage.show();
 				Main.mainStage.hide();
 				// Confirm Button
 				Button select = new Button("Select");
 				Button cancel = new Button("Cancel");
-				test.botPanel.getChildren().addAll(select, cancel);
+				deckEditor.botPanel.getChildren().addAll(select, cancel);
 				//
 				EventHandler<ActionEvent> cancelHandler = new EventHandler<ActionEvent>() {
 					@Override
@@ -532,6 +532,21 @@ public class NameGame extends BorderPane {
 				EventHandler<ActionEvent> selectHandler = new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
+						int selection = deckEditor.getDeckList().getSelectionModel().getSelectedIndex();
+
+						if (selection >= 0) {
+							setDeck(decks.get(selection));
+							if (d.size() == 0) {
+								cardText.setText("Deck is Empty!");
+								saveNewDeck(decks);
+							} else {
+								setPrint(d.get(0), 1);
+							}
+						}
+						deckSize.setText(Integer.toString(d.size()));
+						deckName.setText(d.getName());
+						setCardNum();
+
 						Main.mainStage.show();
 						stage.hide();
 					}
@@ -551,85 +566,85 @@ public class NameGame extends BorderPane {
 		restart.setOnAction(restartHandler);
 		
 		/*JPanel eastCenter = new JPanel();
-	eastCenter.setBackground(Color.BLUE);
-	eastCenter.add(cardNum);
-	eastCenter.add(cNum);
+		eastCenter.setBackground(Color.BLUE);
+		eastCenter.add(cardNum);
+		eastCenter.add(cNum);
 
-	JPanel top = new JPanel();
-	top.setBackground(Color.BLUE);
-	top.add(sizeLabel, BorderLayout.NORTH);
-	top.add(deckSize, BorderLayout.NORTH);
+		JPanel top = new JPanel();
+		top.setBackground(Color.BLUE);
+		top.add(sizeLabel, BorderLayout.NORTH);
+		top.add(deckSize, BorderLayout.NORTH);
 
-	east.add(eastCenter,BorderLayout.CENTER);
-	east.add(top,BorderLayout.NORTH);
-	pane.add(east,BorderLayout.EAST);*/
+		east.add(eastCenter,BorderLayout.CENTER);
+		east.add(top,BorderLayout.NORTH);
+		pane.add(east,BorderLayout.EAST);*/
 
-		/*
-	//BUTTON LISTENERS -- Uncommented = implemented and functioning!!
-	//Currently you can add as many cards as you want,
-	//Go to the next or previous card in the deck,
-	//And see both sides of the current card
+			/*
+		//BUTTON LISTENERS -- Uncommented = implemented and functioning!!
+		//Currently you can add as many cards as you want,
+		//Go to the next or previous card in the deck,
+		//And see both sides of the current card
 
-	//Initialize Add Button Listener
-	addButtonListener addListener = new addButtonListener();
-	add.addActionListener(addListener);
+		//Initialize Add Button Listener
+		addButtonListener addListener = new addButtonListener();
+		add.addActionListener(addListener);
 
-	//Initialize Edit Button Listener
-	editButtonListener editListener = new editButtonListener();
-	edit.addActionListener(editListener);
+		//Initialize Edit Button Listener
+		editButtonListener editListener = new editButtonListener();
+		edit.addActionListener(editListener);
 
-	//Initialize Delete Button Listener
-	deleteButtonListener deleteListener = new deleteButtonListener();
-	delete.addActionListener(deleteListener);
+		//Initialize Delete Button Listener
+		deleteButtonListener deleteListener = new deleteButtonListener();
+		delete.addActionListener(deleteListener);
 
-	//Initialize Previous Button Listener
-	previousButtonListener previousListener = new previousButtonListener();
-	previous.addActionListener(previousListener);
+		//Initialize Previous Button Listener
+		previousButtonListener previousListener = new previousButtonListener();
+		previous.addActionListener(previousListener);
 
-	//Initialize Next Button Listener
-	nextButtonListener nextListener = new nextButtonListener();
-	next.addActionListener(nextListener);
+		//Initialize Next Button Listener
+		nextButtonListener nextListener = new nextButtonListener();
+		next.addActionListener(nextListener);
 
-	//Initialize SelectDeck Button Listener
-	selectDeckButtonListener selectDeckListener = new selectDeckButtonListener();
-	selectDeck.addActionListener(selectDeckListener);
+		//Initialize SelectDeck Button Listener
+		selectDeckButtonListener selectDeckListener = new selectDeckButtonListener();
+		selectDeck.addActionListener(selectDeckListener);
 
-	menuButtonListener menuListener = new menuButtonListener();
-	menu.addActionListener(menuListener);
+		menuButtonListener menuListener = new menuButtonListener();
+		menu.addActionListener(menuListener);
 
-	//Initialize Override correct Button Listener
-	overcorrectButtonListener overcorrectListener = new overcorrectButtonListener();
-	correctQuiz.addActionListener(overcorrectListener);
+		//Initialize Override correct Button Listener
+		overcorrectButtonListener overcorrectListener = new overcorrectButtonListener();
+		correctQuiz.addActionListener(overcorrectListener);
 
-	//Initialize Guess Button Listener
-	guessButtonListener guessListener = new guessButtonListener();
-	guess.addActionListener(guessListener);
+		//Initialize Guess Button Listener
+		guessButtonListener guessListener = new guessButtonListener();
+		guess.addActionListener(guessListener);
 
-	//Initialize Front Button Listener
-	frontButtonListener frontListener = new frontButtonListener();
-	toFront.addActionListener(frontListener);
+		//Initialize Front Button Listener
+		frontButtonListener frontListener = new frontButtonListener();
+		toFront.addActionListener(frontListener);
 
-	//Initialize Back Button Listener
-	backButtonListener backListener = new backButtonListener();
-	toBack.addActionListener(backListener);
+		//Initialize Back Button Listener
+		backButtonListener backListener = new backButtonListener();
+		toBack.addActionListener(backListener);
 
-	correctButtonListener correctListener = new correctButtonListener();
-	correct.addActionListener(correctListener);
+		correctButtonListener correctListener = new correctButtonListener();
+		correct.addActionListener(correctListener);
 
-	incorrectButtonListener incorrectListener = new incorrectButtonListener();
-	incorrect.addActionListener(incorrectListener);
+		incorrectButtonListener incorrectListener = new incorrectButtonListener();
+		incorrect.addActionListener(incorrectListener);
 
-	restartButtonListener restartListener = new restartButtonListener();
-	restart.addActionListener(restartListener);
+		restartButtonListener restartListener = new restartButtonListener();
+		restart.addActionListener(restartListener);
 
-	this.pack();
+		this.pack();
 
-	myStart = new Alert(AlertType.CONFIRMATION);
-	myStart.setTitle("Welcome");
-	myStart.setHeaderText("Welcome to the Name Memorization Game.");
-	myStart.setContentText("For instructions and mode changing click Main Menu in the game.");
+		myStart = new Alert(AlertType.CONFIRMATION);
+		myStart.setTitle("Welcome");
+		myStart.setHeaderText("Welcome to the Name Memorization Game.");
+		myStart.setContentText("For instructions and mode changing click Main Menu in the game.");
 
-	myStart.showAndWait();*/
+		myStart.showAndWait();*/
 
 		//Main.mainStage.show();
 
@@ -656,77 +671,76 @@ public class NameGame extends BorderPane {
 	// 	thisFrame.getContentPane().repaint();
 	//     }
 
-	//     /**
-	//      * This method will be called with next/previous if card is text
-	//      *
-	//      * @param c A card
-	//      * @param side the side of the card
-	//      */
-	//     public void setPrint(Card c, int side) {
-	//     	picture.setVisible(false);
-	// 	cardText.setVisible(true);
-	// 	currentCard.remove(picture);
-	// 	if(side == 1) {
-	// 	    cardText.setText(c.getSide1());
-	// 	} else if(side == 2) {
-	// 	    cardText.setText(c.getSide2());
-	// 	}
+	/**
+	* This method will be called with next/previous if card is text
+	*
+	* @param c A card
+	* @param side the side of the card
+	*/
+	public void setPrint(Card c, int side) {
+		picture.setVisible(false);
+		cardText.setVisible(true);
+		//currentCard.remove(picture);
+		if(side == 1) {
+			cardText.setText(c.getSide1());
+		} else if(side == 2) {
+			cardText.setText(c.getSide2());
+		}
+	}
 
-	//     }
+	/**
+	* Sets the current deck
+	*
+	* @param d A deck
+	*/
+	public void setDeck(Deck d) {
+		this.d = d;
+	}
 
-	//     /**
-	//      * Sets the current deck
-	//      *
-	//      * @param d A deck
-	//      */
-	//     public void setDeck(Deck d) {
-	// 	this.d = d;
-	//     }
+	/**
+	* Returns a deck
+	*
+	* @return d A deck
+	*/
+	public Deck getDeck() {
+		return this.d;
+	}
 
-	//     /**
-	//      * Returns a deck
-	//      *
-	//      * @return d A deck
-	//      */
-	//     public Deck getDeck() {
-	// 	return this.d;
-	//     }
+	/**
+	* Sets the current DeckList
+	* @param decks A DeckList
+	*/
+	public void setDeckList(DeckList decks) {
+		this.decks = decks;
+	}
 
-	//     /**
-	//      * Sets the current DeckList
-	//      * @param decks A DeckList
-	//      */
-	//     public void setDeckList(DeckList decks) {
-	// 	this.decks = decks;
-	//     }
+	/**
+	* Returns the current deckList
+	* @return decks a DeckList
+	*/
+	public DeckList getDeckList() {
+		return decks;
+	}
 
-	//     /**
-	//      * Returns the current deckList
-	//      * @return decks a DeckList
-	//      */
-	//     public DeckList getDeckList() {
-	// 	return decks;
-	//     }
+	/**
+	* Updates the size of the deck to be the value specified
+	*
+	* @param decksize The new size of the deck
+	*/
+	public void updateSize(int deckSize) {
+		this.deckSize.setText(Integer.toString(deckSize));
+	}
 
-	//     /**
-	//      * Updates the size of the deck to be the value specified
-	//      *
-	//      * @param decksize The new size of the deck
-	//      */
-	//     public void updateSize(int deckSize) {
-	// 	this.deckSize.setText(Integer.toString(deckSize));
-	//     }
-
-	//     /**
-	//      * Sets the index of the current card
-	//      */
-	//     public void setCardNum() {
-	// 	if (d.size() < 1) {
-	// 	    this.cNum.setText("0");
-	// 	} else {
-	// 	    this.cNum.setText("1");
-	// 	}
-	//     }
+	/**
+	* Sets the index of the current card
+	*/
+	public void setCardNum() {
+		if (d.size() < 1) {
+			this.cNum.setText("0");
+		} else {
+			this.cNum.setText("1");
+		}
+	}
 
 
 	/**
@@ -1249,19 +1263,19 @@ public class NameGame extends BorderPane {
 	// 	return decks;
 	//     }
 
-	//     //Saves new decks
-	//     private void saveNewDeck(DeckList decks) {
-	// 	try {
-	// 	    FileOutputStream fileOut = new FileOutputStream("Deck.ser");
-	// 	    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	// 	    out.writeObject(decks);
-	// 	    out.close();
-	// 	    fileOut.close();
-	// 	} catch(FileNotFoundException e) {
-	// 	    e.printStackTrace();
-	// 	} catch(IOException e) {
-	// 	    e.printStackTrace();
-	// 	}
-	//     }
+	//Saves new decks
+	private void saveNewDeck(DeckList decks) {
+		try {
+			FileOutputStream fileOut = new FileOutputStream("Deck.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(decks);
+			out.close();
+			fileOut.close();
+		} catch(FileNotFoundException e) {
+			e.printStackTrace();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
