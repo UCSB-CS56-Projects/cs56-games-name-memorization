@@ -222,7 +222,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 			@Override
 			// Load button
 			public void handle(ActionEvent event) {
-				FileChooser chooser = new FileChooser()
+				FileChooser chooser = new FileChooser();
 				chooser.setInitialDirectory(new File(path));
 				ExtensionFilter filter = new ExtensionFilter("SER files", "ser");
 				chooser.setSelectedExtensionFilter(filter);
