@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import javafx.geometry.Pos;
@@ -221,9 +222,9 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 			// Load button
 			public void handle(ActionEvent event) {
 				FileChooser chooser = new FileChooser(new File(path));
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("SER files", "ser");
-				chooser.setFileFilter(filter);
-				File selectedFile = fileChooser.showOpenDialog(Main.mainStage);
+				ExtensionFilter filter = new ExtensionFilter("SER files", "ser");
+				chooser.setSelectedExtensionFilter(filter);
+				File selectedFile = chooser.showOpenDialog(Main.mainStage);
 
 				try {
 					String fileName = selectedFile.getName();
@@ -233,7 +234,7 @@ public class DeckEditor extends BorderPane /*implements ActionListener, ListSele
 					Deck deckSave = (Deck) one;
 					os.close();
 
-					this.decks.add(deckSave);
+					decks.add(deckSave);
 					deckNames.add(deckSave.getName());
 					//deckScroller.revalidate();
 					//deckScroller.repaint();
