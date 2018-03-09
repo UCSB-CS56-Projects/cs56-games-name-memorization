@@ -52,7 +52,9 @@ public class CardEditor extends BorderPane {
 	/**
 	 * Constructor for CardEditor
 	 * Creates the GUI in which the user can edit cards
+	 * @param c A Card
 	 */
+	
 	public CardEditor(Card c) {
 		//sets path variable to directory of the people pictures
 		path = System.getProperty("user.dir");
