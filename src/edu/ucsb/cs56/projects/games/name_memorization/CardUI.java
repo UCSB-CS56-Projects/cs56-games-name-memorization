@@ -20,7 +20,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -31,7 +33,7 @@ import javafx.geometry.Insets;
 
 public class CardUI extends BorderPane {
 
-    private TextArea cardText;
+    public TextArea cardText;
     private Label frontPic;
     
     private static final int xdim = 25;
@@ -45,10 +47,12 @@ public class CardUI extends BorderPane {
         cardText.setPrefRowCount(ydim);
         cardText.setEditable(false);
         cardText.setWrapText(true);
+        cardText.setStyle("-fx-text-alignment: center;");
         frontPic = new Label();
-
         setCenter(cardText);
+        
 
+        
 	card = c;
     }
 

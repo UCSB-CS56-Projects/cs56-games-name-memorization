@@ -16,6 +16,7 @@ public class Card implements Serializable {
     private String side1;
     private String side2;
     private boolean isPic;
+    private boolean isFavorite;
 
     /**
      * Constructor for Objects of class Card
@@ -66,6 +67,20 @@ public class Card implements Serializable {
     public boolean isPic(){
         return this.isPic;
     }
-
-
+    
+    /**
+     * Tells us if the card is favorited
+     * @return isFavorite A boolean that is true if the card is favorited by the user, false otherwise
+	 */
+    public boolean isFavorite() {
+    	return this.isFavorite;
+    }
+    
+    /**
+     * Sets whether the card is favorited or not
+     * @param isFavorite is true or false
+	 */
+    public void setFavorite(boolean truefalse) {
+    	this.isFavorite = truefalse;
+    }
 }
