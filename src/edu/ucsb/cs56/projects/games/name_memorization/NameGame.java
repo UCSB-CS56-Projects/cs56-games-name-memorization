@@ -634,6 +634,14 @@ public class NameGame extends BorderPane {
 				 * if (h.isPic()) { setPic(h); } else {
 				 */
 				cardText.setText(h.getSide1());
+				if (h.isFavorite() == false) {
+					Region region = ( Region ) cardText.lookup( ".content" );
+				    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+				}
+				if (h.isFavorite() == true) {
+					Region region = ( Region ) cardText.lookup( ".content" );
+				    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+				}
 				// }
 				cNum.setText(Integer.toString(current + 1));
 
@@ -658,6 +666,14 @@ public class NameGame extends BorderPane {
 					current = 0;
 				}
 				Card h = (Card) d.get(current);
+				if (h.isFavorite() == false) {
+					Region region = ( Region ) cardText.lookup( ".content" );
+				    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+				}
+				if (h.isFavorite() == true) {
+					Region region = ( Region ) cardText.lookup( ".content" );
+				    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+				}
 				/*
 				 * if (h.isPic()) { setPic(h); } else {
 				 */
