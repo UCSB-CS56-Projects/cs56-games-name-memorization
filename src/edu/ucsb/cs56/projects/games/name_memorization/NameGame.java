@@ -51,7 +51,7 @@ public class NameGame extends BorderPane {
 	private Button menu;
 
 	//Bottom Control Panel
-	private HBox southQuiz = new HBox();
+	private HBox southQuiz;
 	private Button toFront;
 	private Button toBack;
 	private Button guess;
@@ -130,7 +130,7 @@ public class NameGame extends BorderPane {
 		southBox.getChildren().addAll(toFront, toBack);
 
 		// South Quiz Mode
-		southQuiz = new HBox();
+		southQuiz = new HBox(20);
 		southQuiz.setVisible(true);
 		guess = new Button("Guess!");
 		guessText = new TextArea("Enter Guess Here");
@@ -142,40 +142,6 @@ public class NameGame extends BorderPane {
 		southQuiz.setAlignment(Pos.CENTER);
 		//southQuiz.setBackground(Color.lightGray);
 		
-		EventHandler<ActionEvent> guessHandler = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (d.size() == 0) {
-					scoreQuiz = 0;
-					scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
-					return;
-				}
-				Card h = (Card) d.get(current);
-				if (h.getSide2().equals(guessText.getText())) {
-					scoreQuiz = scoreQuiz + 1;
-					current++;
-					if (current == d.size()) {
-						current = 0;
-					}
-					h = (Card) d.get(current);
-					/*if (h.isPic()) {
-						setPic(h);
-					} else {*/
-						cardText.setText(h.getSide1());
-					//}
-					cNum.setText(Integer.toString(current + 1));
-
-					if (scoreQuiz > d.size()) {
-						scoreQuiz = d.size();
-					}
-					scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
-				} else {
-					correctQuiz.setVisible(true);
-					cardText.setText(h.getSide2());
-				}
-			}
-		};
-		guess.setOnAction(guessHandler);
 
 		//Initialize Card Viewer
 		currentCard = new HBox();
@@ -241,42 +207,14 @@ public class NameGame extends BorderPane {
 
 		correctQuiz = new Button("Override Correct");
 		correctQuiz.setVisible(false);
-		
-		EventHandler<ActionEvent> correctQuizHandler = new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-		 	    if (d.size() == 0) {
-		 	    	return;
-		 	    }
-		 	    scoreQuiz = scoreQuiz + 1;
-		 	    current++;
-		 	    if (current == d.size()) {
-		 		current = 0;
-		             }
-
-		 	    Card h = (Card)d.get(current);
-		 	    /*if (h.isPic()) {
-		 		setPic(h);
-		 	    } else {*/
-		 	    cardText.setText(h.getSide1());
-		 	    //}
-		 	    cNum.setText(Integer.toString(current + 1));
-
-		 	    if (scoreQuiz > d.size()) {
-		 		scoreQuiz = d.size();
-		 	    }
-		 	    scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
-		 	    correctQuiz.setVisible(false);
-		 	}
-			
-		};
-		correctQuiz.setOnAction(correctQuizHandler);
 	
 		westSouthQuiz.getChildren().addAll(correctQuiz);
 
 		deckNameQuiz = new Label(d.getName()); //d.getName()
 		deckNameQuiz.setFont(new Font("Lucida Grande", 18));
+		//westQuiz.setAlignment(deckNameQuiz, CENTER);
 		westQuiz.setTop(deckNameQuiz);
+		westQuiz.setAlignment(deckNameQuiz, Pos.CENTER);
 
 		//East Panel
 		VBox eastBox = new VBox(10);
@@ -506,6 +444,69 @@ public class NameGame extends BorderPane {
 		    	quiz.setOnAction(quizHandler);
 	    	}
     	};
+    	
+    	EventHandler<ActionEvent> guessHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if (d.size() == 0) {
+					scoreQuiz = 0;
+					scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
+					return;
+				}
+				Card h = (Card) d.get(current);
+				if (h.getSide2().equals(guessText.getText())) {
+					scoreQuiz = scoreQuiz + 1;
+					current++;
+					if (current == d.size()) {
+						current = 0;
+					}
+					h = (Card) d.get(current);
+					/*if (h.isPic()) {
+						setPic(h);
+					} else {*/
+						cardText.setText(h.getSide1());
+					//}
+					cNum.setText(Integer.toString(current + 1));
+
+					if (scoreQuiz > d.size()) {
+						scoreQuiz = d.size();
+					}
+					scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
+				} else {
+					correctQuiz.setVisible(true);
+					cardText.setText(h.getSide2());
+				}
+			}
+		};
+		
+		EventHandler<ActionEvent> correctQuizHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+		 	    if (d.size() == 0) {
+		 	    	return;
+		 	    }
+		 	    scoreQuiz = scoreQuiz + 1;
+		 	    current++;
+		 	    if (current == d.size()) {
+		 		current = 0;
+		             }
+
+		 	    Card h = (Card)d.get(current);
+		 	    /*if (h.isPic()) {
+		 		setPic(h);
+		 	    } else {*/
+		 	    cardText.setText(h.getSide1());
+		 	    //}
+		 	    cNum.setText(Integer.toString(current + 1));
+
+		 	    if (scoreQuiz > d.size()) {
+		 		scoreQuiz = d.size();
+		 	    }
+		 	    scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
+		 	    correctQuiz.setVisible(false);
+		 	}
+			
+		};
 	    	
 	    	
 	   //SELECT DECK BUTTON AND EVERYTHING INSIDE
@@ -556,7 +557,64 @@ public class NameGame extends BorderPane {
 				cancel.setOnAction(cancelHandler);
 				select.setOnAction(selectHandler);
 			}
-		};    	
+		};
+		
+		EventHandler<ActionEvent> correctHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+		    public void handle(ActionEvent event) {
+	    		score++;
+		 	    if (d.size() == 0) {
+		 	    	score = 0;
+		 	    	scoreLabel.setText(Integer.toString(score));
+		 	    	return;
+		 	    }
+		 	    current++;
+		 	    	if (current == d.size()) {
+		 		current = 0;
+		 	    	}
+		 	    	Card h = (Card)d.get(current);
+		 	   	/*if (h.isPic()) {
+	 	   	 	    	setPic(h);
+ 	   	 	    } else {*/
+		 	    	cardText.setText(h.getSide1());
+	 	   	 	    //}
+ 	   	 	    cNum.setText(Integer.toString(current + 1));
+
+ 	   	 	    if (score > d.size()) {
+ 	   	 	    	score = d.size();
+ 	   	 	    }
+ 	   	 	    scoreLabel.setText(Integer.toString(score));  
+	    	}
+	    };
+		
+	    EventHandler<ActionEvent> incorrectHandler = new EventHandler<ActionEvent>() {
+	    	@Override
+		    public void handle(ActionEvent event) {
+	    		score--;
+		 	    if (d.size() == 0) {
+		 	    	score = 0;
+		 	    	scoreLabel.setText(Integer.toString(score));
+		 	    	return;
+		 	    }
+		 	    current++;
+		 	    	if (current == d.size()) {
+		 		current = 0;
+		 	    	}
+		 	    	Card h = (Card)d.get(current);
+		 	   	/*if (h.isPic()) {
+	 	   	 	    	setPic(h);
+ 	   	 	    } else {*/
+		 	    	cardText.setText(h.getSide1());
+	 	   	 	    //}
+ 	   	 	    cNum.setText(Integer.toString(current + 1));
+
+ 	   		 	if (score < 0) {
+ 	   		 		score = 0;
+	    	}
+ 	   	 	    scoreLabel.setText(Integer.toString(score));  
+	    	}
+	    };
+		
 		add.setOnAction(addHandler);
 		edit.setOnAction(editHandler);
 		menu.setOnAction(mainMenuHandler);
@@ -566,6 +624,10 @@ public class NameGame extends BorderPane {
 		next.setOnAction(nextHandler);
 		previous.setOnAction(previousHandler);
 		restart.setOnAction(restartHandler);
+		correct.setOnAction(correctHandler);
+		guess.setOnAction(guessHandler);
+		correctQuiz.setOnAction(correctQuizHandler);
+		incorrect.setOnAction(incorrectHandler);
 		
 		/*JPanel eastCenter = new JPanel();
 		eastCenter.setBackground(Color.BLUE);
