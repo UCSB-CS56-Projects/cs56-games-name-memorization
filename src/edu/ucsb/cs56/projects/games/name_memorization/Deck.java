@@ -56,8 +56,8 @@ public class Deck extends ArrayList<Card> implements Serializable {
      *
      * @return deckName the name of the deck
      */
-    public String getName(){
+    public String getName() {
         return deckName;
-    }
+    } 
  
 }
