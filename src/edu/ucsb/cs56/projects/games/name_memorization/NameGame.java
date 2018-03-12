@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-//import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
@@ -352,6 +351,7 @@ public class NameGame extends BorderPane {
 					current++;
 					Card h = (Card) d.get(current);
 					cardText.setText(h.getSide1());
+					cNum.setText(Integer.toString(current + 1));
 					if (h.isFavorite() == false) {
 						Region region = ( Region ) cardText.lookup( ".content" );
 					    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
@@ -379,6 +379,7 @@ public class NameGame extends BorderPane {
 					    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
 					}
 					cardText.setText(h.getSide1());
+					cNum.setText(Integer.toString(current + 1));
 				}
 			}
 		};
@@ -687,7 +688,76 @@ public class NameGame extends BorderPane {
 				scoreLabel.setText("Score: " + Integer.toString(score));
 			}
 		};
+				
+		EventHandler<ActionEvent> deleteHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if(d.size() == 0) {
+					return;
+				    }
+				    if(d.size() == 1) {
+					d.remove(0);
+					cardText.setText("Deck is Empty!");
+					current = 0;
 
+				    }
+				    if(d.size() > 1) {
+					if(current == 0) {
+					    Card h = (Card) d.get(current+1);
+						if (h.isFavorite() == false) {
+							Region region = ( Region ) cardText.lookup( ".content" );
+						    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+						}
+						if (h.isFavorite() == true) {
+							Region region = ( Region ) cardText.lookup( ".content" );
+						    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+						}
+						/*
+					   /* if(h.isPic()){
+					    	setPic(h);
+					    }
+					    else{*/
+					    	setPrint(h,1);
+					    //}
+					    d.remove(current);
+
+
+					}
+					else {
+					    d.remove(current);
+					    current--;
+					    Card h = (Card) d.get(current);
+						if (h.isFavorite() == false) {
+							Region region = ( Region ) cardText.lookup( ".content" );
+						    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+						}
+						if (h.isFavorite() == true) {
+							Region region = ( Region ) cardText.lookup( ".content" );
+						    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+						}
+						/*	
+					    /*if(h.isPic()){
+					    	setPic(h);
+					    }
+					    else{*/
+					    	setPrint(h,1);
+					    //}
+					}
+				    }
+
+				    if(d.size() == 0)
+					cNum.setText("0");
+				    else
+					cNum.setText(Integer.toString(current+1));
+
+				    deckSize.setText(Integer.toString(d.size()));
+
+				}
+			};
+				
+				
+				
+		
 		add.setOnAction(addHandler);
 		edit.setOnAction(editHandler);
 		menu.setOnAction(mainMenuHandler);
@@ -702,6 +772,7 @@ public class NameGame extends BorderPane {
 		incorrect.setOnAction(incorrectHandler);
 		favorite.setOnAction(favoriteHandler);
 		unfavorite.setOnAction(unfavoriteHandler);
+		delete.setOnAction(deleteHandler);
 
 	}
 
