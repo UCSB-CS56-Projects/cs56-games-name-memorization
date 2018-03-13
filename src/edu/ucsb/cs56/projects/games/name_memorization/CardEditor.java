@@ -116,10 +116,13 @@ public class CardEditor extends BorderPane {
 					String name = selectedFile.getName();
 					path = path + name; // path should now contain full location of chosen pic
 
+					System.out.println("name: " + name);
+					System.out.println("path: " + path);
+					
 					front.setVisible(false);
 					try {
 						BufferedImage unsized = ImageIO.read(new File(path));
-						BufferedImage resized = resizeImage(unsized,275,250, unsized.getType());
+						BufferedImage resized = resizeImage(unsized, 275, 250, unsized.getType());
 						Image image = new Image(selectedFile.toURI().toString());
 						ImageView iv = new ImageView(image);
 						midPanel.setCenter(iv);
