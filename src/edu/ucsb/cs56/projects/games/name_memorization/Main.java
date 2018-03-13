@@ -40,16 +40,6 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		Deck d;
 		decks = new DeckList();
-		/*try {
-			FileInputStream fileStream = new FileInputStream("Deck.ser");
-			ObjectInputStream os = new ObjectInputStream(fileStream);
-
-			Object deckList = os.readObject();
-			decks = (DeckList) deckList;
-			os.close();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}*/
 
 		if (decks.size() != 0) {
 			d = decks.get(0);

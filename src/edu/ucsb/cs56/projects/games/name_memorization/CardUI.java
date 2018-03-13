@@ -51,9 +51,7 @@ public class CardUI extends BorderPane {
         frontPic = new Label();
         setCenter(cardText);
         
-
-        
-	card = c;
+        card = c;
     }
 
     /**
@@ -91,11 +89,11 @@ public class CardUI extends BorderPane {
             System.out.println("Trouble reading from the file: " + ex.getMessage());
         }
         return frontPic;*/
-	return null;
+    	return null;
     }
 
     public Card getCard() {
-	return card;
+    	return card;
     }
     
 }
