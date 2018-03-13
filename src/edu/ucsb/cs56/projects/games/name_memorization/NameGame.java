@@ -257,7 +257,7 @@ public class NameGame extends BorderPane {
 						current = d.size() - 1;
 						Card h = (Card) d.get(current);
 						
-						if(h.isPic()){
+						if (h.isPic()){
 							setPic(h);
 						} else { 
 							setPrint(h,1);
@@ -323,11 +323,15 @@ public class NameGame extends BorderPane {
 					return;
 				}
 				Card h = (Card) d.get(current);
+
 				if (cardText.getText().equals(h.getSide1())) {
 					setPrint(h, 2);
-				}
-				else {
-					setPrint(h, 1);
+				} else {
+					if (h.isPic()) {
+						setPic(h);
+					} else {
+						setPrint(h, 1);
+					}
 			    }
 			}
 		};
@@ -339,7 +343,11 @@ public class NameGame extends BorderPane {
 				if (d.size() - 1 > current) {
 					current++;
 					Card h = (Card) d.get(current);
-					cardText.setText(h.getSide1());
+					if (h.isPic()){
+						setPic(h);
+					} else { 
+						setPrint(h,1);
+					}
 					cNum.setText(Integer.toString(current + 1));
 					if (h.isFavorite() == false) {
 						Region region = ( Region ) cardText.lookup( ".content" );
@@ -367,7 +375,11 @@ public class NameGame extends BorderPane {
 						Region region = ( Region ) cardText.lookup( ".content" );
 					    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
 					}
-					setPrint(h, 1);
+					if (h.isPic()){
+						setPic(h);
+					} else { 
+						setPrint(h,1);
+					}
 					cNum.setText(Integer.toString(current + 1));
 				}
 			}
@@ -771,6 +783,7 @@ public class NameGame extends BorderPane {
 	 */
 	public void setPic(Card c) {
 		cardText.setVisible(false);
+		cardText.setText(c.getSide1());
 		if (currentCard.getChildren().size() > 1)
 			currentCard.getChildren().remove(1);
 		
@@ -793,6 +806,8 @@ public class NameGame extends BorderPane {
 		cardText.setVisible(true);
 		if (picture != null)
 			picture.setVisible(false);
+		if (currentCard.getChildren().size() > 1)
+			currentCard.getChildren().remove(1);
 			
 		if (side == 1) {
 			cardText.setText(c.getSide1());
