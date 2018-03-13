@@ -80,7 +80,7 @@ public class Card implements Serializable {
      * Sets whether the card is favorited or not
      * @param isFavorite is true or false
 	 */
-    public void setFavorite(boolean truefalse) {
-    	this.isFavorite = truefalse;
+    public void setFavorite(boolean isFavorite) {
+    	this.isFavorite = isFavorite;
     }
 }

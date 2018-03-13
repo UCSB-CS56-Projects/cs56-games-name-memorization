@@ -74,22 +74,13 @@ public class CardUI extends BorderPane {
      */
     public Label getPic() {
     	//getPic is only called if isPic is true, so side1 would contain picture path
-        /*try {
-	    BufferedImage unsized = ImageIO.read(new File(card.getSide1()));
-	    BufferedImage resized = resizeImage(unsized,275,250, unsized.getType());
-	    frontPic.setIcon(new ImageIcon(resized));
-	    
-	    Image image = new Image(new File(card.getSide1()).toURI().toString());
+	    System.out.println(card.getSide1());
+	    System.out.println(new File(card.getSide1()).toURI().toString());
+    	Image image = new Image(new File(card.getSide1()).toURI().toString());
 	    ImageView iv = new ImageView(image);
 	    Label imageLabel = new Label("Image");
 	    imageLabel.setGraphic(iv);
 	    return imageLabel;
-	    
-        } catch (IOException ex) {
-            System.out.println("Trouble reading from the file: " + ex.getMessage());
-        }
-        return frontPic;*/
-    	return null;
     }
 
     public Card getCard() {

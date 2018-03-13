@@ -97,10 +97,7 @@ public class CardEditor extends BorderPane {
 		
 		botPanel = new HBox(10);
 		botPanel.setPadding(new Insets(10, 10, 10, 10));
-		//UploadButtonListener uploadListener = new UploadButtonListener();
 		upload = new Button("Upload a Picture");
-		//upload.setBounds(110,360 ,150,25);
-		//upload.addActionListener(uploadListener);
 		botPanel.getChildren().add(upload);
 		setBottom(botPanel);
 

@@ -256,11 +256,13 @@ public class NameGame extends BorderPane {
 						d.addCard(side1, side2, test.isPic());
 						current = d.size() - 1;
 						Card h = (Card) d.get(current);
-						/*
-						 * if(h.isPic()){ setPic(h); } else{ setPrint(h,1); }
-						 * next.setEnabled(true); previous.setEnabled(true);
-						 */
-						cardText.setText(side1);
+						
+						if(h.isPic()){
+							setPic(h);
+						} else { 
+							setPrint(h,1);
+						}
+						
 						deckSize.setText(Integer.toString(d.size()));
 						cNum.setText(Integer.toString(current + 1));
 						Main.mainStage.show();
@@ -771,15 +773,16 @@ public class NameGame extends BorderPane {
 	 * @param c
 	 *            A card
 	 */
-	// public void setPic(Card c) {
-	// cardText.setVisible(false);
-	// currentCard.remove(picture);
-	// picture = c.getPic();
-	// picture.setVisible(true);
-	// currentCard.add(picture, BorderLayout.CENTER);
-	// thisFrame.getContentPane().validate();
-	// thisFrame.getContentPane().repaint();
-	// }
+	public void setPic(Card c) {
+		cardText.setVisible(false);
+		currentCard.getChildren().clear();
+		
+		CardUI cUI = new CardUI(c);
+		
+		picture = cUI.getPic();
+		picture.setVisible(true);
+		currentCard.getChildren().add(picture);
+	}
 
 	/**
 	 * This method will be called with next/previous if card is text
