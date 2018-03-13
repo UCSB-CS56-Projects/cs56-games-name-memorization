@@ -73,7 +73,7 @@ public class CardUI extends BorderPane {
      * @return a Label that is a picture
      */
     public Label getPic() {
-	//getPic is only called if isPic is true, so side1 would contain picture path
+    	//getPic is only called if isPic is true, so side1 would contain picture path
         /*try {
 	    BufferedImage unsized = ImageIO.read(new File(card.getSide1()));
 	    BufferedImage resized = resizeImage(unsized,275,250, unsized.getType());

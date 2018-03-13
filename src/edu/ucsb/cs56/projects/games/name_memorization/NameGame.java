@@ -39,9 +39,6 @@ import javafx.geometry.Insets;
  * @version for CS56, W16
  */
 public class NameGame extends BorderPane {
-	// Main
-	// private BorderPane pane;
-
 	// Top Control Panel
 	private Button add;
 	private Button edit;
@@ -90,9 +87,6 @@ public class NameGame extends BorderPane {
 	private int current;
 	private Deck d;
 
-	// Deck viewer
-	// private JPanel DeckEditor;
-
 	// Label for Card Number:
 	private Label cardNum;
 	// UI Card Index
@@ -138,11 +132,8 @@ public class NameGame extends BorderPane {
 		guessText.setPrefColumnCount(35);
 		guessText.setPrefRowCount(1);
 		southQuiz.getChildren().add(guessText);
-		// southQuiz.getChildren().add(Box.createRigidArea(new Dimension(10,
-		// 50)));
 		southQuiz.getChildren().add(guess);
 		southQuiz.setAlignment(Pos.CENTER);
-		// southQuiz.setBackground(Color.lightGray);
 
 		// Initialize Card Viewer
 		currentCard = new HBox();
@@ -210,9 +201,8 @@ public class NameGame extends BorderPane {
 
 		westSouthQuiz.getChildren().addAll(correctQuiz);
 
-		deckNameQuiz = new Label(d.getName()); // d.getName()
+		deckNameQuiz = new Label(d.getName());
 		deckNameQuiz.setFont(new Font("Lucida Grande", 18));
-		// westQuiz.setAlignment(deckNameQuiz, CENTER);
 		westQuiz.setTop(deckNameQuiz);
 		westQuiz.setAlignment(deckNameQuiz, Pos.CENTER);
 
@@ -220,7 +210,6 @@ public class NameGame extends BorderPane {
 		VBox eastBox = new VBox(20);
 		setRight(eastBox);
 		eastBox.setPadding(new Insets(10, 10, 10, 10));
-		//eastBox.setAlignment(Pos.CENTER);
 		eastBox.setStyle("-fx-background-color: #336699;");
 
 		sizeLabel = new Label("Deck Size:");
