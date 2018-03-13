@@ -57,6 +57,7 @@ public class CardEditor extends BorderPane {
 	public CardEditor(Card c) {
 		//sets path variable to directory of the people pictures
 		path = System.getProperty("user.dir");
+		//Hardcode path if all else fails
 		path = path + "/src/edu/ucsb/cs56/projects/games/name_memorization/people/";
 
 		isPicture = false;
@@ -114,10 +115,6 @@ public class CardEditor extends BorderPane {
 
 					String name = selectedFile.getName();
 					path = selectedFile.getPath();
-					//path = path + name; // path should now contain full location of chosen pic
-
-					System.out.println("name: " + name);
-					System.out.println("path: " + path);
 					
 					front.setVisible(false);
 					

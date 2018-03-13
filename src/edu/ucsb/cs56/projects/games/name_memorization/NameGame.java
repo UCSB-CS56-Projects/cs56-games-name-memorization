@@ -432,7 +432,7 @@ public class NameGame extends BorderPane {
 						d.editCard(c, side1, side2);
 						current = d.size() - 1;
 						Card h = (Card) d.get(current);
-						cardText.setText(h.getSide1());
+						setPrint(h, 1);
 						
 						if(h.isPic()) {
 							setPic(h);
@@ -511,12 +511,11 @@ public class NameGame extends BorderPane {
 					if (h.isPic()) {
 						setPic(h);
 					} else {
-						cardText.setText(h.getSide1());
-						if (h.isFavorite() == false) {
+						setPrint(h, 1);
+						if (!h.isFavorite()) {
 							Region region = ( Region ) cardText.lookup( ".content" );
 						    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
-						}
-						if (h.isFavorite() == true) {
+						} else {
 							Region region = ( Region ) cardText.lookup( ".content" );
 						    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
 						}
@@ -529,7 +528,7 @@ public class NameGame extends BorderPane {
 					scoreLabelQuiz.setText("Score: " + Integer.toString(scoreQuiz));
 				} else {
 					correctQuiz.setVisible(true);
-					cardText.setText(h.getSide2());
+					setPrint(h, 2);
 				}
 			}
 		};

@@ -74,8 +74,6 @@ public class CardUI extends BorderPane {
      */
     public Label getPic() {
     	//getPic is only called if isPic is true, so side1 would contain picture path
-	    System.out.println(card.getSide1());
-	    System.out.println(new File(card.getSide1()).toURI().toString());
     	Image image = new Image(new File(card.getSide1()).toURI().toString());
 	    ImageView iv = new ImageView(image);
 		iv.setFitHeight(100);
