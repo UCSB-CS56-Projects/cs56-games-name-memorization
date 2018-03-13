@@ -78,6 +78,8 @@ public class CardUI extends BorderPane {
 	    System.out.println(new File(card.getSide1()).toURI().toString());
     	Image image = new Image(new File(card.getSide1()).toURI().toString());
 	    ImageView iv = new ImageView(image);
+		iv.setFitHeight(100);
+		iv.setFitWidth(100);
 	    Label imageLabel = new Label("Image");
 	    imageLabel.setGraphic(iv);
 	    return imageLabel;

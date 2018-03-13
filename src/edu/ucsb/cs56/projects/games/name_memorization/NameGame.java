@@ -291,11 +291,10 @@ public class NameGame extends BorderPane {
 				Card h = (Card) d.get(current);
 				if (h.isFavorite() == true) {
 					return;
-				}
-				else {
-				h.setFavorite(true);
-				Region region = ( Region ) cardText.lookup( ".content" );
-			    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+				} else {
+					h.setFavorite(true);
+					Region region = ( Region ) cardText.lookup( ".content" );
+				    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
 				}
 			}
 		};
@@ -309,11 +308,10 @@ public class NameGame extends BorderPane {
 				Card h = (Card) d.get(current);
 				if (h.isFavorite() == false) {
 					return;
-				}
-				else {
-				h.setFavorite(false);
-				Region region = ( Region ) cardText.lookup( ".content" );
-			    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+				} else {
+					h.setFavorite(false);
+					Region region = ( Region ) cardText.lookup( ".content" );
+				    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
 				}
 			}
 		};
@@ -326,10 +324,10 @@ public class NameGame extends BorderPane {
 				}
 				Card h = (Card) d.get(current);
 				if (cardText.getText().equals(h.getSide1())) {
-					cardText.setText(h.getSide2());
+					setPrint(h, 2);
 				}
 				else {
-					cardText.setText(h.getSide1());
+					setPrint(h, 1);
 			    }
 			}
 		};
@@ -369,7 +367,7 @@ public class NameGame extends BorderPane {
 						Region region = ( Region ) cardText.lookup( ".content" );
 					    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
 					}
-					cardText.setText(h.getSide1());
+					setPrint(h, 1);
 					cNum.setText(Integer.toString(current + 1));
 				}
 			}
@@ -388,11 +386,11 @@ public class NameGame extends BorderPane {
 				}
 
 				Card h = (Card) d.get(0);
-				/*
-				 * if(h.isPic()) { setPic(h); } else {
-				 */
-				cardText.setText(h.getSide1());
-				// }
+				if(h.isPic()) {
+					setPic(h);
+				} else {
+					setPrint(h, 1);
+				}
 
 				current = 0;
 				cNum.setText(Integer.toString(current + 1));
@@ -418,15 +416,18 @@ public class NameGame extends BorderPane {
 					public void handle(ActionEvent event) {
 						String side1 = test.getFrontText();
 						String side2 = test.getBackText();
-
+						
 						d.editCard(c, side1, side2);
 						current = d.size() - 1;
 						Card h = (Card) d.get(current);
 						cardText.setText(h.getSide1());
-						/*
-						 * if(h.isPic()){ setPic(h); } else{ setPrint(h,1); }
-						 * next.setEnabled(true); previous.setEnabled(true);
-						 */
+						
+						if(h.isPic()) {
+							setPic(h);
+						} else {
+							setPrint(h, 1);
+						}
+						 
 						Main.mainStage.show();
 						stage.hide();
 					}
@@ -495,19 +496,19 @@ public class NameGame extends BorderPane {
 						current = 0;
 					}
 					h = (Card) d.get(current);
-					/*
-					 * if (h.isPic()) { setPic(h); } else {
-					 */
-					cardText.setText(h.getSide1());
-					if (h.isFavorite() == false) {
-						Region region = ( Region ) cardText.lookup( ".content" );
-					    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+					if (h.isPic()) {
+						setPic(h);
+					} else {
+						cardText.setText(h.getSide1());
+						if (h.isFavorite() == false) {
+							Region region = ( Region ) cardText.lookup( ".content" );
+						    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+						}
+						if (h.isFavorite() == true) {
+							Region region = ( Region ) cardText.lookup( ".content" );
+						    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+						}
 					}
-					if (h.isFavorite() == true) {
-						Region region = ( Region ) cardText.lookup( ".content" );
-					    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
-					}
-					// }
 					cNum.setText(Integer.toString(current + 1));
 
 					if (scoreQuiz > d.size()) {
@@ -534,19 +535,19 @@ public class NameGame extends BorderPane {
 				}
 
 				Card h = (Card) d.get(current);
-				/*
-				 * if (h.isPic()) { setPic(h); } else {
-				 */
-				cardText.setText(h.getSide1());
-				if (h.isFavorite() == false) {
-					Region region = ( Region ) cardText.lookup( ".content" );
-				    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+				
+				if (h.isPic()) {
+					setPic(h);
+				} else {
+					setPrint(h, 1);
+					if (!h.isFavorite()) {
+						Region region = ( Region ) cardText.lookup( ".content" );
+					    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+					} else {
+						Region region = ( Region ) cardText.lookup( ".content" );
+					    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+					}
 				}
-				if (h.isFavorite() == true) {
-					Region region = ( Region ) cardText.lookup( ".content" );
-				    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
-				}
-				// }
 				cNum.setText(Integer.toString(current + 1));
 
 				if (scoreQuiz > d.size()) {
@@ -622,19 +623,18 @@ public class NameGame extends BorderPane {
 					current = 0;
 				}
 				Card h = (Card) d.get(current);
-				/*
-				 * if (h.isPic()) { setPic(h); } else {
-				 */
-				cardText.setText(h.getSide1());
-				if (h.isFavorite() == false) {
-					Region region = ( Region ) cardText.lookup( ".content" );
-				    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+				if (h.isPic()) {
+					setPic(h);
+				} else {
+					setPrint(h, 1);
+					if (!h.isFavorite()) {
+						Region region = ( Region ) cardText.lookup( ".content" );
+					    region.setBackground( new Background( new BackgroundFill( Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+					} else {
+						Region region = ( Region ) cardText.lookup( ".content" );
+					    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
+					}
 				}
-				if (h.isFavorite() == true) {
-					Region region = ( Region ) cardText.lookup( ".content" );
-				    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
-				}
-				// }
 				cNum.setText(Integer.toString(current + 1));
 
 				if (score > d.size()) {
@@ -666,11 +666,11 @@ public class NameGame extends BorderPane {
 					Region region = ( Region ) cardText.lookup( ".content" );
 				    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
 				}
-				/*
-				 * if (h.isPic()) { setPic(h); } else {
-				 */
-				cardText.setText(h.getSide1());
-				// }
+				if (h.isPic()) {
+					setPic(h);
+				} else {
+					setPrint(h, 1);
+				}
 				cNum.setText(Integer.toString(current + 1));
 
 				if (score < 0) {
@@ -703,13 +703,11 @@ public class NameGame extends BorderPane {
 							Region region = ( Region ) cardText.lookup( ".content" );
 						    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
 						}
-						/*
-					   /* if(h.isPic()){
+					    if(h.isPic()){
 					    	setPic(h);
-					    }
-					    else{*/
+					    } else{
 					    	setPrint(h,1);
-					    //}
+					    }
 					    d.remove(current);
 
 
@@ -726,13 +724,11 @@ public class NameGame extends BorderPane {
 							Region region = ( Region ) cardText.lookup( ".content" );
 						    region.setBackground( new Background( new BackgroundFill( Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY ) ) );
 						}
-						/*	
-					    /*if(h.isPic()){
+					    if(h.isPic()){
 					    	setPic(h);
-					    }
-					    else{*/
+					    } else{
 					    	setPrint(h,1);
-					    //}
+					    }
 					}
 				    }
 
@@ -775,7 +771,8 @@ public class NameGame extends BorderPane {
 	 */
 	public void setPic(Card c) {
 		cardText.setVisible(false);
-		currentCard.getChildren().clear();
+		if (currentCard.getChildren().size() > 1)
+			currentCard.getChildren().remove(1);
 		
 		CardUI cUI = new CardUI(c);
 		
@@ -793,9 +790,10 @@ public class NameGame extends BorderPane {
 	 *            the side of the card
 	 */
 	public void setPrint(Card c, int side) {
-		// picture.setVisible(false);
 		cardText.setVisible(true);
-		// currentCard.remove(picture);
+		if (picture != null)
+			picture.setVisible(false);
+			
 		if (side == 1) {
 			cardText.setText(c.getSide1());
 		} else if (side == 2) {

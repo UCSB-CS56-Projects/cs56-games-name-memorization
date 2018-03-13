@@ -2,7 +2,6 @@ package edu.ucsb.cs56.projects.games.name_memorization;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.awt.Dimension;
 import javafx.application.Application;
@@ -114,21 +113,20 @@ public class CardEditor extends BorderPane {
 				if (selectedFile != null) {
 
 					String name = selectedFile.getName();
-					path = path + name; // path should now contain full location of chosen pic
+					path = selectedFile.getPath();
+					//path = path + name; // path should now contain full location of chosen pic
 
 					System.out.println("name: " + name);
 					System.out.println("path: " + path);
 					
 					front.setVisible(false);
-					try {
-						BufferedImage unsized = ImageIO.read(new File(path));
-						BufferedImage resized = resizeImage(unsized, 275, 250, unsized.getType());
-						Image image = new Image(selectedFile.toURI().toString());
-						ImageView iv = new ImageView(image);
-						midPanel.setCenter(iv);
-					} catch (IOException ex) {
-						System.out.println("Trouble reading from the file: " + ex.getMessage());
-					}
+					
+					Image image = new Image(selectedFile.toURI().toString());
+					ImageView iv = new ImageView(image);
+					iv.setFitHeight(100);
+					iv.setFitWidth(100);
+					midPanel.setCenter(iv);
+					
 					front.setText(path); // because namegame screen takes the input from front Text area and sets it
 					// area and sets it Text area and sets it front text
 					isPicture = true;
@@ -138,16 +136,6 @@ public class CardEditor extends BorderPane {
 
 	    upload.setOnAction(uploadHandler);
 	}
-
-	//method to resize the uploaded images to fit the screen.
-	private BufferedImage resizeImage(BufferedImage originalImage, int width, int height, int type){  
-		BufferedImage resizedImage = new BufferedImage(width, height, type);  
-		Graphics2D g = resizedImage.createGraphics();  
-		g.drawImage(originalImage, 0, 0, width, height, null);  
-		g.dispose();  
-
-		return resizedImage;  
-	}  
 
 	/**
 	 * Gets the text on the front of the card
@@ -176,41 +164,7 @@ public class CardEditor extends BorderPane {
 	public Label getPic(){
 		return frontPic;
 	}
-
-/*
-	private class uploadButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-
-			JFileChooser chooser = new JFileChooser(new File(path));
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("PNG Images", "png");
-			chooser.setFileFilter(filter);
-			int returnVal = chooser.showOpenDialog(thisPanel);
-			if(returnVal == JFileChooser.APPROVE_OPTION) {
-
-				String name = chooser.getSelectedFile().getName();
-				path = path + name; // path should now contain full location of chosen pic
-
-				front.setVisible(false);
-				frontPic=new JLabel();
-				frontPic.setBounds(25,100, 275,250);
-				try {
-					BufferedImage unsized = ImageIO.read(new File(path));
-					BufferedImage resized = resizeImage(unsized,275,250,unsized.getType());
-					frontPic.setIcon(new ImageIcon(resized));
-					thisPanel.validate();
-					thisPanel.repaint();
-				}catch(IOException ex){
-					System.out.println("Trouble reading from the file: " + ex.getMessage());
-				}
-				front.setText(path); // because namegame screen takes the input from front Text area and sets it
-				// area and sets it Text area and sets it front text
-				isPicture = true;
-				thisPanel.add(frontPic);
-			}
-		}
-	}
-
-	*//**
+	/**
 	 * Tells us if the Card has a picture
 	 *
 	 * @return isPicture A boolean that is true if the card has a picture, false otherwise
