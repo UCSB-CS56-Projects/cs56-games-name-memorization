@@ -16,7 +16,7 @@ public class Deck extends ArrayList<Card> implements Serializable {
      * @param name the name of the deck
      */
     public Deck(String name) {
-	deckName = name;
+    	deckName = name;
     }
 
     /**
@@ -27,8 +27,8 @@ public class Deck extends ArrayList<Card> implements Serializable {
      * @param isPicture Tells us if the card has a picture
      */
     public void addCard(String side1, String side2, boolean isPicture) {
-	Card c = new Card(side1,side2, isPicture);
-	this.add(c);
+		Card c = new Card(side1 ,side2, isPicture);
+		this.add(c);
     }
     /**
      * Removes a card from the deck at the specified index
@@ -36,7 +36,7 @@ public class Deck extends ArrayList<Card> implements Serializable {
      * @param i the index of the card that is to be removed
      */
     public void removeCard(int i) {
-	this.remove(i);
+    	this.remove(i);
     }
 
     /**
@@ -47,8 +47,8 @@ public class Deck extends ArrayList<Card> implements Serializable {
      * @param side2 the text on the back
      */
     public void editCard(Card c, String side1, String side2) {
-	c.setSide1(side1);
-	c.setSide2(side2);
+		c.setSide1(side1);
+		c.setSide2(side2);
     }
 
     /**
@@ -56,8 +56,8 @@ public class Deck extends ArrayList<Card> implements Serializable {
      *
      * @return deckName the name of the deck
      */
-    public String getName(){
+    public String getName() {
         return deckName;
-    }
+    } 
  
 }
