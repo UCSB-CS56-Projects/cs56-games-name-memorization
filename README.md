@@ -32,6 +32,11 @@ Documentation:
 	Run by simply calling "ant run" in the root folder.
 	
 
+# W18 Final Remarks
+The project, due to our changes from Swing to JavaFX, now looks much better and it is easier to make changes to the UI.  Our advice would be reading all of the code and understanding how the different components work together, as well as how the UI components function in JavaFX.
+
+Future opportunities include adding more unit tests for classes, refactoring for duplicate button functionality, and enabling cards to open in separate windows for ease of use.
+
 # F17 Final Remarks
 
 Everything in this project currently compiles and runs properly. As of right now, the program is a flash card game similar to Quizlet, but used for memorizing people's names. The point of the program is that you can add someone's picture to one side of the card and their name to the other, and then quiz yourself. There is currently a main mode where you manually quiz yourself, and a quiz mode that automatically checks your answers. 
@@ -43,7 +48,7 @@ Other than fixing these small bugs and refactoring the GUI, moving forward with 
 
 
 
-W16 Final Remarks (to help you get started):
+# W16 Final Remarks (to help you get started):
 
 Everything is handled in NameGame for the most part. The rest is done in Main. The best thing you can do to understand the code is to understand NameGame. Almost all of the functional code comes from the actionlisteners (which are tied to the editor classes). The rest of it is tied to the gui for the most part. At the time I'm writing this, the back end should have little to no errors. The GUI has a couple of bugs, most of them come from updating the GUI and from using the cancel button. You could probably get some points from updating the README.
 
